@@ -1,5 +1,6 @@
 {
     "name": "branch",
+    "productName": "Branch",
     "version": "0.1.0",
     "private": true,
     "main": "public/electron.js",
@@ -8,7 +9,15 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
+        "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder"
+    },
+    "build": {
+        "appId": "D0miH.branch",
+        "mac": {
+            "category": "public.app-category.developer-tools"
+        }
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -29,6 +38,7 @@
         "concurrently": "^4.1.0",
         "electron": "^4.0.5",
         "electron-builder": "^20.38.5",
+        "typescript": "^3.3.3333",
         "wait-on": "^3.2.0"
     }
 }

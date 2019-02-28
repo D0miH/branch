@@ -33,8 +33,11 @@
         "not op_mini all"
     ],
     "dependencies": {
+        "@types/jest": "^24.0.9",
+        "@types/node": "^11.9.5",
+        "@types/react": "^16.8.5",
+        "@types/react-dom": "^16.8.2",
         "electron-is-dev": "^1.0.1",
-        "nodegit": "^0.24.1",
         "react": "^16.8.3",
         "react-dom": "^16.8.3",
         "react-scripts": "2.1.5"

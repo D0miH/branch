@@ -35,7 +35,8 @@
         "electron-is-dev": "^1.0.1",
         "react": "^16.8.3",
         "react-dom": "^16.8.3",
-        "react-scripts": "2.1.5"
+        "react-scripts": "2.1.5",
+        "tslint": "^5.13.1"
     },
     "devDependencies": {
         "concurrently": "^4.1.0",

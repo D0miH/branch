@@ -6,6 +6,7 @@
     background-color: #2e2e2e;
     -webkit-app-region: drag;
     text-align: center;
+    border-bottom: 1px solid black;
 }
 
 span {

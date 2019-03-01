@@ -10,3 +10,10 @@
     height: 100%;
     position: fixed;
 }
+
+.MainView {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}

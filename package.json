@@ -14,13 +14,6 @@
         "pack": "react-scripts build && electron-builder --dir",
         "dist": "react-scripts build && electron-builder"
     },
-    "build": {
-        "appId": "D0miH.branch",
-        "mac": {
-            "category": "public.app-category.developer-tools",
-            "identity": null
-        }
-    },
     "eslintConfig": {
         "extends": "react-app"
     },
@@ -50,5 +43,12 @@
         "electron-builder": "^20.38.5",
         "typescript": "^3.3.3333",
         "wait-on": "^3.2.0"
+    },
+    "build": {
+        "appId": "D0miH.branch",
+        "mac": {
+            "category": "public.app-category.developer-tools",
+            "identity": null
+        }
     }
 }

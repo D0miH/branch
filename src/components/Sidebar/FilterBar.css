@@ -1,0 +1,33 @@
+.FilterBar {
+    position: relative;
+    width: auto;
+    height: 25px;
+    margin: 10px 5px 10px 5px;
+    background-color: #8d8d8d;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    padding-right: 5px;
+}
+
+input,
+input:focus {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+    background-color: rgba(1, 1, 1, 0);
+    border: none;
+    outline: none;
+    caret-color: white;
+    color: #414141;
+    font-size: 10pt;
+}
+
+::placeholder {
+    color: #cdcdcd;
+}
+
+.FilterIcon {
+    color: #cdcdcd;
+}

@@ -3,7 +3,11 @@ import "./Toolbar.css";
 
 class Toolbar extends React.Component {
     render() {
-        return <div className="Toolbar" />;
+        return (
+            <div className="Toolbar">
+                <div className="RepoListButton" />
+            </div>
+        );
     }
 }
 

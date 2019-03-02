@@ -3,6 +3,7 @@ import Titlebar from "./Titlebar";
 import Toolbar from "./Toolbar/Toolbar";
 import Sidebar from "./Sidebar/Sidebar";
 import "./App.css";
+import MainView from "./MainView/MainView";
 
 class App extends Component {
     render() {
@@ -11,8 +12,9 @@ class App extends Component {
                 <Titlebar />
                 <div className="AppContent">
                     <Toolbar />
-                    <div className="MainView">
+                    <div className="RepositoryView">
                         <Sidebar />
+                        <MainView />
                     </div>
                 </div>
             </div>

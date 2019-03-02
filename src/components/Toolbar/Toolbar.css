@@ -3,4 +3,13 @@
     height: 50px;
     width: 100%;
     border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: row;
+}
+
+.RepoListButton {
+    position: relative;
+    width: 200px;
+    height: 100%;
+    border-right: 1px solid black;
 }

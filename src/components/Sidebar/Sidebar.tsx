@@ -1,5 +1,6 @@
 import React from "react";
 import FilterBar from "./FilterBar";
+import BranchList from "./BranchList";
 import "./Sidebar.css";
 
 class Sidebar extends React.Component {
@@ -7,6 +8,7 @@ class Sidebar extends React.Component {
         return (
             <div className="Sidebar">
                 <FilterBar />
+                <BranchList />
             </div>
         );
     }

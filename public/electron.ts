@@ -15,7 +15,7 @@ app.on("web-contents-created", (event, contents) => {
         // check if the user wants to open the dev-tools
         if (navigationUrl.split(":")[0] !== "chrome-devtools") {
             // ask the operating system to open the url in the default browser
-            electron.shell.openExternalSync(navigationUrl);
+            electron.shell.openExternal(navigationUrl);
         }
     });
 });

@@ -25,6 +25,8 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 900,
         height: 680,
+        minHeight: 600,
+        minWidth: 800,
         backgroundColor: "#414141",
         titleBarStyle: "hidden",
         title: "Branch",

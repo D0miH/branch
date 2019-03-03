@@ -24,7 +24,13 @@ class SidebarList extends React.Component<Props> {
                         {this.isOcticon(this.props.icon) ? (
                             <Octicon icon={this.props.icon} />
                         ) : (
-                            <this.props.icon style={{ height: 16 }} />
+                            <this.props.icon
+                                style={{
+                                    height: 16,
+                                    width: 16,
+                                    marginRight: "5px"
+                                }}
+                            />
                         )}
                         {this.props.text}
                     </div>

@@ -1,6 +1,8 @@
 import React from "react";
+import { GitBranch, Tag } from "@githubprimer/octicons-react";
+import { CloudOutlined } from "@material-ui/icons";
 import FilterBar from "./FilterBar";
-import BranchList from "./BranchList";
+import SidebarList from "./SidebarList";
 import "./Sidebar.css";
 
 class Sidebar extends React.Component {
@@ -8,7 +10,9 @@ class Sidebar extends React.Component {
         return (
             <div className="Sidebar">
                 <FilterBar />
-                <BranchList />
+                <SidebarList icon={GitBranch} text="Branches" counter={0} />
+                <SidebarList icon={CloudOutlined} text="Remotes" counter={0} />
+                <SidebarList icon={Tag} text="Tags" counter={0} />
             </div>
         );
     }

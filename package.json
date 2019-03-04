@@ -3,7 +3,7 @@
     "productName": "Branch",
     "version": "0.1.0",
     "private": true,
-    "main": "public/electron.ts",
+    "main": "public/electron.js",
     "homepage": "./",
     "scripts": {
         "start": "react-scripts start",
@@ -36,6 +36,7 @@
         "@types/react": "^16.8.5",
         "@types/react-dom": "^16.8.2",
         "electron-is-dev": "^1.0.1",
+        "nodegit": "^0.24.1",
         "react": "^16.8.3",
         "react-dom": "^16.8.3",
         "react-scripts": "2.1.5",

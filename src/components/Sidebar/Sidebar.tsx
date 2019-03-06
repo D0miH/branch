@@ -2,7 +2,7 @@ import React from "react";
 import { GitBranch, Tag } from "@githubprimer/octicons-react";
 import { CloudOutlined } from "@material-ui/icons";
 import FilterBar from "./FilterBar";
-import SidebarList from "./SidebarList";
+import SidebarList from "./SidebarList/SidebarList";
 import "./Sidebar.css";
 
 class Sidebar extends React.Component {

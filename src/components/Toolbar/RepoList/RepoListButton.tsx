@@ -25,11 +25,13 @@ class RepoListButton extends React.Component<Props, State> {
     render() {
         return (
             <div
-                className="RepoListButton"
-                style={{ zIndex: this.state.listIsCollapsed ? 1 : 3 }}
+                className="RepoListDropDown"
                 onClick={() => this.openRepoList()}
+                style={{ zIndex: 1 }}
             >
-                <span>{this.props.repoName}</span>
+                <div className="RepoListButton">
+                    <span>{this.props.repoName}</span>
+                </div>
                 <Overlay overlayVisible={!this.state.listIsCollapsed} />
             </div>
         );

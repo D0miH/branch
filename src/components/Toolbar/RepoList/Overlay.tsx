@@ -16,7 +16,7 @@ class Overlay extends React.Component<Props> {
                     width: "100%",
                     height: "100%",
                     zIndex: -1,
-                    top: "0px",
+                    top: "20px",
                     left: "0px"
                 }}
             />

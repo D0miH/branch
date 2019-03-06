@@ -1,0 +1,70 @@
+.List {
+    position: relative;
+    width: 100%;
+
+    margin-top: 20px;
+}
+
+.Heading {
+    display: flex;
+    user-select: none;
+}
+
+.HeadingTitle {
+    display: flex;
+    align-items: center;
+    flex: 2 0 0;
+    color: #cdcdcd;
+    font-size: 11pt;
+    height: 20px;
+}
+
+.HeadingTitle .octicon {
+    margin-right: 5px;
+}
+
+.RightHeading {
+    display: flex;
+    align-items: center;
+    color: #cdcdcd;
+    font-size: 11pt;
+}
+
+.ChevronIcon {
+    margin-left: 10px;
+}
+
+.ListContent {
+    height: 130px;
+    animation-name: showList;
+    animation-duration: 0.25s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+    animation-direction: forwards;
+}
+
+.ListContentCollapsed {
+    animation-name: collapse;
+    animation-duration: 0.25s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+    animation-direction: forwards;
+}
+
+@keyframes collapse {
+    0% {
+        height: 130px;
+    }
+    100% {
+        height: 0px;
+    }
+}
+
+@keyframes showList {
+    0% {
+        height: 0px;
+    }
+    100% {
+        height: 130px;
+    }
+}

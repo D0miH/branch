@@ -1,9 +1,11 @@
 import React from "react";
+import { observer } from "mobx-react";
 
 type Props = {
     overlayVisible: boolean;
 };
 
+@observer
 class Overlay extends React.Component<Props> {
     render() {
         return this.props.overlayVisible ? (

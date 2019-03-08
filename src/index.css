@@ -17,6 +17,12 @@ body {
     font-family: sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    --titlebar-color: #2e2e2e;
+    --ui-bg-color: #414141;
+    --ui-font-color: #cdcdcd;
+    --ui-accent-color: #8d8d8d;
+    --ui-button-hover-color: #4e4e4e;
 }
 
 #root {

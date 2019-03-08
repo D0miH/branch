@@ -5,6 +5,7 @@
     border-bottom: 1px solid black;
     display: flex;
     flex-direction: row;
+    background: var(--ui-bg-color);
 }
 
 .RepoListButton {

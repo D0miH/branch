@@ -4,4 +4,5 @@
     height: 100%;
     border-right: 1px solid black;
     padding: 10px;
+    background-color: var(--ui-bg-color);
 }

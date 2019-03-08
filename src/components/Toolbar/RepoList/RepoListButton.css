@@ -1,22 +1,22 @@
 .RepoListDropDown {
     width: 200px;
     height: 100%;
-    background-color: #414141;
+    background-color: var(--ui-bg-color);
 }
 
 .RepoListButton {
     display: flex;
     align-items: center;
     text-align: center;
-    background-color: #414141;
+    background-color: var(--ui-bg-color);
 }
 
 .RepoListButton:hover {
-    background-color: #4e4e4e;
+    background-color: var(--ui-button-hover-color);
 }
 
 .RepoListButton span {
     font-size: 13pt;
-    color: #cdcdcd;
+    color: var(--ui-font-color);
     width: 100%;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import RepoListButton from "./RepoList/RepoListButton";
+import PushButton from "./ToolButtons/PushButton";
 import "./Toolbar.css";
 
 class Toolbar extends React.Component {
@@ -7,6 +8,9 @@ class Toolbar extends React.Component {
         return (
             <div className="Toolbar">
                 <RepoListButton repoName="Open Repository" />
+                <div className="Tools">
+                    <PushButton />
+                </div>
             </div>
         );
     }

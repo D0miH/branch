@@ -1,6 +1,6 @@
 .List {
     position: relative;
-    width: 100%;
+    width: auto;
 
     margin-top: 20px;
 }
@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     flex: 2 0 0;
-    color: #cdcdcd;
+    color: var(--ui-font-color);
     font-size: 11pt;
     height: 20px;
 }
@@ -26,7 +26,7 @@
 .RightHeading {
     display: flex;
     align-items: center;
-    color: #cdcdcd;
+    color: var(--ui-font-color);
     font-size: 11pt;
 }
 

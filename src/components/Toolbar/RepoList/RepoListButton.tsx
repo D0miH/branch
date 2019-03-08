@@ -1,24 +1,19 @@
 import React from "react";
-import "./RepoListButton.css";
+import { observer } from "mobx-react";
 import Overlay from "./Overlay";
+import { IToolbarStore } from "../../../stores/stores";
+import "./RepoListButton.css";
 
 type Props = {
     repoName: String;
+    toolbarStore: IToolbarStore;
 };
 
-type State = {
-    listIsCollapsed: boolean;
-};
-
-class RepoListButton extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-
-        this.state = { listIsCollapsed: true };
-    }
-
+@observer
+class RepoListButton extends React.Component<Props> {
     openRepoList() {
-        this.setState({ listIsCollapsed: !this.state.listIsCollapsed });
+        this.props.toolbarStore.repoListVisible = !this.props.toolbarStore
+            .repoListVisible;
         console.log("Repo list button was clicked");
     }
 
@@ -32,7 +27,9 @@ class RepoListButton extends React.Component<Props, State> {
                 <div className="RepoListButton">
                     <span>{this.props.repoName}</span>
                 </div>
-                <Overlay overlayVisible={!this.state.listIsCollapsed} />
+                <Overlay
+                    overlayVisible={this.props.toolbarStore.repoListVisible}
+                />
             </div>
         );
     }

@@ -1,7 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { ArrowUpward, ArrowDownward } from "@material-ui/icons";
+import { GitBranch, Inbox } from "@githubprimer/octicons-react";
 import RepoListDropDown from "./RepoListDropDown/RepoListDropDown";
-import PushButton from "./ToolButtons/PushButton";
+import ToolbarButton from "./ToolbarButton";
 import Overlay from "./RepoListDropDown/Overlay";
 import RepoList from "./RepoListDropDown/RepoList/RepoList";
 import { IToolbarStore } from "../../stores/stores";
@@ -23,7 +25,10 @@ class Toolbar extends React.Component<Props> {
                         toolbarStore={this.props.toolbarStore}
                     />
                     <div className="Tools">
-                        <PushButton />
+                        <ToolbarButton label="Push" icon={ArrowUpward} />
+                        <ToolbarButton label="Pull" icon={ArrowDownward} />
+                        <ToolbarButton label="Branch" icon={GitBranch} />
+                        <ToolbarButton label="Stash" icon={Inbox} />
                     </div>
                 </div>
                 <RepoList toolbarStore={this.props.toolbarStore} />

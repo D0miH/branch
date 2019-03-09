@@ -1,6 +1,5 @@
 import React from "react";
 import { observer } from "mobx-react";
-import Overlay from "./Overlay";
 import { IToolbarStore } from "../../../stores/stores";
 import "./RepoListButton.css";
 
@@ -22,14 +21,10 @@ class RepoListButton extends React.Component<Props> {
             <div
                 className="RepoListDropDown"
                 onClick={() => this.openRepoList()}
-                style={{ zIndex: 1 }}
             >
                 <div className="RepoListButton">
                     <span>{this.props.repoName}</span>
                 </div>
-                <Overlay
-                    overlayVisible={this.props.toolbarStore.repoListVisible}
-                />
             </div>
         );
     }

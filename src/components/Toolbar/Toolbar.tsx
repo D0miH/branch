@@ -1,8 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
-import RepoListButton from "./RepoList/RepoListButton";
+import RepoListDropDown from "./RepoList/RepoListDropDown";
 import PushButton from "./ToolButtons/PushButton";
 import Overlay from "./RepoList/Overlay";
+import RepoList from "./RepoList/RepoList";
 import { IToolbarStore } from "../../stores/stores";
 
 import "./Toolbar.css";
@@ -17,7 +18,7 @@ class Toolbar extends React.Component<Props> {
         return (
             <div className="Toolbar">
                 <div className="ToolbarContent">
-                    <RepoListButton
+                    <RepoListDropDown
                         repoName="Open Repository"
                         toolbarStore={this.props.toolbarStore}
                     />
@@ -25,6 +26,7 @@ class Toolbar extends React.Component<Props> {
                         <PushButton />
                     </div>
                 </div>
+                <RepoList toolbarStore={this.props.toolbarStore} />
                 <Overlay toolbarStore={this.props.toolbarStore} />
             </div>
         );

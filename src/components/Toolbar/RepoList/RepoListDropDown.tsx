@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { IToolbarStore } from "../../../stores/stores";
-import "./RepoListButton.css";
+import "./RepoListDropDown.css";
 
 type Props = {
     repoName: String;
@@ -9,7 +9,7 @@ type Props = {
 };
 
 @observer
-class RepoListButton extends React.Component<Props> {
+class RepoListDropDown extends React.Component<Props> {
     openRepoList() {
         this.props.toolbarStore.repoListVisible = !this.props.toolbarStore
             .repoListVisible;
@@ -30,4 +30,4 @@ class RepoListButton extends React.Component<Props> {
     }
 }
 
-export default RepoListButton;
+export default RepoListDropDown;

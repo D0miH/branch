@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { IToolbarStore } from "../../../stores/stores";
+import { IToolbarStore } from "../../../../stores/stores";
 import "./RepoList.css";
 
 type Props = {

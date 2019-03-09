@@ -1,9 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
-import RepoListDropDown from "./RepoList/RepoListDropDown";
+import RepoListDropDown from "./RepoListDropDown/RepoListDropDown";
 import PushButton from "./ToolButtons/PushButton";
-import Overlay from "./RepoList/Overlay";
-import RepoList from "./RepoList/RepoList";
+import Overlay from "./RepoListDropDown/Overlay";
+import RepoList from "./RepoListDropDown/RepoList/RepoList";
 import { IToolbarStore } from "../../stores/stores";
 
 import "./Toolbar.css";

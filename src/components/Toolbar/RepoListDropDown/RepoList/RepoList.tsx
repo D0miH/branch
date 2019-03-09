@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { IToolbarStore } from "../../../../stores/stores";
+import AddRepoButton from "./AddRepoButton";
 import "./RepoList.css";
 
 type Props = {
@@ -14,9 +15,13 @@ class RepoList extends React.Component<Props> {
             <div
                 className="RepositoryList"
                 style={{
-                    height: this.props.toolbarStore.repoListVisible ? "100%" : 0
+                    display: this.props.toolbarStore.repoListVisible
+                        ? "block"
+                        : "none"
                 }}
-            />
+            >
+                <AddRepoButton />
+            </div>
         );
     }
 }

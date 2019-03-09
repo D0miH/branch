@@ -1,5 +1,5 @@
 .RepositoryList {
-    position: absolute;
+    position: fixed;
     width: 200px;
     height: 100%;
     z-index: 2;

@@ -21,8 +21,8 @@ class ToolbarButton extends React.Component<Props> {
 
     render() {
         return (
-            <div className="PushButton" onClick={() => this.onClick()}>
-                <div className="ButtonComponent">
+            <div className="push-button" onClick={() => this.onClick()}>
+                <div className="button-component">
                     {this.isOcticon(this.props.icon) ? (
                         <Octicon icon={this.props.icon} size={24} />
                     ) : (

@@ -1,16 +1,16 @@
-.List {
+.list {
     position: relative;
     width: auto;
 
     margin-top: 20px;
 }
 
-.Heading {
+.heading {
     display: flex;
     user-select: none;
 }
 
-.HeadingTitle {
+.heading-title {
     display: flex;
     align-items: center;
     flex: 2 0 0;
@@ -19,27 +19,27 @@
     height: 20px;
 }
 
-.HeadingTitle .octicon {
+.heading-title .octicon {
     margin-right: 5px;
 }
 
-.RightHeading {
+.right-heading {
     display: flex;
     align-items: center;
     color: var(--ui-font-color);
     font-size: 11pt;
 }
 
-.RightHeading .octicon {
+.right-heading .octicon {
     margin-left: 10px;
 }
 
-.ListContent {
+.list-content {
     min-height: 130px;
     transition: min-height 0.5s;
 }
 
-.ListContentCollapsed {
+.list-content-collapsed {
     min-height: 0;
     height: 0;
     transition: min-height 0.5s;

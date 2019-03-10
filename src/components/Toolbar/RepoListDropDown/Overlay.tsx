@@ -15,7 +15,7 @@ class Overlay extends React.Component<Props> {
     render() {
         return this.props.toolbarStore.repoListVisible ? (
             <div
-                className="Overlay"
+                className="overlay"
                 style={{
                     position: "fixed",
                     backgroundColor: "black",

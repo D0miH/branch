@@ -18,13 +18,13 @@ type Props = {
 class Toolbar extends React.Component<Props> {
     render() {
         return (
-            <div className="Toolbar">
-                <div className="ToolbarContent">
+            <div className="toolbar">
+                <div className="toolbar-content">
                     <RepoListDropDown
                         repoName="Open Repository"
                         toolbarStore={this.props.toolbarStore}
                     />
-                    <div className="Tools">
+                    <div className="tools">
                         <ToolbarButton label="Push" icon={ArrowUpward} />
                         <ToolbarButton label="Pull" icon={ArrowDownward} />
                         <ToolbarButton label="Branch" icon={GitBranch} />

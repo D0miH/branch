@@ -1,11 +1,8 @@
-const electron = require("electron");
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+import { app, BrowserWindow, shell } from "electron";
+import * as path from "path";
+import * as isDev from "electron-is-dev";
 
-const path = require("path");
-const isDev = require("electron-is-dev");
-
-let mainWindow;
+let mainWindow: BrowserWindow | null = null;
 
 // prevent opening new windows
 app.on("web-contents-created", (event, contents) => {
@@ -15,7 +12,7 @@ app.on("web-contents-created", (event, contents) => {
         // check if the user wants to open the dev-tools
         if (navigationUrl.split(":")[0] !== "chrome-devtools") {
             // ask the operating system to open the url in the default browser
-            electron.shell.openExternal(navigationUrl);
+            shell.openExternal(navigationUrl);
         }
     });
 });

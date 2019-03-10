@@ -3,19 +3,22 @@
     "productName": "Branch",
     "version": "0.1.0",
     "private": true,
-    "main": "public/electron.js",
+    "main": "build/electron.js",
     "homepage": "./",
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-        "pack": "react-scripts build && electron-builder --dir",
-        "dist": "react-scripts build && electron-builder"
+        "dev": "yarn build-electron && concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+        "build-electron": "./node_modules/.bin/tsc ./public/electron.ts --outDir ./build/",
+        "electron-pack": "build --em.main=build/electron.js",
+        "pack": "react-scripts build && yarn build-electron && electron-builder --dir",
+        "dist": "react-scripts build && yarn build-electron && electron-builder"
     },
     "eslintConfig": {
         "extends": "react-app"
+       
     },
     "prettier": {
         "tabWidth": 4,
@@ -31,6 +34,7 @@
         "@githubprimer/octicons-react": "^8.5.0",
         "@material-ui/core": "^3.9.2",
         "@material-ui/icons": "^3.0.2",
+        "@types/electron-is-dev": "^0.3.0",
         "@types/jest": "^24.0.9",
         "@types/node": "^11.9.5",
         "@types/react": "^16.8.5",
@@ -56,6 +60,11 @@
         "mac": {
             "category": "public.app-category.developer-tools",
             "identity": null
-        }
+        },
+        "files": [
+            "./build/**/*",
+            "./build/electron.js"
+        ],
+        "extends": null
     }
 }

@@ -1,13 +1,17 @@
 {
     "name": "branch",
     "productName": "Branch",
+    "description": "An open-source Git GUI.",
+    "author": {
+        "name": "Dominik Hintersdorf"
+    },
     "version": "0.1.0",
     "private": true,
     "main": "build/electron.js",
     "homepage": "./",
     "scripts": {
         "start": "react-scripts start",
-        "build": "react-scripts build",
+        "build": "react-scripts build && rm ./build/electron.ts",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "dev": "yarn build-electron && concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
@@ -15,14 +19,6 @@
         "electron-pack": "build --em.main=build/electron.js",
         "pack": "react-scripts build && yarn build-electron && electron-builder --dir",
         "dist": "react-scripts build && yarn build-electron && electron-builder"
-    },
-    "eslintConfig": {
-        "extends": "react-app"
-       
-    },
-    "prettier": {
-        "tabWidth": 4,
-        "semi": true
     },
     "browserslist": [
         ">0.2%",
@@ -54,17 +50,5 @@
         "electron-builder": "^20.38.5",
         "typescript": "^3.3.3333",
         "wait-on": "^3.2.0"
-    },
-    "build": {
-        "appId": "D0miH.branch",
-        "mac": {
-            "category": "public.app-category.developer-tools",
-            "identity": null
-        },
-        "files": [
-            "./build/**/*",
-            "./build/electron.js"
-        ],
-        "extends": null
     }
 }

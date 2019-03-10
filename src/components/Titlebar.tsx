@@ -3,7 +3,7 @@ import "./Titlebar.css";
 
 function Titlebar() {
     return (
-        <div className="Titlebar">
+        <div className="titlebar">
             <span>Branch</span>
         </div>
     );

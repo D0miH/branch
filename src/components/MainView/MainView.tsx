@@ -3,7 +3,7 @@ import "./MainView.css";
 
 class MainView extends React.Component {
     render() {
-        return <div className="MainView" />;
+        return <div className="main-view" />;
     }
 }
 

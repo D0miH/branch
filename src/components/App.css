@@ -1,17 +1,17 @@
-.App {
+.app {
     height: 100%;
     width: 100%;
     position: fixed;
 }
 
-.AppContent {
+.app-content {
     padding-top: 20px;
     width: 100%;
     height: 100%;
     position: fixed;
 }
 
-.RepositoryView {
+.repository-view {
     height: 100%;
     width: 100%;
     display: flex;

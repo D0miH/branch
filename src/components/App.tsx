@@ -16,11 +16,11 @@ type Props = {
 class App extends Component<Props> {
     render() {
         return (
-            <div className="App">
+            <div className="app">
                 <Titlebar />
-                <div className="AppContent">
+                <div className="app-content">
                     <Toolbar toolbarStore={this.props.appStore.toolbarStore} />
-                    <div className="RepositoryView">
+                    <div className="repository-view">
                         <Sidebar />
                         <MainView />
                     </div>

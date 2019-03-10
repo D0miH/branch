@@ -19,10 +19,10 @@ class RepoListDropDown extends React.Component<Props> {
     render() {
         return (
             <div
-                className="RepoListDropDown"
+                className="repo-list-drop-down"
                 onClick={() => this.openRepoList()}
             >
-                <div className="RepoListButton">
+                <div className="repo-list-button">
                     <span>{this.props.repoName}</span>
                 </div>
             </div>

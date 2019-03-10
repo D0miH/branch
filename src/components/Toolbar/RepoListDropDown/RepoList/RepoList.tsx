@@ -13,7 +13,7 @@ class RepoList extends React.Component<Props> {
     render() {
         return (
             <div
-                className="RepositoryList"
+                className="repository-list"
                 style={{
                     display: this.props.toolbarStore.repoListVisible
                         ? "block"

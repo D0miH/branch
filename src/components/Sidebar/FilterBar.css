@@ -1,4 +1,4 @@
-.FilterBar {
+.filterbar {
     position: relative;
     width: auto;
     height: 25px;
@@ -28,6 +28,6 @@ input:focus {
     user-select: none;
 }
 
-.FilterIcon {
+.filter-icon {
     color: var(--ui-font-color);
 }

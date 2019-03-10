@@ -32,14 +32,13 @@ class SidebarList extends React.Component<Props, State> {
 
     chevronClicked() {
         this.setState({ listIsCollapsed: !this.state.listIsCollapsed });
-        console.log("chevron was clicked");
     }
 
     render() {
         return (
-            <div className="List">
-                <div className="Heading" onClick={() => this.chevronClicked()}>
-                    <div className="HeadingTitle">
+            <div className="list">
+                <div className="heading" onClick={() => this.chevronClicked()}>
+                    <div className="heading-title">
                         {this.isOcticon(this.props.icon) ? (
                             <Octicon icon={this.props.icon} />
                         ) : (
@@ -53,7 +52,7 @@ class SidebarList extends React.Component<Props, State> {
                         )}
                         {this.props.text}
                     </div>
-                    <div className="RightHeading">
+                    <div className="right-heading">
                         {this.props.counter}/0
                         <Octicon
                             icon={
@@ -67,8 +66,8 @@ class SidebarList extends React.Component<Props, State> {
 
                 <div
                     className={
-                        "ListContent" +
-                        (this.state.listIsCollapsed ? "Collapsed" : "")
+                        "list-content" +
+                        (this.state.listIsCollapsed ? "-collapsed" : "")
                     }
                 />
             </div>

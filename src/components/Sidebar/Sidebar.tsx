@@ -8,7 +8,7 @@ import "./Sidebar.css";
 class Sidebar extends React.Component {
     render() {
         return (
-            <div className="Sidebar">
+            <div className="sidebar">
                 <FilterBar />
                 <SidebarList icon={GitBranch} text="Branches" counter={0} />
                 <SidebarList icon={CloudOutlined} text="Remotes" counter={0} />

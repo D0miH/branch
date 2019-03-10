@@ -5,9 +5,9 @@ import "./FilterBar.css";
 class FilterBar extends React.Component {
     render() {
         return (
-            <div className="FilterBar">
+            <div className="filterbar">
                 <input type="text" placeholder="Filter" />
-                <FilterIcon className="FilterIcon" />
+                <FilterIcon className="filter-icon" />
             </div>
         );
     }

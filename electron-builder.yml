@@ -1,0 +1,7 @@
+{
+    "appId": "D0miH.branch",
+    "mac":
+        { "category": "public.app-category.developer-tools", "identity": null },
+    "files": ["./build/**/*", "./build/electron.js"],
+    "extends": null,
+}

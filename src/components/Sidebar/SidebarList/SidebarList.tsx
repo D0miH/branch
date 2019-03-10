@@ -32,7 +32,6 @@ class SidebarList extends React.Component<Props, State> {
 
     chevronClicked() {
         this.setState({ listIsCollapsed: !this.state.listIsCollapsed });
-        console.log("chevron was clicked");
     }
 
     render() {

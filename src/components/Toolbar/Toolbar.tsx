@@ -6,7 +6,7 @@ import RepoListDropDown from "./RepoListDropDown/RepoListDropDown";
 import ToolbarButton from "./ToolbarButton";
 import Overlay from "./RepoListDropDown/Overlay";
 import RepoList from "./RepoListDropDown/RepoList/RepoList";
-import { IToolbarStore } from "../../stores/stores";
+import { IToolbarStore } from "../../stores/store-types";
 
 import "./Toolbar.css";
 

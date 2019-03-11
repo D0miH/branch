@@ -10,9 +10,9 @@ import "./SidebarList.css";
 type IconType = Icon | React.ComponentType<SvgIconProps>;
 
 type Props = {
-    icon: IconType;
-    text: String;
-    counter: number;
+    icon: IconType,
+    text: String,
+    counter: number
 };
 
 type State = {

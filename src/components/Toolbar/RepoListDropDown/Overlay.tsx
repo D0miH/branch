@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import { IToolbarStore } from "../../../stores/stores";
 
 type Props = {
-    toolbarStore: IToolbarStore;
+    toolbarStore: IToolbarStore
 };
 
 @observer

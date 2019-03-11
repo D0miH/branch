@@ -11,7 +11,7 @@ import { IToolbarStore } from "../../stores/stores";
 import "./Toolbar.css";
 
 type Props = {
-    toolbarStore: IToolbarStore;
+    toolbarStore: IToolbarStore
 };
 
 @observer

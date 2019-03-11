@@ -15,7 +15,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "dev": "yarn build-electron && concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-        "build-electron": "./node_modules/.bin/tsc ./public/electron.ts --outDir ./build/",
+        "build-electron": "( cd public/ && ../node_modules/.bin/tsc && cp ./preload.js ../build/ )",
         "electron-pack": "build --em.main=build/electron.js",
         "pack": "react-scripts build && yarn build-electron && electron-builder --dir",
         "dist": "react-scripts build && yarn build-electron && electron-builder"

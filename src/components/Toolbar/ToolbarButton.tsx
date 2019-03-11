@@ -6,8 +6,8 @@ import Octicon, { Icon } from "@githubprimer/octicons-react";
 type IconType = React.ComponentType<SvgIconProps> | Icon;
 
 type Props = {
-    icon: IconType;
-    label: string;
+    icon: IconType,
+    label: string
 };
 
 class ToolbarButton extends React.Component<Props> {

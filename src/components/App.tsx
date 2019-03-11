@@ -9,7 +9,7 @@ import { IAppStore } from "../stores/stores";
 import "./App.css";
 
 type Props = {
-    appStore: IAppStore;
+    appStore: IAppStore
 };
 
 @observer

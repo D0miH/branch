@@ -4,8 +4,8 @@ import { IToolbarStore } from "../../../stores/stores";
 import "./RepoListDropDown.css";
 
 type Props = {
-    repoName: String;
-    toolbarStore: IToolbarStore;
+    repoName: String,
+    toolbarStore: IToolbarStore
 };
 
 @observer

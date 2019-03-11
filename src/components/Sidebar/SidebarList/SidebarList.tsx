@@ -4,15 +4,16 @@ import Octicon, {
     ChevronDown,
     ChevronLeft
 } from "@githubprimer/octicons-react";
+import classnames from "classnames";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
 import "./SidebarList.css";
 
 type IconType = Icon | React.ComponentType<SvgIconProps>;
 
 type Props = {
-    icon: IconType,
-    text: String,
-    counter: number
+    icon: IconType;
+    text: String;
+    counter: number;
 };
 
 type State = {
@@ -65,10 +66,10 @@ class SidebarList extends React.Component<Props, State> {
                 </div>
 
                 <div
-                    className={
-                        "list-content" +
-                        (this.state.listIsCollapsed ? "-collapsed" : "")
-                    }
+                    className={classnames({
+                        "list-content-collapsed": this.state.listIsCollapsed,
+                        "list-content": !this.state.listIsCollapsed
+                    })}
                 />
             </div>
         );

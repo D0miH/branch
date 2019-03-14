@@ -10,9 +10,10 @@ matrix:
           tranode_js: "10"
 
 env:
-    - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
-    - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
-    - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
+    matrix:
+        - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
+        - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
+        - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
 
 cache:
     yarn: true

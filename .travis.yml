@@ -1,13 +1,13 @@
 matrix:
     include:
         - os: osx
-            osx_image: xcode9.4
-            language: node_js
-            node_js: "10"
+          osx_image: xcode9.4
+          language: node_js
+          node_js: "10"
         - os: osx
-            osx_image: xcode9.4
-            language: node_js
-            node_js: "10"
+          osx_image: xcode9.4
+          language: node_js
+          tranode_js: "10"
 
 env:
     - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
@@ -21,14 +21,7 @@ cache:
         - "$HOME/.cache/electron"
         - "$HOME/.cache/electron-builder"
 
-script:
-    - "if [ "$TARGET_OS" == "linux" ]; then
-        yarn build && yarn build-electron && yarn run electron-builder -l
-      elif [ "$TARGET_OS" == "osx" ]; then
-        yarn build && yarn build-electron && yarn run electron-builder -m
-      elif [ "$TARGET_OS" == "osx" ]; then
-        yarn build && yarn build-electron && yarn run electron-builder -w
-      fi"
+script: bash buildRelease.sh
 
 before_cache:
     - rm -rf $HOME/.cache/electron-builder/wine

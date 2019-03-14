@@ -5,5 +5,5 @@
     "mac":
         { "category": "public.app-category.developer-tools", "identity": null },
     "win": { "target": "portable" },
-    "linux": { "target": "deb" },
+    "linux": { "target": "deb", "maintainer": "D0miH <> (https://github.com/D0miH"},
 }

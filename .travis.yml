@@ -16,7 +16,7 @@ cache:
         - "$HOME/.cache/electron-builder"
 
 script:
-    - yarn build && yarn build-electron && travis_wait yarn run electron-builder -mwl
+    - yarn build && yarn build-electron && yarn run electron-builder -mwl
 
 before_cache:
     - rm -rf $HOME/.cache/electron-builder/wine

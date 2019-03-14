@@ -1,6 +1,5 @@
 {
     "name": "branch",
-    "productName": "Branch",
     "description": "An open-source Git GUI.",
     "author": {
         "name": "Dominik Hintersdorf"

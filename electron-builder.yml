@@ -1,4 +1,5 @@
 {
+    "productName": "Branch",
     "appId": "D0miH.branch",
     "files": ["./build/**/*", "./build/electron.js"],
     "extends": null,

@@ -1,18 +1,25 @@
 matrix:
     include:
         - os: osx
-          osx_image: xcode9.4
+          osx_image: xcode10.1
           language: node_js
           node_js: "10"
           env: 
             - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
 
         - os: osx
-          osx_image: xcode9.4
+          osx_image: xcode10.1
           language: node_js
           tranode_js: "10"
           env: 
-            - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
+            - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="linux"
+        
+        - os: osx
+          osx_image: xcode10.1
+          language: node_js
+          tranode_js: "10"
+          env: 
+            - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="win"
 
 cache:
     yarn: true

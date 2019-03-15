@@ -1,6 +1,7 @@
 import { app, BrowserWindow, shell } from "electron";
 import * as path from "path";
 import * as isDev from "electron-is-dev";
+import initElectronHelpers from "./electron_modules/electronHelpers";
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -30,9 +31,13 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: false,
             nodeIntegrationInWorker: false,
-            contextIsolation: true
+            preload: __dirname + "/preload.js"
         }
     });
+
+    // init the electron helpers
+    initElectronHelpers(mainWindow);
+
     mainWindow.loadURL(
         isDev
             ? "http://localhost:3000"

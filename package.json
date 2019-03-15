@@ -1,6 +1,5 @@
 {
     "name": "branch",
-    "productName": "Branch",
     "description": "An open-source Git GUI.",
     "author": {
         "name": "Dominik Hintersdorf"
@@ -15,7 +14,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "dev": "yarn build-electron && concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-        "build-electron": "./node_modules/.bin/tsc ./public/electron.ts --outDir ./build/",
+        "build-electron": "( cd public/ && ../node_modules/.bin/tsc && cp ./preload.js ../build/ )",
         "electron-pack": "build --em.main=build/electron.js",
         "pack": "react-scripts build && yarn build-electron && electron-builder --dir",
         "dist": "react-scripts build && yarn build-electron && electron-builder"
@@ -30,11 +29,13 @@
         "@githubprimer/octicons-react": "^8.5.0",
         "@material-ui/core": "^3.9.2",
         "@material-ui/icons": "^3.0.2",
+        "@types/classnames": "^2.2.7",
         "@types/electron-is-dev": "^0.3.0",
         "@types/jest": "^24.0.9",
         "@types/node": "^11.9.5",
         "@types/react": "^16.8.5",
         "@types/react-dom": "^16.8.2",
+        "classnames": "^2.2.6",
         "electron-is-dev": "^1.0.1",
         "mobx": "^5.9.0",
         "mobx-react": "^5.4.3",

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import App from "./components/App";
 import AppStore from "./stores/AppStore";
-import { IAppStore } from "./stores/stores";
+import { IAppStore } from "./stores/store-types";
 
 import * as serviceWorker from "./serviceWorker";
 

@@ -4,12 +4,12 @@ import Titlebar from "./Titlebar";
 import Toolbar from "./Toolbar/Toolbar";
 import Sidebar from "./Sidebar/Sidebar";
 import MainView from "./MainView/MainView";
-import { IAppStore } from "../stores/stores";
+import { IAppStore } from "../stores/store-types";
 
 import "./App.css";
 
 type Props = {
-    appStore: IAppStore
+    appStore: IAppStore;
 };
 
 @observer

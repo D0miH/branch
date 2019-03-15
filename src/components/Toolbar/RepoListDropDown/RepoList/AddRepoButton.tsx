@@ -5,6 +5,8 @@ import "./AddRepoButton.css";
 class AddRepoButton extends React.Component {
     buttonClicked = () => {
         console.log("Add Repo Button was clicked");
+        let workingDir = window.ipcRenderer.sendSync("open-file-dialog");
+        console.log(workingDir);
     };
 
     render() {

@@ -41,7 +41,7 @@ deploy:
       api_key:
         secure: ZIquTH9wBMZDh6YgF/A2oe3VOxFmYXK0lW+uR09i5hVFdmlV+ghP7xmQuxpZ0SAlXoKmzSQURP1qhxYgWsf33c7dV3YzlWrGedrAQv5W/arG9nt2IWAo/qqeIV+gsxmJXc5dud1kBXtt+PZsW4cJkJvXkjhEDe1DvO9Al8/N+ODryYDUMNC3MQS72H1Heu4+T/t9E9tTTmX4I9RS12DPBpXnta1ZfRKwB67C1+W5fClDFgs65PTV5Ja38IVEGsu6E0kIgpzPzoLF9PAgf+YsglCK0hObXSw3Jiiq1iveG2/maJ5t9XkUgFlQQqa/sfQ4DGpeEqZkSaPW3p4yL0rguRgefEgKgsX+CNo5VO9aZkTlS21HOXnwpklFQQJO/TOxQdu1sHQwU5eFGfcfWC9zlvE+pSzAfcmCW9w5gnuWBXnarSJ2l53uwSak++6rXChQ7cUY29GidJ/fIPy4l/IhRso6WcL6AEbNHD5WocF+ttOkyMtZuXx3v8ZaQfPZ3ZS+JFm0YeArkpJ40mZne4laesRb+wWsNA420NeCxP+a4Tupxs29vt1PllYPZ183Hq0/VmopfcZt2+XJCeyyPSXcVEw2iAFQ92gBvkU6B7llNR0Eh6KtofQCMP+R1RG5HZPEZR7rC1nPG3c1t6kcH5pae/wEjlc50U3ksnh9BIetxzY=
       file_glob: true
-      file: '/dist/Branch-*.dmg'
+      file: './dist/Branch-*.dmg'
       skip_cleanup: true
       on:
         condition: $TARGET_OS = osx
@@ -52,7 +52,7 @@ deploy:
       api_key:
         secure: ZIquTH9wBMZDh6YgF/A2oe3VOxFmYXK0lW+uR09i5hVFdmlV+ghP7xmQuxpZ0SAlXoKmzSQURP1qhxYgWsf33c7dV3YzlWrGedrAQv5W/arG9nt2IWAo/qqeIV+gsxmJXc5dud1kBXtt+PZsW4cJkJvXkjhEDe1DvO9Al8/N+ODryYDUMNC3MQS72H1Heu4+T/t9E9tTTmX4I9RS12DPBpXnta1ZfRKwB67C1+W5fClDFgs65PTV5Ja38IVEGsu6E0kIgpzPzoLF9PAgf+YsglCK0hObXSw3Jiiq1iveG2/maJ5t9XkUgFlQQqa/sfQ4DGpeEqZkSaPW3p4yL0rguRgefEgKgsX+CNo5VO9aZkTlS21HOXnwpklFQQJO/TOxQdu1sHQwU5eFGfcfWC9zlvE+pSzAfcmCW9w5gnuWBXnarSJ2l53uwSak++6rXChQ7cUY29GidJ/fIPy4l/IhRso6WcL6AEbNHD5WocF+ttOkyMtZuXx3v8ZaQfPZ3ZS+JFm0YeArkpJ40mZne4laesRb+wWsNA420NeCxP+a4Tupxs29vt1PllYPZ183Hq0/VmopfcZt2+XJCeyyPSXcVEw2iAFQ92gBvkU6B7llNR0Eh6KtofQCMP+R1RG5HZPEZR7rC1nPG3c1t6kcH5pae/wEjlc50U3ksnh9BIetxzY=
       file_glob: true
-      file: '/dist/Branch*.exe'
+      file: './dist/Branch*.exe'
       skip_cleanup: true
       on:
         condition: $TARGET_OS = win
@@ -63,7 +63,7 @@ deploy:
       api_key:
         secure: ZIquTH9wBMZDh6YgF/A2oe3VOxFmYXK0lW+uR09i5hVFdmlV+ghP7xmQuxpZ0SAlXoKmzSQURP1qhxYgWsf33c7dV3YzlWrGedrAQv5W/arG9nt2IWAo/qqeIV+gsxmJXc5dud1kBXtt+PZsW4cJkJvXkjhEDe1DvO9Al8/N+ODryYDUMNC3MQS72H1Heu4+T/t9E9tTTmX4I9RS12DPBpXnta1ZfRKwB67C1+W5fClDFgs65PTV5Ja38IVEGsu6E0kIgpzPzoLF9PAgf+YsglCK0hObXSw3Jiiq1iveG2/maJ5t9XkUgFlQQqa/sfQ4DGpeEqZkSaPW3p4yL0rguRgefEgKgsX+CNo5VO9aZkTlS21HOXnwpklFQQJO/TOxQdu1sHQwU5eFGfcfWC9zlvE+pSzAfcmCW9w5gnuWBXnarSJ2l53uwSak++6rXChQ7cUY29GidJ/fIPy4l/IhRso6WcL6AEbNHD5WocF+ttOkyMtZuXx3v8ZaQfPZ3ZS+JFm0YeArkpJ40mZne4laesRb+wWsNA420NeCxP+a4Tupxs29vt1PllYPZ183Hq0/VmopfcZt2+XJCeyyPSXcVEw2iAFQ92gBvkU6B7llNR0Eh6KtofQCMP+R1RG5HZPEZR7rC1nPG3c1t6kcH5pae/wEjlc50U3ksnh9BIetxzY=
       file_glob: true
-      file: '/dist/branch_*.deb'
+      file: './dist/branch_*.deb'
       skip_cleanup: true
       on:
         condition: $TARGET_OS = linux

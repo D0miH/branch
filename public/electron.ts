@@ -32,6 +32,7 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: false,
             nodeIntegrationInWorker: false,
+            contextIsolation: false,
             preload: __dirname + "/preload.js"
         }
     });

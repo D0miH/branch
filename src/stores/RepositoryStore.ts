@@ -17,6 +17,8 @@ export default class RepositoryStore {
         this.getLocalBranches();
         // get all the remote branches
         this.getRemoteBranches();
+        // get all the tags
+        this.getTags();
     }
 
     @action getLocalBranches() {
@@ -35,5 +37,8 @@ export default class RepositoryStore {
         console.log(branches);
     }
 
-    @action getTags() {}
+    @action getTags() {
+        let tags: string[] = window.ipcRenderer.sendSync("get-tags");
+        console.log(tags);
+    }
 }

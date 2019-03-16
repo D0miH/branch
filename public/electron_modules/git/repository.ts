@@ -46,7 +46,8 @@ export default class Repo {
     }
 
     /**
-     * Returns all the branches as a string array.
+     * Returns all the local branches as a string array.
+     * @param event The given IpcMessageEvent.
      */
     getLocalBranches(event: IpcMessageEvent) {
         this.getAllReferences().then(refs => {
@@ -62,17 +63,39 @@ export default class Repo {
         });
     }
 
+    /**
+     * Returns all the remote branches as a string array.
+     * @param event The given IpcMessageEvent.
+     */
     getRemoteBranches(event: IpcMessageEvent) {
         this.getAllReferences().then(refs => {
             let branches = [];
 
             refs.forEach(ref => {
-                if (ref.isBranch() && ref.isRemote()) {
+                if (ref.isBranch()) {
                     branches.push(ref.name());
                 }
             });
 
             event.returnValue = branches;
+        });
+    }
+
+    /**
+     * Returns all the tags (local and remote) as a string array.
+     * @param event The given IpcMessageEvent.
+     */
+    getTags(event: IpcMessageEvent) {
+        this.getAllReferences().then(refs => {
+            let tags = [];
+
+            refs.forEach(ref => {
+                if (ref.isTag()) {
+                    tags.push(ref.name());
+                }
+            });
+
+            event.returnValue = tags;
         });
     }
 }
@@ -89,4 +112,6 @@ function addIpcListener() {
     ipcMain.on("get-remote-branches", (event: IpcMessageEvent) =>
         this.getRemoteBranches(event)
     );
+
+    ipcMain.on("get-tags", (event: IpcMessageEvent) => this.getTags(event));
 }

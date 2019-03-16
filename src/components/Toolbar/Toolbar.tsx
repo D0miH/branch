@@ -7,24 +7,14 @@ import ToolbarButton from "./ToolbarButton";
 import Overlay from "./RepoListDropDown/Overlay";
 import RepoList from "./RepoListDropDown/RepoList/RepoList";
 
-import ToolbarStore from "../../stores/ToolbarStore";
-
 import "./Toolbar.css";
 
-type Props = {
-    toolbarStore: ToolbarStore;
-};
-
-@observer
-class Toolbar extends React.Component<Props> {
+class Toolbar extends React.Component {
     render() {
         return (
             <div className="toolbar">
                 <div className="toolbar-content">
-                    <RepoListDropDown
-                        repoName="Open Repository"
-                        toolbarStore={this.props.toolbarStore}
-                    />
+                    <RepoListDropDown repoName="Open Repository" />
                     <div className="tools">
                         <ToolbarButton label="Push" icon={ArrowUpward} />
                         <ToolbarButton label="Pull" icon={ArrowDownward} />
@@ -32,8 +22,8 @@ class Toolbar extends React.Component<Props> {
                         <ToolbarButton label="Stash" icon={Inbox} />
                     </div>
                 </div>
-                <RepoList toolbarStore={this.props.toolbarStore} />
-                <Overlay toolbarStore={this.props.toolbarStore} />
+                <RepoList />
+                <Overlay />
             </div>
         );
     }

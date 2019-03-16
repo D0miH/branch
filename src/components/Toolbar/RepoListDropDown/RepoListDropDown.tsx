@@ -1,19 +1,29 @@
 import React from "react";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 
 import ToolbarStore from "../../../stores/ToolbarStore";
 
 import "./RepoListDropDown.css";
 
-type Props = {
+interface ExternalProps {
     repoName: String;
-    toolbarStore: ToolbarStore;
-};
+}
 
+interface InjectedProps extends ExternalProps {
+    toolbarStore: ToolbarStore;
+}
+
+@inject(({ stores }) => ({
+    toolbarStore: stores.toolbarStore
+}))
 @observer
-class RepoListDropDown extends React.Component<Props> {
+class RepoListDropDown extends React.Component<ExternalProps> {
+    get injected() {
+        return this.props as InjectedProps;
+    }
+
     openRepoList() {
-        this.props.toolbarStore.repoListVisible = !this.props.toolbarStore
+        this.injected.toolbarStore.repoListVisible = !this.injected.toolbarStore
             .repoListVisible;
         console.log("Repo list button was clicked");
     }

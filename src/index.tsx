@@ -1,15 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "mobx-react";
 import * as serviceWorker from "./serviceWorker";
 
 import App from "./components/App";
-import AppStore from "./stores/AppStore";
+import ToolbarStore from "./stores/ToolbarStore";
 
 import "./index.css";
 
-const appStore: AppStore = new AppStore();
+const stores = {
+    toolbarStore: new ToolbarStore()
+};
 
-ReactDOM.render(<App appStore={appStore} />, document.getElementById("root"));
+ReactDOM.render(
+    <Provider stores={stores}>
+        <App />
+    </Provider>,
+    document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -46,6 +46,7 @@
         "tslint": "^5.13.1"
     },
     "devDependencies": {
+        "@types/nodegit": "^0.24.4",
         "concurrently": "^4.1.0",
         "electron": "^4.0.5",
         "electron-builder": "^20.38.5",

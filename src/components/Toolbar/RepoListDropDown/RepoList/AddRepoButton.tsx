@@ -24,8 +24,7 @@ class AddRepoButton extends React.Component {
     buttonClicked = () => {
         // open the repo and update the name
         let repoPath = window.ipcRenderer.sendSync("open-file-dialog");
-        let repoName = window.ipcRenderer.sendSync("open-repo", repoPath);
-        this.injected.repoStore.currentRepoName = repoName;
+        this.injected.repoStore.openRepo(repoPath);
 
         // close the repo list after opening the repo
         this.injected.toolbarStore.repoListVisible = false;

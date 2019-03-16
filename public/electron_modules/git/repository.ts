@@ -1,4 +1,4 @@
-import { Repository } from "nodegit";
+import { Repository, Reference } from "nodegit";
 import { ipcMain, IpcMessageEvent } from "electron";
 
 export default class Repo {
@@ -26,18 +26,67 @@ export default class Repo {
      * Gets the name of the repository.
      * @param event The given IpcMessageEvent.
      */
-    getRepoName(repo: Repository) {
+    async getRepoName(repo: Repository) {
         if (this.currentOpenedRepo === null) {
             event.returnValue = null;
         }
 
-        let path: string[] = this.currentOpenedRepo.path().split("/");
-        return path[path.length - 3];
+        let remoteUrl = await this.currentOpenedRepo
+            .getRemote("origin")
+            .then(remote => remote.url());
+
+        let url: string[] = remoteUrl.split("/");
+
+        // get the last *.git element and remove the .git
+        return url[url.length - 1].split(".")[0];
+    }
+
+    async getAllReferences(): Promise<Reference[]> {
+        return this.currentOpenedRepo.getReferences(Reference.TYPE.LISTALL);
+    }
+
+    /**
+     * Returns all the branches as a string array.
+     */
+    getLocalBranches(event: IpcMessageEvent) {
+        this.getAllReferences().then(refs => {
+            let branches = [];
+
+            refs.forEach(ref => {
+                if (ref.isBranch() && !ref.isRemote()) {
+                    branches.push(ref.name());
+                }
+            });
+
+            event.returnValue = branches;
+        });
+    }
+
+    getRemoteBranches(event: IpcMessageEvent) {
+        this.getAllReferences().then(refs => {
+            let branches = [];
+
+            refs.forEach(ref => {
+                if (ref.isBranch() && ref.isRemote()) {
+                    branches.push(ref.name());
+                }
+            });
+
+            event.returnValue = branches;
+        });
     }
 }
 
 function addIpcListener() {
     ipcMain.on("open-repo", (event: IpcMessageEvent, repoPath: string) =>
         this.openRepo(event, repoPath)
+    );
+
+    ipcMain.on("get-local-branches", (event: IpcMessageEvent) =>
+        this.getLocalBranches(event)
+    );
+
+    ipcMain.on("get-remote-branches", (event: IpcMessageEvent) =>
+        this.getRemoteBranches(event)
     );
 }

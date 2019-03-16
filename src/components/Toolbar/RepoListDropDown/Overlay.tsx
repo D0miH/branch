@@ -1,9 +1,10 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { IToolbarStore } from "../../../stores/store-types";
+
+import ToolbarStore from "../../../stores/ToolbarStore";
 
 type Props = {
-    toolbarStore: IToolbarStore;
+    toolbarStore: ToolbarStore;
 };
 
 @observer

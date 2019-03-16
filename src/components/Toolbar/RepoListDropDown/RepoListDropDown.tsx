@@ -1,11 +1,13 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { IToolbarStore } from "../../../stores/store-types";
+
+import ToolbarStore from "../../../stores/ToolbarStore";
+
 import "./RepoListDropDown.css";
 
 type Props = {
     repoName: String;
-    toolbarStore: IToolbarStore;
+    toolbarStore: ToolbarStore;
 };
 
 @observer

@@ -6,12 +6,13 @@ import RepoListDropDown from "./RepoListDropDown/RepoListDropDown";
 import ToolbarButton from "./ToolbarButton";
 import Overlay from "./RepoListDropDown/Overlay";
 import RepoList from "./RepoListDropDown/RepoList/RepoList";
-import { IToolbarStore } from "../../stores/store-types";
+
+import ToolbarStore from "../../stores/ToolbarStore";
 
 import "./Toolbar.css";
 
 type Props = {
-    toolbarStore: IToolbarStore;
+    toolbarStore: ToolbarStore;
 };
 
 @observer

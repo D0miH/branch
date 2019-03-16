@@ -1,15 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import * as serviceWorker from "./serviceWorker";
 
 import App from "./components/App";
 import AppStore from "./stores/AppStore";
-import { IAppStore } from "./stores/store-types";
-
-import * as serviceWorker from "./serviceWorker";
 
 import "./index.css";
 
-const appStore: IAppStore = new AppStore();
+const appStore: AppStore = new AppStore();
 
 ReactDOM.render(<App appStore={appStore} />, document.getElementById("root"));
 

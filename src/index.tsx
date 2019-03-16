@@ -4,12 +4,13 @@ import { Provider } from "mobx-react";
 import * as serviceWorker from "./serviceWorker";
 
 import App from "./components/App";
-import ToolbarStore from "./stores/ToolbarStore";
+import { ToolbarStore, RepositoryStore } from "./stores";
 
 import "./index.css";
 
 const stores = {
-    toolbarStore: new ToolbarStore()
+    toolbarStore: new ToolbarStore(),
+    repoStore: new RepositoryStore()
 };
 
 ReactDOM.render(

@@ -2,6 +2,7 @@ import { app, BrowserWindow, shell } from "electron";
 import * as path from "path";
 import * as isDev from "electron-is-dev";
 import initElectronHelpers from "./electron_modules/electronHelpers";
+import initGit from "./electron_modules/Git";
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -37,6 +38,7 @@ function createWindow() {
 
     // init the electron helpers
     initElectronHelpers(mainWindow);
+    initGit(mainWindow);
 
     mainWindow.loadURL(
         isDev

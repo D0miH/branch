@@ -1,21 +1,32 @@
 import React from "react";
-import { observer } from "mobx-react";
-import { IToolbarStore } from "../../../../stores/store-types";
+import { observer, inject } from "mobx-react";
 import AddRepoButton from "./AddRepoButton";
+
+import ToolbarStore from "../../../../stores/ToolbarStore";
+
 import "./RepoList.css";
 
-type Props = {
-    toolbarStore: IToolbarStore;
-};
+interface ExternalProps {}
 
+interface InjectedProps extends ExternalProps {
+    toolbarStore: ToolbarStore;
+}
+
+@inject(({ stores }) => ({
+    toolbarStore: stores.toolbarStore
+}))
 @observer
-class RepoList extends React.Component<Props> {
+class RepoList extends React.Component<ExternalProps> {
+    get injected() {
+        return this.props as InjectedProps;
+    }
+
     render() {
         return (
             <div
                 className="repository-list"
                 style={{
-                    display: this.props.toolbarStore.repoListVisible
+                    display: this.injected.toolbarStore.repoListVisible
                         ? "block"
                         : "none"
                 }}

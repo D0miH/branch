@@ -1,19 +1,29 @@
 import React from "react";
-import { observer } from "mobx-react";
-import { IToolbarStore } from "../../../stores/store-types";
+import { observer, inject } from "mobx-react";
 
-type Props = {
-    toolbarStore: IToolbarStore;
-};
+import ToolbarStore from "../../../stores/ToolbarStore";
 
+interface ExternalProps {}
+
+interface InjectedProps extends ExternalProps {
+    toolbarStore: ToolbarStore;
+}
+
+@inject(({ stores }) => ({
+    toolbarStore: stores.toolbarStore
+}))
 @observer
-class Overlay extends React.Component<Props> {
+class Overlay extends React.Component<ExternalProps> {
+    get injected() {
+        return this.props as InjectedProps;
+    }
+
     hideOverlay = () => {
-        this.props.toolbarStore.repoListVisible = false;
+        this.injected.toolbarStore.repoListVisible = false;
     };
 
     render() {
-        return this.props.toolbarStore.repoListVisible ? (
+        return this.injected.toolbarStore.repoListVisible ? (
             <div
                 className="overlay"
                 style={{

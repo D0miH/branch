@@ -7,3 +7,5 @@ elif [ "$TARGET_OS" == "osx" ]; then
 elif [ "$TARGET_OS" == "win" ]; then
     yarn build && yarn build-electron && yarn run electron-builder -w
 fi
+
+ls

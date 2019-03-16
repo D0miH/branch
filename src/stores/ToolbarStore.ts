@@ -1,7 +1,6 @@
 import { observable } from "mobx";
-import { IToolbarStore } from "./store-types";
 
-class ToolbarStore implements IToolbarStore {
+class ToolbarStore {
     @observable repoListVisible: boolean = false;
 }
 

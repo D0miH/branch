@@ -7,13 +7,14 @@ import Octicon, {
 import classnames from "classnames";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
 import "./SidebarList.css";
+import ListItem from "./SidebarListItem";
 
 type IconType = Icon | React.ComponentType<SvgIconProps>;
 
 type Props = {
     icon: IconType;
     text: String;
-    counter: number;
+    listItems: string[];
 };
 
 type State = {
@@ -35,6 +36,12 @@ class SidebarList extends React.Component<Props, State> {
         this.setState({ listIsCollapsed: !this.state.listIsCollapsed });
     }
 
+    renderList() {
+        return this.props.listItems.map(listItem => (
+            <ListItem label={listItem} key={listItem} />
+        ));
+    }
+
     render() {
         return (
             <div className="list">
@@ -54,7 +61,8 @@ class SidebarList extends React.Component<Props, State> {
                         {this.props.text}
                     </div>
                     <div className="right-heading">
-                        {this.props.counter}/0
+                        {this.props.listItems.length}/
+                        {this.props.listItems.length}
                         <Octicon
                             icon={
                                 this.state.listIsCollapsed
@@ -70,7 +78,9 @@ class SidebarList extends React.Component<Props, State> {
                         "list-content-collapsed": this.state.listIsCollapsed,
                         "list-content": !this.state.listIsCollapsed
                     })}
-                />
+                >
+                    {this.renderList()}
+                </div>
             </div>
         );
     }

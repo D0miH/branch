@@ -1,0 +1,14 @@
+.sidebar-list-item {
+    width: 100%;
+    height: 25px;
+}
+.sidebar-list-item span {
+    font-size: 11pt;
+}
+.sidebar-list-item :hover {
+    background: var(--ui-button-hover-color);
+}
+
+.sidebar-list-button {
+    padding-left: 25px;
+}

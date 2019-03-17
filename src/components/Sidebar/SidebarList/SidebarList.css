@@ -35,12 +35,25 @@
 }
 
 .list-content {
-    min-height: 130px;
-    transition: min-height 0.5s;
+    padding-top: 5px;
+    min-height: 100px;
+    max-height: 100px;
+    overflow: scroll;
+    animation: 3s set-oveflow-scroll;
+    transition: min-height 0.5s, max-height 0.5s;
 }
 
 .list-content-collapsed {
+    padding-top: 5px;
     min-height: 0;
+    max-height: 0;
     height: 0;
-    transition: min-height 0.5s;
+    overflow: hidden;
+    transition: min-height 0.5s, max-heigt 0.5s;
+}
+
+@keyframes set-oveflow-scroll {
+    from {
+        overflow: scroll;
+    }
 }

@@ -29,15 +29,15 @@ export default class Repository {
             return;
         }
 
-        GitProcess.exec(["config", "--get", "remote.origin.url"], this.pathToRepo).then(result => {
+        GitProcess.exec(["config", "--local", "--get", "remote.origin.url"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
-                let err = GitProcess.parseError(result.stderr);
-                console.log(err);
+                console.log(GitProcess.parseError(result.stderr));
 
                 // if there was no git repo found reset the path to null
-                if (err === 28) {
+                if (result.stderr === "fatal: --local can only be used inside a git repository\n") {
                     this.pathToRepo = null;
                     event.returnValue = new ReturnObject("", ErrorCode.GitNotFound);
+                    return;
                 }
 
                 event.returnValue = new ReturnObject("", ErrorCode.UnknownError);

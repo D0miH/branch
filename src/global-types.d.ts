@@ -1,10 +1,11 @@
 import { IpcRenderer } from "electron";
-import { ReturnObject as RetObj } from "../public/electron_modules/git/ReturnObject";
+import { ReturnObject, ErrorCode } from "../public/electron_modules/git/ReturnObject";
 
 declare global {
     interface Window {
         ipcRenderer: IpcRenderer;
     }
 
-    interface ReturnObject extends RetObj {}
+    interface GitReturnObject extends ReturnObject {}
+    interface GitErrorCode extends ErrorCode {}
 }

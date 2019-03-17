@@ -25,7 +25,7 @@ class SidebarList extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        this.state = { listIsCollapsed: false };
+        this.state = { listIsCollapsed: true };
     }
 
     isOcticon(givenIcon: IconType): givenIcon is Icon {

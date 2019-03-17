@@ -1,6 +1,6 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
-import { GitBranch, Tag } from "@githubprimer/octicons-react";
+import { GitBranch, Tag, Inbox } from "@githubprimer/octicons-react";
 import { CloudOutlined } from "@material-ui/icons";
 import FilterBar from "./FilterBar";
 import SidebarList from "./SidebarList/SidebarList";
@@ -40,6 +40,11 @@ class Sidebar extends React.Component {
                     icon={Tag}
                     text="Tags"
                     listItems={this.injected.repoStore.tags}
+                />
+                <SidebarList
+                    icon={Inbox}
+                    text="Stashes"
+                    listItems={this.injected.repoStore.stashes}
                 />
             </div>
         );

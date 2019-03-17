@@ -10,5 +10,5 @@ ipcMain.on("open-file-dialog", (event: IpcMessageEvent) => {
     let workingDir = dialog.showOpenDialog(browserWindow, {
         properties: ["openDirectory"]
     })[0];
-    event.returnValue = workingDir;
+    event.returnValue = workingDir !== undefined ? workingDir : null;
 });

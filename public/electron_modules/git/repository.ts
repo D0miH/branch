@@ -101,16 +101,45 @@ export default class Repository {
         }
 
         GitProcess.exec(["tag"], this.pathToRepo).then(result => {
-            if (result.stdout === "") {
+            if (result.exitCode !== 0) {
+                console.log(GitProcess.parseError(result.stderr));
+            } else if (result.stdout === "") {
                 event.returnValue = null;
             }
 
+            // parse the result
+            event.returnValue = result.stdout.split("\n");
+        });
+    }
+
+    /**
+     * Returns all stashes of the repository.
+     * @param event The given event in which the return value is set.
+     */
+    async getStashes(event: IpcMessageEvent) {
+        if (this.pathToRepo === null) {
+            event.returnValue = null;
+        }
+
+        GitProcess.exec(["stash", "list"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 console.log(GitProcess.parseError(result.stderr));
+            } else if (result.stdout === "") {
+                event.returnValue = null;
             }
 
-            // prase the result
-            event.returnValue = result.stdout.split("\n");
+            console.log(result);
+
+            // parse the result
+            let lines = result.stdout.split("\n");
+            lines.forEach((line: string, index: number) => {
+                // only keep the part after the colon
+                lines[index] = line.split("}: ")[1];
+            });
+            lines.splice(-1, 1);
+
+            console.log(lines);
+            event.returnValue = lines;
         });
     }
 }
@@ -129,4 +158,8 @@ function addIpcListener() {
     );
 
     ipcMain.on("get-tags", (event: IpcMessageEvent) => this.getTags(event));
+
+    ipcMain.on("get-stashes", (event: IpcMessageEvent) =>
+        this.getStashes(event)
+    );
 }

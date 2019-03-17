@@ -6,10 +6,16 @@ export default class RepositoryStore {
     @observable localBranches: string[] = [];
     @observable remoteBranches: string[] = [];
     @observable tags: string[] = [];
+    @observable stashes: string[] = [];
 
     @action openRepo(repoPath: string) {
         // open the repo
         let repoName = window.ipcRenderer.sendSync("open-repo", repoPath);
+        if (repoName === null) {
+            // the user cancelled the dialog
+            return;
+        }
+
         this.currentRepoName = repoName;
 
         this.localBranches = this.getLocalBranches();
@@ -17,6 +23,10 @@ export default class RepositoryStore {
 
         let tags = this.getTags();
         this.tags = tags !== null ? tags : [];
+
+        let stashes = this.getStashes();
+        console.log(stashes);
+        this.stashes = stashes !== null ? stashes : [];
     }
 
     getLocalBranches(): string[] {
@@ -31,5 +41,9 @@ export default class RepositoryStore {
 
     getTags(): string[] {
         return window.ipcRenderer.sendSync("get-tags");
+    }
+
+    getStashes(): string[] {
+        return window.ipcRenderer.sendSync("get-stashes");
     }
 }

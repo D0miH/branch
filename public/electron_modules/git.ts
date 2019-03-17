@@ -1,5 +1,5 @@
 import { BrowserWindow } from "electron";
-import Repository from "./git/repository";
+import Repository from "./git/Repository";
 
 var browserWindow: BrowserWindow;
 

@@ -34,6 +34,7 @@
         "react": "^16.8.3",
         "react-dom": "^16.8.3",
         "react-scripts": "2.1.5",
+        "react-tooltip": "^3.10.0",
         "tslint": "^5.13.1"
     },
     "devDependencies": {
@@ -46,6 +47,7 @@
         "@types/node": "^11.9.5",
         "@types/react": "^16.8.5",
         "@types/react-dom": "^16.8.2",
+        "@types/react-tooltip": "^3.9.2",
         "concurrently": "^4.1.0",
         "electron": "^4.0.5",
         "electron-builder": "^20.38.5",

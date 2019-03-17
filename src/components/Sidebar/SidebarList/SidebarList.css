@@ -36,24 +36,14 @@
 
 .list-content {
     padding-top: 5px;
-    min-height: 100px;
-    max-height: 100px;
+    max-height: 140px;
     overflow: scroll;
-    animation: 3s set-oveflow-scroll;
-    transition: min-height 0.5s, max-height 0.5s;
+    transition: 0.5s;
 }
 
 .list-content-collapsed {
     padding-top: 5px;
-    min-height: 0;
     max-height: 0;
-    height: 0;
     overflow: hidden;
-    transition: min-height 0.5s, max-heigt 0.5s;
-}
-
-@keyframes set-oveflow-scroll {
-    from {
-        overflow: scroll;
-    }
+    transition: 0.5s;
 }

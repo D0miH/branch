@@ -25,7 +25,6 @@ export default class RepositoryStore {
         this.tags = tags !== null ? tags : [];
 
         let stashes = this.getStashes();
-        console.log(stashes);
         this.stashes = stashes !== null ? stashes : [];
     }
 

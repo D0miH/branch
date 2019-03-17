@@ -107,8 +107,10 @@ export default class Repository {
                 event.returnValue = null;
             }
 
-            // parse the result
-            event.returnValue = result.stdout.split("\n");
+            // parse the result and return all but the last line (because it is empty)
+            let lines = result.stdout.split("\n");
+            lines.splice(-1, 1);
+            event.returnValue = lines;
         });
     }
 
@@ -128,8 +130,6 @@ export default class Repository {
                 event.returnValue = null;
             }
 
-            console.log(result);
-
             // parse the result
             let lines = result.stdout.split("\n");
             lines.forEach((line: string, index: number) => {
@@ -138,7 +138,6 @@ export default class Repository {
             });
             lines.splice(-1, 1);
 
-            console.log(lines);
             event.returnValue = lines;
         });
     }

@@ -1,12 +1,12 @@
 import { BrowserWindow } from "electron";
-import Repo from "./git/repository";
+import Repository from "./git/repository";
 
 var browserWindow: BrowserWindow;
 
-let repo: Repo;
+let repo: Repository;
 
 export default function initGit(mainWindow: BrowserWindow) {
     browserWindow = mainWindow;
 
-    repo = new Repo();
+    repo = new Repository();
 }

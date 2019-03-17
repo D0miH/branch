@@ -1,5 +1,4 @@
 import { observable, action } from "mobx";
-import { ReturnObject } from "../../public/electron_modules/git/ReturnObject";
 
 export default class RepositoryStore {
     @observable currentRepoName: string = "";
@@ -11,14 +10,16 @@ export default class RepositoryStore {
 
     @action openRepo(repoPath: string) {
         // open the repo
-        let repoName: ReturnObject = window.ipcRenderer.sendSync("open-repo", repoPath);
+        let result: ReturnObject = window.ipcRenderer.sendSync("open-repo", repoPath);
 
-        if (repoName.errorCode !== 0) {
-            console.log("no git repo");
+        if (result === null) {
+            console.log("user cancelled the open dialog");
+        } else if (result.errorCode !== 0) {
+            console.error(`An error occurred while opening the repository (Error code ${result.errorCode})`);
             return;
         }
 
-        this.currentRepoName = repoName.value as string;
+        this.currentRepoName = result.value as string;
 
         this.localBranches = this.getLocalBranches();
         this.remoteBranches = this.getRemoteBranches();

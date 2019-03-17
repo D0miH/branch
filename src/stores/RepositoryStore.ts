@@ -12,7 +12,8 @@ export default class RepositoryStore {
         // open the repo
         let repoName = window.ipcRenderer.sendSync("open-repo", repoPath);
         if (repoName === null) {
-            // the user cancelled the dialog
+            // the user cancelled the dialog or there was no git repo found
+            console.log("no git repo");
             return;
         }
 

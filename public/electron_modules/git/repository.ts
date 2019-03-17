@@ -6,8 +6,7 @@ export default class Repository {
     pathToRepo: string = null;
 
     constructor() {
-        let addListenerFunc = addIpcListener.bind(this);
-        addListenerFunc();
+        addIpcListener.bind(this)();
     }
 
     /**
@@ -18,44 +17,58 @@ export default class Repository {
     async openRepo(event: IpcMessageEvent, repoPath: string): Promise<void> {
         this.pathToRepo = repoPath;
 
-        event.returnValue = await this.getRepoName();
+        this.getRepoName(event);
     }
 
     /**
-     * Gets the name of the repository.
+     * Gets the name of the repository. If there was no repository found the function returns null.
      */
-    async getRepoName(): Promise<string> {
+    async getRepoName(event: IpcMessageEvent) {
         if (this.pathToRepo === null) {
             event.returnValue = null;
+            return;
         }
 
-        return GitProcess.exec(
+        GitProcess.exec(
             ["config", "--get", "remote.origin.url"],
             this.pathToRepo
         ).then(result => {
             if (result.exitCode !== 0) {
-                console.log(GitProcess.parseError(result.stderr));
+                let err = GitProcess.parseError(result.stderr);
+                console.log(err);
+
+                // if there was no git repo found reset the path to null
+                if (err === 28) {
+                    this.pathToRepo = null;
+                }
+
+                // if there was an error just return null
+                event.returnValue = null;
+                return;
             }
 
             let url: string[] = result.stdout.split("/");
 
             // get the last *.git element and remove the .git
-            return url[url.length - 1].split(".")[0];
+            event.returnValue = url[url.length - 1].split(".")[0];
         });
     }
 
     /**
-     * Returns all the local branches of the repository.
+     * Returns all the local branches of the repository. If an error occurred the function returns null.
      * @param event The given event in which return value is set.
      */
     async getLocalBranches(event: IpcMessageEvent) {
         if (this.pathToRepo === null) {
             event.returnValue = null;
+            return;
         }
 
         GitProcess.exec(["branch"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 console.log(GitProcess.parseError(result.stderr));
+                event.returnValue = null;
+                return;
             }
 
             // parse the result by removeing the asterix and then the all spaces
@@ -70,17 +83,20 @@ export default class Repository {
     }
 
     /**
-     * Returns all the remote branches of the repository.
+     * Returns all the remote branches of the repository. If an error occurred the function returns null.
      * @param event The given event in which return value is set.
      */
     async getRemoteBranches(event: IpcMessageEvent) {
         if (this.pathToRepo === null) {
             event.returnValue = null;
+            return;
         }
 
         GitProcess.exec(["branch", "-r"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 console.log(GitProcess.parseError(result.stderr));
+                event.returnValue = null;
+                return;
             }
 
             // parse the result and remove the last since this will be an empty string
@@ -92,17 +108,20 @@ export default class Repository {
     }
 
     /**
-     * Returns all tags of the repository.
+     * Returns all tags of the repository. If an error occurred or there were no tags found, the function returns null.
      * @param event The given event in which the return value is set.
      */
     async getTags(event: IpcMessageEvent) {
         if (this.pathToRepo === null) {
             event.returnValue = null;
+            return;
         }
 
         GitProcess.exec(["tag"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 console.log(GitProcess.parseError(result.stderr));
+                event.returnValue = null;
+                return;
             } else if (result.stdout === "") {
                 event.returnValue = null;
             }
@@ -121,13 +140,17 @@ export default class Repository {
     async getStashes(event: IpcMessageEvent) {
         if (this.pathToRepo === null) {
             event.returnValue = null;
+            return;
         }
 
         GitProcess.exec(["stash", "list"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 console.log(GitProcess.parseError(result.stderr));
+                event.returnValue = null;
+                return;
             } else if (result.stdout === "") {
                 event.returnValue = null;
+                return;
             }
 
             // parse the result

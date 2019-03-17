@@ -4,7 +4,7 @@ export default class RepositoryStore {
     @observable currentRepoName: string = "";
 
     @observable localBranches: string[] = [];
-    @observable remotes: string[] = [];
+    @observable remoteBranches: string[] = [];
     @observable tags: string[] = [];
 
     @action openRepo(repoPath: string) {
@@ -12,29 +12,22 @@ export default class RepositoryStore {
         let repoName = window.ipcRenderer.sendSync("open-repo", repoPath);
         this.currentRepoName = repoName;
 
-        this.getLocalBranches();
-        this.getRemoteBranches();
-        this.getTags();
+        this.localBranches = this.getLocalBranches();
+        this.remoteBranches = this.getRemoteBranches();
+        this.tags = this.getTags();
     }
 
-    @action getLocalBranches() {
+    getLocalBranches(): string[] {
         // get all the local branches
-        let branches: string[] = window.ipcRenderer.sendSync(
-            "get-local-branches"
-        );
-        console.log(branches);
+        return window.ipcRenderer.sendSync("get-local-branches");
     }
 
-    @action getRemoteBranches() {
+    getRemoteBranches(): string[] {
         // get all the remote branches
-        let branches: string[] = window.ipcRenderer.sendSync(
-            "get-remote-branches"
-        );
-        console.log(branches);
+        return window.ipcRenderer.sendSync("get-remote-branches");
     }
 
-    @action getTags() {
-        let tags: string[] = window.ipcRenderer.sendSync("get-tags");
-        console.log(tags);
+    getTags(): string[] {
+        return window.ipcRenderer.sendSync("get-tags");
     }
 }

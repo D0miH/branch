@@ -101,6 +101,10 @@ export default class Repository {
         }
 
         GitProcess.exec(["tag"], this.pathToRepo).then(result => {
+            if (result.stdout === "") {
+                event.returnValue = null;
+            }
+
             if (result.exitCode !== 0) {
                 console.log(GitProcess.parseError(result.stderr));
             }

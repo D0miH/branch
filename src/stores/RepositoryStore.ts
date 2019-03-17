@@ -14,7 +14,9 @@ export default class RepositoryStore {
 
         this.localBranches = this.getLocalBranches();
         this.remoteBranches = this.getRemoteBranches();
-        this.tags = this.getTags();
+
+        let tags = this.getTags();
+        this.tags = tags !== null ? tags : [];
     }
 
     getLocalBranches(): string[] {

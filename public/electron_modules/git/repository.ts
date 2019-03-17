@@ -1,12 +1,12 @@
 import { GitProcess } from "dugite";
 import { ipcMain, IpcMessageEvent } from "electron";
-import { createInterface } from "readline";
+import { ReturnObject, ErrorCode } from "./ReturnObject";
 
 export default class Repository {
-    pathToRepo: string = null;
+    pathToRepo: string | null = null;
 
     constructor() {
-        addIpcListener.bind(this)();
+        addIpcListener(this);
     }
 
     /**
@@ -25,14 +25,11 @@ export default class Repository {
      */
     async getRepoName(event: IpcMessageEvent) {
         if (this.pathToRepo === null) {
-            event.returnValue = null;
+            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
             return;
         }
 
-        GitProcess.exec(
-            ["config", "--get", "remote.origin.url"],
-            this.pathToRepo
-        ).then(result => {
+        GitProcess.exec(["config", "--get", "remote.origin.url"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 let err = GitProcess.parseError(result.stderr);
                 console.log(err);
@@ -40,17 +37,18 @@ export default class Repository {
                 // if there was no git repo found reset the path to null
                 if (err === 28) {
                     this.pathToRepo = null;
+                    event.returnValue = new ReturnObject("", ErrorCode.GitNotFound);
                 }
 
-                // if there was an error just return null
-                event.returnValue = null;
+                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
                 return;
             }
 
             let url: string[] = result.stdout.split("/");
 
             // get the last *.git element and remove the .git
-            event.returnValue = url[url.length - 1].split(".")[0];
+            let resultValue = url[url.length - 1].split(".")[0];
+            event.returnValue = new ReturnObject(resultValue);
         });
     }
 
@@ -60,14 +58,14 @@ export default class Repository {
      */
     async getLocalBranches(event: IpcMessageEvent) {
         if (this.pathToRepo === null) {
-            event.returnValue = null;
+            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
             return;
         }
 
         GitProcess.exec(["branch"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 console.log(GitProcess.parseError(result.stderr));
-                event.returnValue = null;
+                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
                 return;
             }
 
@@ -78,7 +76,7 @@ export default class Repository {
                 .split("\n");
             // remove the last since this will be an empty string
             parsedResult.splice(-1, 1);
-            event.returnValue = parsedResult;
+            event.returnValue = new ReturnObject(parsedResult);
         });
     }
 
@@ -88,14 +86,14 @@ export default class Repository {
      */
     async getRemoteBranches(event: IpcMessageEvent) {
         if (this.pathToRepo === null) {
-            event.returnValue = null;
+            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
             return;
         }
 
         GitProcess.exec(["branch", "-r"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 console.log(GitProcess.parseError(result.stderr));
-                event.returnValue = null;
+                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
                 return;
             }
 
@@ -103,7 +101,7 @@ export default class Repository {
             let parsedResult = result.stdout.replace(/ /g, "").split("\n");
             parsedResult.splice(-1, 1);
             // remove the first element since this is the HEAD
-            event.returnValue = parsedResult.slice(1);
+            event.returnValue = new ReturnObject(parsedResult.slice(1));
         });
     }
 
@@ -113,23 +111,25 @@ export default class Repository {
      */
     async getTags(event: IpcMessageEvent) {
         if (this.pathToRepo === null) {
-            event.returnValue = null;
+            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
             return;
         }
 
         GitProcess.exec(["tag"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 console.log(GitProcess.parseError(result.stderr));
-                event.returnValue = null;
+                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
                 return;
             } else if (result.stdout === "") {
-                event.returnValue = null;
+                // if no tags were found just return an empty string array
+                let returnValue: string[] = [];
+                event.returnValue = new ReturnObject(returnValue);
             }
 
             // parse the result and return all but the last line (because it is empty)
             let lines = result.stdout.split("\n");
             lines.splice(-1, 1);
-            event.returnValue = lines;
+            event.returnValue = new ReturnObject(lines);
         });
     }
 
@@ -139,17 +139,19 @@ export default class Repository {
      */
     async getStashes(event: IpcMessageEvent) {
         if (this.pathToRepo === null) {
-            event.returnValue = null;
+            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
             return;
         }
 
         GitProcess.exec(["stash", "list"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 console.log(GitProcess.parseError(result.stderr));
-                event.returnValue = null;
+                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
                 return;
             } else if (result.stdout === "") {
-                event.returnValue = null;
+                // if no stashes were found just return an empty array
+                let returnValue: string[] = [];
+                event.returnValue = new ReturnObject(returnValue);
                 return;
             }
 
@@ -161,27 +163,19 @@ export default class Repository {
             });
             lines.splice(-1, 1);
 
-            event.returnValue = lines;
+            event.returnValue = new ReturnObject(lines);
         });
     }
 }
 
-function addIpcListener() {
-    ipcMain.on("open-repo", (event: IpcMessageEvent, repoPath: string) =>
-        this.openRepo(event, repoPath)
-    );
+function addIpcListener(repo: Repository) {
+    ipcMain.on("open-repo", (event: IpcMessageEvent, repoPath: string) => repo.openRepo(event, repoPath));
 
-    ipcMain.on("get-local-branches", (event: IpcMessageEvent) =>
-        this.getLocalBranches(event)
-    );
+    ipcMain.on("get-local-branches", (event: IpcMessageEvent) => repo.getLocalBranches(event));
 
-    ipcMain.on("get-remote-branches", (event: IpcMessageEvent) =>
-        this.getRemoteBranches(event)
-    );
+    ipcMain.on("get-remote-branches", (event: IpcMessageEvent) => repo.getRemoteBranches(event));
 
-    ipcMain.on("get-tags", (event: IpcMessageEvent) => this.getTags(event));
+    ipcMain.on("get-tags", (event: IpcMessageEvent) => repo.getTags(event));
 
-    ipcMain.on("get-stashes", (event: IpcMessageEvent) =>
-        this.getStashes(event)
-    );
+    ipcMain.on("get-stashes", (event: IpcMessageEvent) => repo.getStashes(event));
 }

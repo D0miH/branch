@@ -3,6 +3,7 @@
     height: 25px;
 }
 .sidebar-list-item span {
+    height: 25px;
     font-size: 11pt;
 }
 .sidebar-list-item :hover {
@@ -11,4 +12,9 @@
 
 .sidebar-list-button {
     padding-left: 25px;
+    height: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--ui-font-color);
 }

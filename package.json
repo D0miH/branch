@@ -26,6 +26,16 @@
         "not op_mini all"
     ],
     "dependencies": {
+        "classnames": "^2.2.6",
+        "electron-is-dev": "^1.0.1",
+        "mobx": "^5.9.0",
+        "mobx-react": "^5.4.3",
+        "react": "^16.8.3",
+        "react-dom": "^16.8.3",
+        "react-scripts": "2.1.5",
+        "tslint": "^5.13.1"
+    },
+    "devDependencies": {
         "@githubprimer/octicons-react": "^8.5.0",
         "@material-ui/core": "^3.9.2",
         "@material-ui/icons": "^3.0.2",
@@ -35,17 +45,6 @@
         "@types/node": "^11.9.5",
         "@types/react": "^16.8.5",
         "@types/react-dom": "^16.8.2",
-        "classnames": "^2.2.6",
-        "electron-is-dev": "^1.0.1",
-        "mobx": "^5.9.0",
-        "mobx-react": "^5.4.3",
-        "nodegit": "^0.24.1",
-        "react": "^16.8.3",
-        "react-dom": "^16.8.3",
-        "react-scripts": "2.1.5",
-        "tslint": "^5.13.1"
-    },
-    "devDependencies": {
         "@types/nodegit": "^0.24.4",
         "concurrently": "^4.1.0",
         "electron": "^4.0.5",

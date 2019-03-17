@@ -12,13 +12,6 @@ export default class RepositoryStore {
         // open the repo
         let repoName = window.ipcRenderer.sendSync("open-repo", repoPath);
         this.currentRepoName = repoName;
-
-        // get all the local branches
-        this.getLocalBranches();
-        // get all the remote branches
-        this.getRemoteBranches();
-        // get all the tags
-        this.getTags();
     }
 
     @action getLocalBranches() {

@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "mobx-react";
+import { ToastContainer } from "react-toastify";
 import * as serviceWorker from "./serviceWorker";
 
 import App from "./components/App";
 import { ToolbarStore, RepositoryStore } from "./stores";
 
 import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const stores = {
     toolbarStore: new ToolbarStore(),
@@ -15,7 +17,10 @@ const stores = {
 
 ReactDOM.render(
     <Provider stores={stores}>
-        <App />
+        <div>
+            <App />
+            <ToastContainer />
+        </div>
     </Provider>,
     document.getElementById("root")
 );

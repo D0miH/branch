@@ -1,5 +1,4 @@
 import { observable, action } from "mobx";
-import { getPackedSettings } from "http2";
 
 export default class RepositoryStore {
     @observable currentRepoName: string = "";
@@ -12,6 +11,10 @@ export default class RepositoryStore {
         // open the repo
         let repoName = window.ipcRenderer.sendSync("open-repo", repoPath);
         this.currentRepoName = repoName;
+
+        this.getLocalBranches();
+        this.getRemoteBranches();
+        this.getTags();
     }
 
     @action getLocalBranches() {

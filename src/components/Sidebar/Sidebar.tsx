@@ -26,26 +26,10 @@ class Sidebar extends React.Component {
         return (
             <div className="sidebar">
                 <FilterBar />
-                <SidebarList
-                    icon={GitBranch}
-                    text="Branches"
-                    listItems={this.injected.repoStore.localBranches}
-                />
-                <SidebarList
-                    icon={CloudOutlined}
-                    text="Remotes"
-                    listItems={this.injected.repoStore.remoteBranches}
-                />
-                <SidebarList
-                    icon={Tag}
-                    text="Tags"
-                    listItems={this.injected.repoStore.tags}
-                />
-                <SidebarList
-                    icon={Inbox}
-                    text="Stashes"
-                    listItems={this.injected.repoStore.stashes}
-                />
+                <SidebarList icon={GitBranch} text="Branches" listItems={this.injected.repoStore.localBranches} />
+                <SidebarList icon={CloudOutlined} text="Remotes" listItems={this.injected.repoStore.remoteBranches} />
+                <SidebarList icon={Tag} text="Tags" listItems={this.injected.repoStore.tags} />
+                <SidebarList icon={Inbox} text="Stashes" listItems={this.injected.repoStore.stashes} />
             </div>
         );
     }

@@ -1,9 +1,5 @@
 import React from "react";
-import Octicon, {
-    Icon,
-    ChevronDown,
-    ChevronLeft
-} from "@githubprimer/octicons-react";
+import Octicon, { Icon, ChevronDown, ChevronLeft } from "@githubprimer/octicons-react";
 import classnames from "classnames";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
 import "./SidebarList.css";
@@ -37,9 +33,7 @@ class SidebarList extends React.Component<Props, State> {
     }
 
     renderList() {
-        return this.props.listItems.map(listItem => (
-            <ListItem label={listItem} key={listItem} />
-        ));
+        return this.props.listItems.map(listItem => <ListItem label={listItem} key={listItem} />);
     }
 
     render() {
@@ -61,15 +55,8 @@ class SidebarList extends React.Component<Props, State> {
                         {this.props.text}
                     </div>
                     <div className="right-heading">
-                        {this.props.listItems.length}/
-                        {this.props.listItems.length}
-                        <Octicon
-                            icon={
-                                this.state.listIsCollapsed
-                                    ? ChevronLeft
-                                    : ChevronDown
-                            }
-                        />
+                        {this.props.listItems.length}/{this.props.listItems.length}
+                        <Octicon icon={this.state.listIsCollapsed ? ChevronLeft : ChevronDown} />
                     </div>
                 </div>
 

@@ -23,17 +23,13 @@ class RepoListDropDown extends React.Component<ExternalProps> {
     }
 
     openRepoList() {
-        this.injected.toolbarStore.repoListVisible = !this.injected.toolbarStore
-            .repoListVisible;
+        this.injected.toolbarStore.repoListVisible = !this.injected.toolbarStore.repoListVisible;
         console.log("Repo list button was clicked");
     }
 
     render() {
         return (
-            <div
-                className="repo-list-drop-down"
-                onClick={() => this.openRepoList()}
-            >
+            <div className="repo-list-drop-down" onClick={() => this.openRepoList()}>
                 <div className="repo-list-button">
                     <span>{this.props.repoName}</span>
                 </div>

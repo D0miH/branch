@@ -1,45 +1,45 @@
 stages:
-    - test
-	- build
-	- deploy
-		if: branch = master
+  - test
+  - build
+  - deploy
+      if: branch = master
 
 jobs: 
-	include:
-		- stage: test
-		  script: yarn test		  
+  include:
+    - stage: test
+      script: yarn test		  
 
 matrix:
     include:
         - stage: build
-		  name: "OSX Build"
+      name: "OSX Build"
           os: osx
           osx_image: xcode10.1
           language: node_js
           node_js: "10"
           env:
               - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
-		  script: bash buildRelease.sh
+      script: bash buildRelease.sh
 
         - stage: build
-		  name: "Linux Build"
+      name: "Linux Build"
           os: osx
           osx_image: xcode10.1
           language: node_js
           node_js: "10"
           env:
               - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="linux"
-		  script: bash buildRelease.sh
+      script: bash buildRelease.sh
 
         - stage: build
-		  name: "Windows Build"
+      name: "Windows Build"
           os: osx
           osx_image: xcode10.1
           language: node_js
           node_js: "10"
           env:
               - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="win"
-		  script: bash buildRelease.sh
+      script: bash buildRelease.sh
 
 cache:
     yarn: true

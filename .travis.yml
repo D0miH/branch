@@ -1,16 +1,17 @@
 stages:
-    - name: tests
+    - name: test
     - name: deploy
+      if: branch = master
 
 jobs:
     include:
-        - stage: tests
+        - stage: test
           name: "Jest Tests"
           os: osx
           osx_image: xcode10.1
           language: node_js
           node_js: "10"
-          script: yarn test
+          script: yarn test && yarn test:coverage
         - stage: deploy
           name: "OSX"
           os: osx
@@ -28,6 +29,7 @@ jobs:
                 file: "./dist/Branch-*.dmg"
                 skip_cleanup: true
                 on:
+                    tags: true
                     repo: D0miH/branch
         - stage: deploy
           name: "Linux"
@@ -46,6 +48,7 @@ jobs:
                 file: "./dist/branch_*.deb"
                 skip_cleanup: true
                 on:
+                    tags: true
                     repo: D0miH/branch
         - stage: deploy
           name: "Windows Build"
@@ -63,6 +66,7 @@ jobs:
                 file: "./dist/Branch*.exe"
                 skip_cleanup: true
                 on:
+                    tags: true
                     repo: D0miH/branch
 
 before_cache:

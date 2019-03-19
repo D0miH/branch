@@ -1,28 +1,81 @@
-matrix:
-    include:
-        - name: "OSX Build"
-          os: osx
-          osx_image: xcode10.1
-          language: node_js
-          node_js: "10"
-          env: 
-            - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
+addons:
+    homebrew:
+        packages:
+            - rename
 
-        - name: "Linux Build"
+stages:
+    - name: test
+    - name: deploy
+      if: branch = master
+
+jobs:
+    include:
+        - stage: test
+          name: "Jest Tests"
           os: osx
           osx_image: xcode10.1
           language: node_js
           node_js: "10"
-          env: 
-            - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="linux"
-        
-        - name: "Windows Build"
+          script: yarn test
+        - stage: deploy
+          name: "OSX"
           os: osx
           osx_image: xcode10.1
           language: node_js
           node_js: "10"
-          env: 
-            - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="win"
+          script: bash buildRelease.sh
+          env:
+              - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
+          deploy:
+              - provider: releases
+                api_key:
+                    secure: ZIquTH9wBMZDh6YgF/A2oe3VOxFmYXK0lW+uR09i5hVFdmlV+ghP7xmQuxpZ0SAlXoKmzSQURP1qhxYgWsf33c7dV3YzlWrGedrAQv5W/arG9nt2IWAo/qqeIV+gsxmJXc5dud1kBXtt+PZsW4cJkJvXkjhEDe1DvO9Al8/N+ODryYDUMNC3MQS72H1Heu4+T/t9E9tTTmX4I9RS12DPBpXnta1ZfRKwB67C1+W5fClDFgs65PTV5Ja38IVEGsu6E0kIgpzPzoLF9PAgf+YsglCK0hObXSw3Jiiq1iveG2/maJ5t9XkUgFlQQqa/sfQ4DGpeEqZkSaPW3p4yL0rguRgefEgKgsX+CNo5VO9aZkTlS21HOXnwpklFQQJO/TOxQdu1sHQwU5eFGfcfWC9zlvE+pSzAfcmCW9w5gnuWBXnarSJ2l53uwSak++6rXChQ7cUY29GidJ/fIPy4l/IhRso6WcL6AEbNHD5WocF+ttOkyMtZuXx3v8ZaQfPZ3ZS+JFm0YeArkpJ40mZne4laesRb+wWsNA420NeCxP+a4Tupxs29vt1PllYPZ183Hq0/VmopfcZt2+XJCeyyPSXcVEw2iAFQ92gBvkU6B7llNR0Eh6KtofQCMP+R1RG5HZPEZR7rC1nPG3c1t6kcH5pae/wEjlc50U3ksnh9BIetxzY=
+                file_glob: true
+                file: "./dist/Branch-*.dmg"
+                skip_cleanup: true
+                on:
+                    tags: true
+                    repo: D0miH/branch
+        - stage: deploy
+          name: "Linux"
+          os: osx
+          osx_image: xcode10.1
+          language: node_js
+          node_js: "10"
+          script: bash buildRelease.sh
+          env:
+              - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="linux"
+          deploy:
+              - provider: releases
+                api_key:
+                    secure: ZIquTH9wBMZDh6YgF/A2oe3VOxFmYXK0lW+uR09i5hVFdmlV+ghP7xmQuxpZ0SAlXoKmzSQURP1qhxYgWsf33c7dV3YzlWrGedrAQv5W/arG9nt2IWAo/qqeIV+gsxmJXc5dud1kBXtt+PZsW4cJkJvXkjhEDe1DvO9Al8/N+ODryYDUMNC3MQS72H1Heu4+T/t9E9tTTmX4I9RS12DPBpXnta1ZfRKwB67C1+W5fClDFgs65PTV5Ja38IVEGsu6E0kIgpzPzoLF9PAgf+YsglCK0hObXSw3Jiiq1iveG2/maJ5t9XkUgFlQQqa/sfQ4DGpeEqZkSaPW3p4yL0rguRgefEgKgsX+CNo5VO9aZkTlS21HOXnwpklFQQJO/TOxQdu1sHQwU5eFGfcfWC9zlvE+pSzAfcmCW9w5gnuWBXnarSJ2l53uwSak++6rXChQ7cUY29GidJ/fIPy4l/IhRso6WcL6AEbNHD5WocF+ttOkyMtZuXx3v8ZaQfPZ3ZS+JFm0YeArkpJ40mZne4laesRb+wWsNA420NeCxP+a4Tupxs29vt1PllYPZ183Hq0/VmopfcZt2+XJCeyyPSXcVEw2iAFQ92gBvkU6B7llNR0Eh6KtofQCMP+R1RG5HZPEZR7rC1nPG3c1t6kcH5pae/wEjlc50U3ksnh9BIetxzY=
+                file_glob: true
+                file: "./dist/branch_*.deb"
+                skip_cleanup: true
+                on:
+                    tags: true
+                    repo: D0miH/branch
+        - stage: deploy
+          name: "Windows Build"
+          os: osx
+          osx_image: xcode10.1
+          language: node_js
+          node_js: "10"
+          env:
+              - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="win"
+          deploy:
+              - provider: releases
+                api_key:
+                    secure: ZIquTH9wBMZDh6YgF/A2oe3VOxFmYXK0lW+uR09i5hVFdmlV+ghP7xmQuxpZ0SAlXoKmzSQURP1qhxYgWsf33c7dV3YzlWrGedrAQv5W/arG9nt2IWAo/qqeIV+gsxmJXc5dud1kBXtt+PZsW4cJkJvXkjhEDe1DvO9Al8/N+ODryYDUMNC3MQS72H1Heu4+T/t9E9tTTmX4I9RS12DPBpXnta1ZfRKwB67C1+W5fClDFgs65PTV5Ja38IVEGsu6E0kIgpzPzoLF9PAgf+YsglCK0hObXSw3Jiiq1iveG2/maJ5t9XkUgFlQQqa/sfQ4DGpeEqZkSaPW3p4yL0rguRgefEgKgsX+CNo5VO9aZkTlS21HOXnwpklFQQJO/TOxQdu1sHQwU5eFGfcfWC9zlvE+pSzAfcmCW9w5gnuWBXnarSJ2l53uwSak++6rXChQ7cUY29GidJ/fIPy4l/IhRso6WcL6AEbNHD5WocF+ttOkyMtZuXx3v8ZaQfPZ3ZS+JFm0YeArkpJ40mZne4laesRb+wWsNA420NeCxP+a4Tupxs29vt1PllYPZ183Hq0/VmopfcZt2+XJCeyyPSXcVEw2iAFQ92gBvkU6B7llNR0Eh6KtofQCMP+R1RG5HZPEZR7rC1nPG3c1t6kcH5pae/wEjlc50U3ksnh9BIetxzY=
+                file_glob: true
+                file: "./dist/Branch*.exe"
+                skip_cleanup: true
+                on:
+                    tags: true
+                    repo: D0miH/branch
+
+before_cache:
+    - rm -rf $HOME/.cache/electron-builder/wine
 
 cache:
     yarn: true
@@ -30,42 +83,3 @@ cache:
         - node_modules
         - "$HOME/.cache/electron"
         - "$HOME/.cache/electron-builder"
-
-script: bash buildRelease.sh
-
-before_cache:
-    - rm -rf $HOME/.cache/electron-builder/wine
-
-deploy:
-    - provider: releases
-      api_key:
-        secure: ZIquTH9wBMZDh6YgF/A2oe3VOxFmYXK0lW+uR09i5hVFdmlV+ghP7xmQuxpZ0SAlXoKmzSQURP1qhxYgWsf33c7dV3YzlWrGedrAQv5W/arG9nt2IWAo/qqeIV+gsxmJXc5dud1kBXtt+PZsW4cJkJvXkjhEDe1DvO9Al8/N+ODryYDUMNC3MQS72H1Heu4+T/t9E9tTTmX4I9RS12DPBpXnta1ZfRKwB67C1+W5fClDFgs65PTV5Ja38IVEGsu6E0kIgpzPzoLF9PAgf+YsglCK0hObXSw3Jiiq1iveG2/maJ5t9XkUgFlQQqa/sfQ4DGpeEqZkSaPW3p4yL0rguRgefEgKgsX+CNo5VO9aZkTlS21HOXnwpklFQQJO/TOxQdu1sHQwU5eFGfcfWC9zlvE+pSzAfcmCW9w5gnuWBXnarSJ2l53uwSak++6rXChQ7cUY29GidJ/fIPy4l/IhRso6WcL6AEbNHD5WocF+ttOkyMtZuXx3v8ZaQfPZ3ZS+JFm0YeArkpJ40mZne4laesRb+wWsNA420NeCxP+a4Tupxs29vt1PllYPZ183Hq0/VmopfcZt2+XJCeyyPSXcVEw2iAFQ92gBvkU6B7llNR0Eh6KtofQCMP+R1RG5HZPEZR7rC1nPG3c1t6kcH5pae/wEjlc50U3ksnh9BIetxzY=
-      file_glob: true
-      file: './dist/Branch-*.dmg'
-      skip_cleanup: true
-      on:
-        condition: $TARGET_OS = osx
-        tags: true
-        repo: D0miH/branch
-    
-    - provider: releases
-      api_key:
-        secure: ZIquTH9wBMZDh6YgF/A2oe3VOxFmYXK0lW+uR09i5hVFdmlV+ghP7xmQuxpZ0SAlXoKmzSQURP1qhxYgWsf33c7dV3YzlWrGedrAQv5W/arG9nt2IWAo/qqeIV+gsxmJXc5dud1kBXtt+PZsW4cJkJvXkjhEDe1DvO9Al8/N+ODryYDUMNC3MQS72H1Heu4+T/t9E9tTTmX4I9RS12DPBpXnta1ZfRKwB67C1+W5fClDFgs65PTV5Ja38IVEGsu6E0kIgpzPzoLF9PAgf+YsglCK0hObXSw3Jiiq1iveG2/maJ5t9XkUgFlQQqa/sfQ4DGpeEqZkSaPW3p4yL0rguRgefEgKgsX+CNo5VO9aZkTlS21HOXnwpklFQQJO/TOxQdu1sHQwU5eFGfcfWC9zlvE+pSzAfcmCW9w5gnuWBXnarSJ2l53uwSak++6rXChQ7cUY29GidJ/fIPy4l/IhRso6WcL6AEbNHD5WocF+ttOkyMtZuXx3v8ZaQfPZ3ZS+JFm0YeArkpJ40mZne4laesRb+wWsNA420NeCxP+a4Tupxs29vt1PllYPZ183Hq0/VmopfcZt2+XJCeyyPSXcVEw2iAFQ92gBvkU6B7llNR0Eh6KtofQCMP+R1RG5HZPEZR7rC1nPG3c1t6kcH5pae/wEjlc50U3ksnh9BIetxzY=
-      file_glob: true
-      file: './dist/Branch*.exe'
-      skip_cleanup: true
-      on:
-        condition: $TARGET_OS = win
-        tags: true
-        repo: D0miH/branch
-
-    - provider: releases
-      api_key:
-        secure: ZIquTH9wBMZDh6YgF/A2oe3VOxFmYXK0lW+uR09i5hVFdmlV+ghP7xmQuxpZ0SAlXoKmzSQURP1qhxYgWsf33c7dV3YzlWrGedrAQv5W/arG9nt2IWAo/qqeIV+gsxmJXc5dud1kBXtt+PZsW4cJkJvXkjhEDe1DvO9Al8/N+ODryYDUMNC3MQS72H1Heu4+T/t9E9tTTmX4I9RS12DPBpXnta1ZfRKwB67C1+W5fClDFgs65PTV5Ja38IVEGsu6E0kIgpzPzoLF9PAgf+YsglCK0hObXSw3Jiiq1iveG2/maJ5t9XkUgFlQQqa/sfQ4DGpeEqZkSaPW3p4yL0rguRgefEgKgsX+CNo5VO9aZkTlS21HOXnwpklFQQJO/TOxQdu1sHQwU5eFGfcfWC9zlvE+pSzAfcmCW9w5gnuWBXnarSJ2l53uwSak++6rXChQ7cUY29GidJ/fIPy4l/IhRso6WcL6AEbNHD5WocF+ttOkyMtZuXx3v8ZaQfPZ3ZS+JFm0YeArkpJ40mZne4laesRb+wWsNA420NeCxP+a4Tupxs29vt1PllYPZ183Hq0/VmopfcZt2+XJCeyyPSXcVEw2iAFQ92gBvkU6B7llNR0Eh6KtofQCMP+R1RG5HZPEZR7rC1nPG3c1t6kcH5pae/wEjlc50U3ksnh9BIetxzY=
-      file_glob: true
-      file: './dist/branch_*.deb'
-      skip_cleanup: true
-      on:
-        condition: $TARGET_OS = linux
-        tags: true
-        repo: D0miH/branch

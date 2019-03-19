@@ -1,19 +1,16 @@
 import React from "react";
-import Octicon, {
-    Icon,
-    ChevronDown,
-    ChevronLeft
-} from "@githubprimer/octicons-react";
+import Octicon, { Icon, ChevronDown, ChevronLeft } from "@githubprimer/octicons-react";
 import classnames from "classnames";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
 import "./SidebarList.css";
+import ListItem from "./SidebarListItem";
 
 type IconType = Icon | React.ComponentType<SvgIconProps>;
 
 type Props = {
     icon: IconType;
     text: String;
-    counter: number;
+    listItems: string[];
 };
 
 type State = {
@@ -24,7 +21,7 @@ class SidebarList extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        this.state = { listIsCollapsed: false };
+        this.state = { listIsCollapsed: true };
     }
 
     isOcticon(givenIcon: IconType): givenIcon is Icon {
@@ -33,6 +30,10 @@ class SidebarList extends React.Component<Props, State> {
 
     chevronClicked() {
         this.setState({ listIsCollapsed: !this.state.listIsCollapsed });
+    }
+
+    renderList() {
+        return this.props.listItems.map(listItem => <ListItem label={listItem} key={listItem} />);
     }
 
     render() {
@@ -54,14 +55,8 @@ class SidebarList extends React.Component<Props, State> {
                         {this.props.text}
                     </div>
                     <div className="right-heading">
-                        {this.props.counter}/0
-                        <Octicon
-                            icon={
-                                this.state.listIsCollapsed
-                                    ? ChevronLeft
-                                    : ChevronDown
-                            }
-                        />
+                        {this.props.listItems.length}/{this.props.listItems.length}
+                        <Octicon icon={this.state.listIsCollapsed ? ChevronLeft : ChevronDown} />
                     </div>
                 </div>
 
@@ -70,7 +65,9 @@ class SidebarList extends React.Component<Props, State> {
                         "list-content-collapsed": this.state.listIsCollapsed,
                         "list-content": !this.state.listIsCollapsed
                     })}
-                />
+                >
+                    {this.renderList()}
+                </div>
             </div>
         );
     }

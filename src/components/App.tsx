@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { observer } from "mobx-react";
 import Titlebar from "./Titlebar";
 import Toolbar from "./Toolbar/Toolbar";
 import Sidebar from "./Sidebar/Sidebar";

@@ -1,26 +1,44 @@
 stages:
     - name: tests
-    - name: bulid
+    - name: build
     - name: deploy
+      if: branch = master
 
 jobs:
     include:
         - stage: tests
+          name: "Jest Tests"
+          os: osx
+          osx_image: xcode10.1
+          language: node_js
+          node_js: "10"
+          script: yarn test
+        - stage: build
           name: "OSX"
           os: osx
           osx_image: xcode10.1
           language: node_js
           node_js: "10"
+          script: bash buildRelease.sh
           env:
               - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
-        - stage: tests
+        - stage: build
           name: "Linux"
           os: osx
           osx_image: xcode10.1
           language: node_js
           node_js: "10"
+          script: bash buildRelease.sh
           env:
               - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="linux"
+        - stage: build
+          name: "Windows Build"
+          os: osx
+          osx_image: xcode10.1
+          language: node_js
+          node_js: "10"
+          env:
+              - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="win"
 
 cache:
     yarn: true

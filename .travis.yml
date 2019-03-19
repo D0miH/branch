@@ -2,7 +2,6 @@ stages:
     - name: tests
     - name: build
     - name: deploy
-      if: branch = master
 
 jobs:
     include:

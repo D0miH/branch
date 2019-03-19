@@ -6,12 +6,21 @@ stages:
 jobs:
     include:
         - stage: tests
+          name: "OSX"
           os: osx
           osx_image: xcode10.1
           language: node_js
           node_js: "10"
           env:
               - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="osx"
+        - stage: tests
+          name: "Linux"
+          os: osx
+          osx_image: xcode10.1
+          language: node_js
+          node_js: "10"
+          env:
+              - ELECTRON_CACHE=$HOME/.cache/electron ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder TARGET_OS="linux"
 
 cache:
     yarn: true

@@ -46,7 +46,6 @@ jobs:
           file: case $TARGET_OS in osx) echo "./dist/Branch-*.dmg";; linux) echo "./dist/branch_*.deb";; win) echo "./dist/Branch*.exe";; esac
           skip_cleanup: true
           on:
-              tags: true
               repo: D0miH/branch
 
 before_cache:

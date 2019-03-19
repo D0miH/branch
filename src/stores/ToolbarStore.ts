@@ -1,7 +1,5 @@
 import { observable } from "mobx";
 
-class ToolbarStore {
+export default class ToolbarStore {
     @observable repoListVisible: boolean = false;
 }
-
-export default ToolbarStore;

@@ -26,9 +26,7 @@ class RepoList extends React.Component<ExternalProps> {
             <div
                 className="repository-list"
                 style={{
-                    display: this.injected.toolbarStore.repoListVisible
-                        ? "block"
-                        : "none"
+                    display: this.injected.toolbarStore.repoListVisible ? "block" : "none"
                 }}
             >
                 <AddRepoButton />

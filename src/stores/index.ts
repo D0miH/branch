@@ -1,2 +1,2 @@
-export { default as RepositoryStore } from "./RepositoryStore";
+export * from "./Git/index";
 export { default as ToolbarStore } from "./ToolbarStore";

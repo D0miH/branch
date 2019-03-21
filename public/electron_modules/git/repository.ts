@@ -1,12 +1,19 @@
 import { GitProcess } from "dugite";
 import { ipcMain, IpcMessageEvent } from "electron";
 import { ReturnObject, ErrorCode } from "./ReturnObject";
+import Branch from "./Branch";
 
 export default class Repository {
     pathToRepo: string | null = null;
 
+    // other git instances
+    branch: Branch;
+
     constructor() {
         addIpcListener(this);
+
+        // instantiate other git instances
+        this.branch = new Branch(this);
     }
 
     /**

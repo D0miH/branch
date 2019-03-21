@@ -19,3 +19,8 @@
     color: var(--ui-font-color);
     line-height: 25px;
 }
+
+.sidebar-list-button .octicon {
+    margin-left: -17px;
+    margin-right: 5px;
+}

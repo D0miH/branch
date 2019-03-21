@@ -11,6 +11,7 @@ type Props = {
     icon: IconType;
     text: String;
     listItems: string[];
+    highlightedItem?: string;
 };
 
 type State = {
@@ -33,7 +34,12 @@ class SidebarList extends React.Component<Props, State> {
     }
 
     renderList() {
-        return this.props.listItems.map(listItem => <ListItem label={listItem} key={listItem} />);
+        return this.props.listItems.map(listItem => {
+            if (this.props.highlightedItem !== undefined && listItem === this.props.highlightedItem) {
+                return <ListItem label={listItem} itemHighlighted={true} key={listItem} />;
+            }
+            return <ListItem label={listItem} key={listItem} />;
+        });
     }
 
     render() {

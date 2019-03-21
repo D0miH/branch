@@ -1,5 +1,6 @@
 import { observable, action } from "mobx";
 import { toast } from "react-toastify";
+import Commit from "./Commit";
 
 export default class RepositoryStore {
     @observable currentRepoName: string = "";
@@ -8,6 +9,7 @@ export default class RepositoryStore {
     @observable remoteBranches: string[] = [];
     @observable tags: string[] = [];
     @observable stashes: string[] = [];
+    @observable commitHistory: Commit[] = [];
 
     @action openRepo(repoPath: string) {
         // open the repo
@@ -39,6 +41,8 @@ export default class RepositoryStore {
         this.tags = this.getTags();
 
         this.stashes = this.getStashes();
+
+        this.commitHistory = window.ipcRenderer.sendSync("get-commit-history", "master");
     }
 
     getLocalBranches(): string[] {
@@ -87,5 +91,31 @@ export default class RepositoryStore {
         }
 
         return result.value as string[];
+    }
+
+    getCommitHistory(branchName: string): Commit[] {
+        let result: GitReturnObject = window.ipcRenderer.sendSync("get-commit-history", branchName);
+
+        if (result.errorCode !== 0) {
+            console.error(
+                `Error occurred while retrieving the tags of the repository (Error code: ${result.errorCode}) `
+            );
+            return [];
+        }
+
+        let commitHistory = result.value as {
+            hash: string;
+            author: string;
+            relativeAuthorDate: string;
+            commitTitle: string;
+        }[];
+        let returnArray: Commit[] = [];
+
+        // iterate the commit history and create a new commit for each
+        commitHistory.forEach(commit => {
+            returnArray.push(new Commit(commit.hash, commit.author, commit.relativeAuthorDate, commit.commitTitle));
+        });
+
+        return returnArray;
     }
 }

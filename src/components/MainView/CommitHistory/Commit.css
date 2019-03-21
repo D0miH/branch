@@ -1,0 +1,13 @@
+.commit {
+    width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+}
+.commit :hover {
+    background: var(--ui-button-hover-color);
+}
+
+.commit-content {
+    padding-left: 20px;
+    font-size: 14pt;
+}

@@ -2,6 +2,7 @@ import { GitProcess } from "dugite";
 import { ipcMain, IpcMessageEvent } from "electron";
 import { ReturnObject, ErrorCode } from "./ReturnObject";
 import Branch from "./Branch";
+import Commit from "./Commit";
 
 export default class Repository {
     pathToRepo: string | null = null;
@@ -205,12 +206,7 @@ export default class Repository {
             lines.forEach(line => {
                 let content = line.split("-");
 
-                commitObjects.push({
-                    hash: content[0],
-                    author: content[1],
-                    relativeAuthorDate: content[2],
-                    commitTitle: content[3]
-                });
+                commitObjects.push(new Commit(content[0], content[1], content[2], content[3]));
             });
 
             event.returnValue = new ReturnObject(commitObjects);

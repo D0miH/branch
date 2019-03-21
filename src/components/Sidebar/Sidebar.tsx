@@ -24,6 +24,8 @@ class Sidebar extends React.Component {
         return this.props as InjectedProps;
     }
 
+    onItemDoubleClick = () => {};
+
     render() {
         return (
             <div className="sidebar">
@@ -33,7 +35,7 @@ class Sidebar extends React.Component {
                     text="Branches"
                     listItems={this.injected.repoStore.localBranches}
                     highlightedItem={this.injected.branchStore.checkedOutBranch}
-                    onItemDoubleClick={() => console.log("double click")}
+                    onItemDoubleClick={this.onItemDoubleClick}
                 />
                 <SidebarList icon={CloudOutlined} text="Remotes" listItems={this.injected.repoStore.remoteBranches} />
                 <SidebarList icon={Tag} text="Tags" listItems={this.injected.repoStore.tags} />

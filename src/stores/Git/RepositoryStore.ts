@@ -1,6 +1,5 @@
 import { observable, action } from "mobx";
 import { toast } from "react-toastify";
-import Commit from "./Commit";
 
 export default class RepositoryStore {
     @observable currentRepoName: string = "";
@@ -9,7 +8,7 @@ export default class RepositoryStore {
     @observable remoteBranches: string[] = [];
     @observable tags: string[] = [];
     @observable stashes: string[] = [];
-    @observable commitHistory: Commit[] = [];
+    @observable commitHistory: GitCommit[] = [];
 
     @action openRepo(repoPath: string) {
         // open the repo
@@ -91,7 +90,7 @@ export default class RepositoryStore {
         return result.value as string[];
     }
 
-    getCommitHistory(branchName: string): Commit[] {
+    getCommitHistory(branchName: string): GitCommit[] {
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-commit-history", branchName);
 
         if (result.errorCode !== 0) {
@@ -99,19 +98,6 @@ export default class RepositoryStore {
             return [];
         }
 
-        let commitHistory = result.value as {
-            hash: string;
-            author: string;
-            relativeAuthorDate: string;
-            commitTitle: string;
-        }[];
-        let returnArray: Commit[] = [];
-
-        // iterate the commit history and create a new commit for each
-        commitHistory.forEach(commit => {
-            returnArray.push(new Commit(commit.hash, commit.author, commit.relativeAuthorDate, commit.commitTitle));
-        });
-
-        return returnArray;
+        return result.value;
     }
 }

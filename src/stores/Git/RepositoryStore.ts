@@ -97,9 +97,7 @@ export default class RepositoryStore {
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-commit-history", branchName);
 
         if (result.errorCode !== 0) {
-            console.error(
-                `Error occurred while retrieving the tags of the repository (Error code: ${result.errorCode}) `
-            );
+            console.error(`Error occurred while retrieving the commit history (Error code: ${result.errorCode}) `);
             return [];
         }
 

@@ -5,14 +5,15 @@ import { ToastContainer } from "react-toastify";
 import * as serviceWorker from "./serviceWorker";
 
 import App from "./components/App";
-import { ToolbarStore, RepositoryStore } from "./stores";
+import { ToolbarStore, RepositoryStore, BranchStore } from "./stores";
 
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 
 const stores = {
     toolbarStore: new ToolbarStore(),
-    repoStore: new RepositoryStore()
+    repoStore: new RepositoryStore(),
+    branchStore: new BranchStore()
 };
 
 ReactDOM.render(

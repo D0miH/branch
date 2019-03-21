@@ -33,6 +33,7 @@ class Sidebar extends React.Component {
                     text="Branches"
                     listItems={this.injected.repoStore.localBranches}
                     highlightedItem={this.injected.branchStore.checkedOutBranch}
+                    onItemDoubleClick={() => console.log("double click")}
                 />
                 <SidebarList icon={CloudOutlined} text="Remotes" listItems={this.injected.repoStore.remoteBranches} />
                 <SidebarList icon={Tag} text="Tags" listItems={this.injected.repoStore.tags} />

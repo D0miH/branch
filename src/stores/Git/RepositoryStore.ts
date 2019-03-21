@@ -15,9 +15,7 @@ export default class RepositoryStore {
         // open the repo
         let result: GitReturnObject = window.ipcRenderer.sendSync("open-repo", repoPath);
 
-        if (result === null) {
-            console.log("user cancelled the open dialog");
-        } else if (result.errorCode !== 0) {
+        if (result.errorCode !== 0) {
             if (result.errorCode === 2) {
                 // if no git repository was found notify the user about it
                 toast.error("No git repository found", {

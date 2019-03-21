@@ -26,13 +26,17 @@ class AddRepoButton extends React.Component {
     buttonClicked = () => {
         // open the repo and update the name
         let repoPath = window.ipcRenderer.sendSync("open-file-dialog");
-        this.injected.repoStore.openRepo(repoPath);
 
-        // get the currently checked out branch
-        this.injected.branchStore.getCheckedOutBranch();
+        // only open the repository if the repo path is not null (this is the case if the user cancelled the dialog).
+        if (repoPath !== null) {
+            this.injected.repoStore.openRepo(repoPath);
 
-        // close the repo list after opening the repo
-        this.injected.toolbarStore.repoListVisible = false;
+            // get the currently checked out branch
+            this.injected.branchStore.getCheckedOutBranch();
+
+            // close the repo list after opening the repo
+            this.injected.toolbarStore.repoListVisible = false;
+        }
     };
 
     render() {

@@ -14,5 +14,6 @@ export class ReturnObject {
 export enum ErrorCode {
     UnknownError = 1,
     GitNotFound = 2,
-    NoValidPathGiven = 3
+    NoValidPathGiven = 3,
+    LocalChangesPreventCheckout = 4
 }

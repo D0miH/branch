@@ -1,23 +1,14 @@
 import React from "react";
 import "./MainView.css";
-import { RepositoryStore } from "../../stores";
-import { inject, observer } from "mobx-react";
+import CommitList from "./CommitHistory/CommitList";
 
-interface InjectedProps {
-    repoStore: RepositoryStore;
-}
-
-@inject(({ stores }) => ({
-    repoStore: stores.repoStore
-}))
-@observer
 class MainView extends React.Component {
-    get injected() {
-        return this.props as InjectedProps;
-    }
-
     render() {
-        return <div className="main-view" />;
+        return (
+            <div className="main-view">
+                <CommitList />
+            </div>
+        );
     }
 }
 

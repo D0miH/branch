@@ -42,7 +42,7 @@ export default class RepositoryStore {
 
         this.stashes = this.getStashes();
 
-        this.commitHistory = window.ipcRenderer.sendSync("get-commit-history", "master");
+        this.commitHistory = this.getCommitHistory("master");
     }
 
     getLocalBranches(): string[] {

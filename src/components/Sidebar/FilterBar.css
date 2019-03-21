@@ -4,6 +4,9 @@
     height: 25px;
     background-color: var(--ui-accent-color);
     border-radius: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 
     display: flex;
     align-items: center;

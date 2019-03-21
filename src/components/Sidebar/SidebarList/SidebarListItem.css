@@ -11,10 +11,11 @@
 }
 
 .sidebar-list-button {
-    padding-left: 25px;
+    padding-left: 35px;
     height: 25px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: var(--ui-font-color);
+    line-height: 25px;
 }

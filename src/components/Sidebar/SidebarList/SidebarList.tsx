@@ -11,6 +11,8 @@ type Props = {
     icon: IconType;
     text: String;
     listItems: string[];
+    highlightedItem?: string;
+    onItemDoubleClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
 
 type State = {
@@ -33,7 +35,16 @@ class SidebarList extends React.Component<Props, State> {
     }
 
     renderList() {
-        return this.props.listItems.map(listItem => <ListItem label={listItem} key={listItem} />);
+        return this.props.listItems.map(listItem => {
+            return (
+                <ListItem
+                    label={listItem}
+                    key={listItem}
+                    onItemDoubleClick={this.props.onItemDoubleClick}
+                    itemHighlighted={this.props.highlightedItem === listItem ? true : false}
+                />
+            );
+        });
     }
 
     render() {

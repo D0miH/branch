@@ -6,9 +6,9 @@ import RepoListDropDown from "./RepoListDropDown/RepoListDropDown";
 import ToolbarButton from "./ToolbarButton";
 import Overlay from "./RepoListDropDown/Overlay";
 import RepoList from "./RepoListDropDown/RepoList/RepoList";
+import { RepositoryStore } from "../../stores/Git";
 
 import "./Toolbar.css";
-import { RepositoryStore } from "../../stores";
 
 interface ExternalProps {}
 

@@ -5,21 +5,25 @@ import { ToastContainer } from "react-toastify";
 import * as serviceWorker from "./serviceWorker";
 
 import App from "./components/App";
-import { ToolbarStore, RepositoryStore } from "./stores";
+import GitStore from "./stores/GitStore";
+import { ToolbarStore } from "./stores";
 
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 
+const gitStore = new GitStore();
+
 const stores = {
     toolbarStore: new ToolbarStore(),
-    repoStore: new RepositoryStore()
+    repoStore: gitStore.repoStore,
+    branchStore: gitStore.branchStore
 };
 
 ReactDOM.render(
     <Provider stores={stores}>
         <div>
             <App />
-            <ToastContainer />
+            <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={true} />
         </div>
     </Provider>,
     document.getElementById("root")

@@ -1,8 +1,8 @@
 export class ReturnObject {
     errorCode: ErrorCode = 0;
-    value: string | string[];
+    value: any;
 
-    constructor(value: string | string[], errorCode?: ErrorCode) {
+    constructor(value: any, errorCode?: ErrorCode) {
         this.value = value;
 
         if (errorCode !== undefined) {

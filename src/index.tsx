@@ -23,7 +23,7 @@ ReactDOM.render(
     <Provider stores={stores}>
         <div>
             <App />
-            <ToastContainer />
+            <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={true} />
         </div>
     </Provider>,
     document.getElementById("root")

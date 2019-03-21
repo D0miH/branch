@@ -24,7 +24,9 @@ class Sidebar extends React.Component {
         return this.props as InjectedProps;
     }
 
-    onItemDoubleClick = () => {};
+    onItemDoubleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        this.injected.branchStore.checkOutBranch(event.currentTarget.textContent as string);
+    };
 
     render() {
         return (

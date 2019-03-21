@@ -24,12 +24,7 @@ export default class RepositoryStore {
         if (result.errorCode !== 0) {
             if (result.errorCode === 2) {
                 // if no git repository was found notify the user about it
-                toast.error("No git repository found", {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: true
-                });
-                console.log("toastified");
+                toast.error("No git repository found");
                 return;
             }
 
@@ -39,17 +34,17 @@ export default class RepositoryStore {
 
         this.currentRepoName = result.value as string;
 
-        this.localBranches = this.getLocalBranches();
-        this.remoteBranches = this.getRemoteBranches();
+        this.updateLocalBranchList();
+        this.updateRemoteBranchList();
 
-        this.tags = this.getTags();
+        this.updateTagList();
 
-        this.stashes = this.getStashes();
+        this.updateStashList();
 
-        this.commitHistory = this.getCommitHistory("master");
+        this.updateCommitHistory("master");
     }
 
-    getLocalBranches(): string[] {
+    updateLocalBranchList() {
         // get all the local branches
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-local-branches");
 
@@ -58,10 +53,10 @@ export default class RepositoryStore {
             return [];
         }
 
-        return result.value as string[];
+        this.localBranches = result.value as string[];
     }
 
-    getRemoteBranches(): string[] {
+    updateRemoteBranchList() {
         // get all the remote branches
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-remote-branches");
 
@@ -70,10 +65,10 @@ export default class RepositoryStore {
             return [];
         }
 
-        return result.value as string[];
+        this.remoteBranches = result.value as string[];
     }
 
-    getTags(): string[] {
+    updateTagList() {
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-tags");
 
         if (result.errorCode !== 0) {
@@ -83,10 +78,10 @@ export default class RepositoryStore {
             return [];
         }
 
-        return result.value as string[];
+        this.tags = result.value as string[];
     }
 
-    getStashes(): string[] {
+    updateStashList() {
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-stashes");
 
         if (result.errorCode !== 0) {
@@ -94,10 +89,10 @@ export default class RepositoryStore {
             return [];
         }
 
-        return result.value as string[];
+        this.stashes = result.value as string[];
     }
 
-    getCommitHistory(branchName: string): GitCommit[] {
+    updateCommitHistory(branchName: string) {
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-commit-history", branchName);
 
         if (result.errorCode !== 0) {
@@ -105,6 +100,6 @@ export default class RepositoryStore {
             return [];
         }
 
-        return result.value;
+        this.commitHistory = result.value as GitCommit[];
     }
 }

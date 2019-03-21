@@ -12,7 +12,7 @@ type Props = {
     text: String;
     listItems: string[];
     highlightedItem?: string;
-    onItemDoubleClick?: () => void;
+    onItemDoubleClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
 
 type State = {

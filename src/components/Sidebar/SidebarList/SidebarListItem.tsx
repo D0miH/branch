@@ -6,7 +6,7 @@ import "./SidebarListItem.css";
 interface Props {
     label: string;
     itemHighlighted?: boolean;
-    onItemDoubleClick?: () => void;
+    onItemDoubleClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 class SidebarListItem extends React.Component<Props> {

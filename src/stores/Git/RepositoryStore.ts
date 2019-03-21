@@ -1,29 +1,30 @@
 import { observable, action } from "mobx";
 import { toast } from "react-toastify";
+import GitStore from "../GitStore";
 
 export default class RepositoryStore {
+    gitStore: GitStore;
+
     @observable currentRepoName: string = "";
 
     @observable localBranches: string[] = [];
     @observable remoteBranches: string[] = [];
     @observable tags: string[] = [];
     @observable stashes: string[] = [];
+    @observable commitHistory: GitCommit[] = [];
+
+    constructor(gitStore: GitStore) {
+        this.gitStore = gitStore;
+    }
 
     @action openRepo(repoPath: string) {
         // open the repo
         let result: GitReturnObject = window.ipcRenderer.sendSync("open-repo", repoPath);
 
-        if (result === null) {
-            console.log("user cancelled the open dialog");
-        } else if (result.errorCode !== 0) {
+        if (result.errorCode !== 0) {
             if (result.errorCode === 2) {
                 // if no git repository was found notify the user about it
-                toast.error("No git repository found", {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: true
-                });
-                console.log("toastified");
+                toast.error("No git repository found");
                 return;
             }
 
@@ -33,15 +34,17 @@ export default class RepositoryStore {
 
         this.currentRepoName = result.value as string;
 
-        this.localBranches = this.getLocalBranches();
-        this.remoteBranches = this.getRemoteBranches();
+        this.updateLocalBranchList();
+        this.updateRemoteBranchList();
 
-        this.tags = this.getTags();
+        this.updateTagList();
 
-        this.stashes = this.getStashes();
+        this.updateStashList();
+
+        this.updateCommitHistory("master");
     }
 
-    getLocalBranches(): string[] {
+    updateLocalBranchList() {
         // get all the local branches
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-local-branches");
 
@@ -50,10 +53,10 @@ export default class RepositoryStore {
             return [];
         }
 
-        return result.value as string[];
+        this.localBranches = result.value as string[];
     }
 
-    getRemoteBranches(): string[] {
+    updateRemoteBranchList() {
         // get all the remote branches
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-remote-branches");
 
@@ -62,10 +65,10 @@ export default class RepositoryStore {
             return [];
         }
 
-        return result.value as string[];
+        this.remoteBranches = result.value as string[];
     }
 
-    getTags(): string[] {
+    updateTagList() {
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-tags");
 
         if (result.errorCode !== 0) {
@@ -75,10 +78,10 @@ export default class RepositoryStore {
             return [];
         }
 
-        return result.value as string[];
+        this.tags = result.value as string[];
     }
 
-    getStashes(): string[] {
+    updateStashList() {
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-stashes");
 
         if (result.errorCode !== 0) {
@@ -86,6 +89,17 @@ export default class RepositoryStore {
             return [];
         }
 
-        return result.value as string[];
+        this.stashes = result.value as string[];
+    }
+
+    updateCommitHistory(branchName: string) {
+        let result: GitReturnObject = window.ipcRenderer.sendSync("get-commit-history", branchName);
+
+        if (result.errorCode !== 0) {
+            console.error(`Error occurred while retrieving the commit history (Error code: ${result.errorCode}) `);
+            return [];
+        }
+
+        this.commitHistory = result.value as GitCommit[];
     }
 }

@@ -1,12 +1,20 @@
 import { GitProcess } from "dugite";
 import { ipcMain, IpcMessageEvent } from "electron";
 import { ReturnObject, ErrorCode } from "./ReturnObject";
+import Branch from "./Branch";
+import Commit from "./Commit";
 
 export default class Repository {
     pathToRepo: string | null = null;
 
+    // other git instances
+    branch: Branch;
+
     constructor() {
         addIpcListener(this);
+
+        // instantiate other git instances
+        this.branch = new Branch(this);
     }
 
     /**
@@ -166,6 +174,44 @@ export default class Repository {
             event.returnValue = new ReturnObject(lines);
         });
     }
+
+    /**
+     * Returns the commit history for a given branch.
+     * @param branchName The name of the branch from which to retrieve the commit history.
+     * @param event The given event in which the return value is set.
+     */
+    async getCommitHistory(branchName: string, event: IpcMessageEvent) {
+        if (this.pathToRepo === null) {
+            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
+            return;
+        }
+
+        GitProcess.exec(["log", branchName, "--pretty=format:%h-%an-%ar-%s"], this.pathToRepo).then(result => {
+            if (result.exitCode !== 0) {
+                console.log(GitProcess.parseError(result.stderr));
+                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
+                return;
+            }
+
+            let lines = result.stdout.split("\n");
+
+            // iterate the lines and extract the information
+            let commitObjects: {
+                hash: string;
+                author: string;
+                relativeAuthorDate: string;
+                commitTitle: string;
+            }[] = [];
+
+            lines.forEach(line => {
+                let content = line.split("-");
+
+                commitObjects.push(new Commit(content[0], content[1], content[2], content[3]));
+            });
+
+            event.returnValue = new ReturnObject(commitObjects);
+        });
+    }
 }
 
 function addIpcListener(repo: Repository) {
@@ -178,4 +224,8 @@ function addIpcListener(repo: Repository) {
     ipcMain.on("get-tags", (event: IpcMessageEvent) => repo.getTags(event));
 
     ipcMain.on("get-stashes", (event: IpcMessageEvent) => repo.getStashes(event));
+
+    ipcMain.on("get-commit-history", (event: IpcMessageEvent, branchName: string) =>
+        repo.getCommitHistory(branchName, event)
+    );
 }

@@ -8,6 +8,8 @@
 .heading {
     display: flex;
     user-select: none;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .heading-title {
@@ -38,12 +40,12 @@
     padding-top: 5px;
     max-height: 140px;
     overflow: scroll;
-    transition: 0.5s;
+    transition: 0.25s;
 }
 
 .list-content-collapsed {
     padding-top: 5px;
     max-height: 0;
     overflow: hidden;
-    transition: 0.5s;
+    transition: 0.25s;
 }

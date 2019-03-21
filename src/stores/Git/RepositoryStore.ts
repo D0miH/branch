@@ -1,7 +1,10 @@
 import { observable, action } from "mobx";
 import { toast } from "react-toastify";
+import GitStore from "../GitStore";
 
 export default class RepositoryStore {
+    gitStore: GitStore;
+
     @observable currentRepoName: string = "";
 
     @observable localBranches: string[] = [];
@@ -9,6 +12,10 @@ export default class RepositoryStore {
     @observable tags: string[] = [];
     @observable stashes: string[] = [];
     @observable commitHistory: GitCommit[] = [];
+
+    constructor(gitStore: GitStore) {
+        this.gitStore = gitStore;
+    }
 
     @action openRepo(repoPath: string) {
         // open the repo

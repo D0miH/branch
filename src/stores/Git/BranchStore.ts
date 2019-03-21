@@ -1,7 +1,14 @@
 import { observable, action } from "mobx";
+import GitStore from "../GitStore";
 
 export default class Branch {
+    gitStore: GitStore;
+
     @observable checkedOutBranch: string = "";
+
+    constructor(gitStore: GitStore) {
+        this.gitStore = gitStore;
+    }
 
     @action getCheckedOutBranch() {
         let result: GitReturnObject = window.ipcRenderer.sendSync("get-checked-out-branch");

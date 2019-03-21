@@ -5,7 +5,7 @@ import { CloudOutlined } from "@material-ui/icons";
 import FilterBar from "./FilterBar";
 import SidebarList from "./SidebarList/SidebarList";
 import "./Sidebar.css";
-import { RepositoryStore, BranchStore } from "../../stores";
+import { RepositoryStore, BranchStore } from "../../stores/Git";
 
 interface ExternalProps {}
 

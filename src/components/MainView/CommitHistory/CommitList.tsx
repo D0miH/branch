@@ -2,7 +2,7 @@ import React from "react";
 import Commit from "./Commit";
 import { inject, observer } from "mobx-react";
 
-import { RepositoryStore } from "../../../stores";
+import { RepositoryStore } from "../../../stores/Git";
 
 import "./CommitList.css";
 

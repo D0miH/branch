@@ -2,7 +2,8 @@ import React from "react";
 import { Add } from "@material-ui/icons";
 import "./AddRepoButton.css";
 import { inject, observer } from "mobx-react";
-import { RepositoryStore, ToolbarStore, BranchStore } from "../../../../stores";
+import { ToolbarStore } from "../../../../stores";
+import { RepositoryStore, BranchStore } from "../../../../stores/Git";
 
 interface ExternalProps {}
 

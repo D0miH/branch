@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { mount } from "enzyme";
 import { Provider } from "mobx-react";
-import { RepositoryStore } from "../../stores";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import GitStore from "../../stores/GitStore";
+import { RepositoryStore, BranchStore } from "../../stores/Git";
 
 describe("<Sidebar />", () => {
-    let repoStore: RepositoryStore;
-    let sidebar: React.ComponentElement<{ repoStore: RepositoryStore }, any>;
+    let gitStore: GitStore;
+    let sidebar: React.ComponentElement<{ repoStore: RepositoryStore; branchStore: BranchStore }, any>;
 
     beforeEach(() => {
-        repoStore = new RepositoryStore();
+        gitStore = new GitStore();
         sidebar = (
-            <Provider stores={{ repoStore: repoStore }}>
+            <Provider stores={{ repoStore: gitStore.repoStore, branchStore: gitStore.branchStore }}>
                 <Sidebar />
             </Provider>
         );

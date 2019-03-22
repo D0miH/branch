@@ -3,6 +3,6 @@
     width: 100%;
     padding-top: 10px;
     color: var(--ui-font-color);
-    overflow: scroll;
+    overflow: auto;
     user-select: none;
 }

@@ -30,5 +30,9 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
-    position: fixed;
+}
+
+.app-root {
+    height: 100%;
+    width: 100%;
 }

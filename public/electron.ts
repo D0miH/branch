@@ -1,10 +1,13 @@
 import { app, BrowserWindow, shell } from "electron";
 import * as path from "path";
 import * as isDev from "electron-is-dev";
+
 import initElectronHelpers from "./electron_modules/ElectronHelpers";
 import initGit from "./electron_modules/Git";
+import Menu from "./electron_modules/Menu";
 
 let mainWindow: BrowserWindow | null = null;
+let menu: Menu;
 
 // prevent opening new windows
 app.on("web-contents-created", (event, contents) => {
@@ -43,6 +46,9 @@ function createWindow() {
 
     mainWindow.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "../build/index.html")}`);
     mainWindow.on("closed", () => (mainWindow = null));
+
+    // create the menu
+    menu = new Menu();
 }
 
 app.on("ready", createWindow);

@@ -24,7 +24,6 @@ class RepoListDropDown extends React.Component<ExternalProps> {
 
     openRepoList() {
         this.injected.toolbarStore.repoListVisible = !this.injected.toolbarStore.repoListVisible;
-        console.log("Repo list button was clicked");
     }
 
     render() {

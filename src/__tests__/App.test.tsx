@@ -2,13 +2,15 @@ import React from "react";
 import { shallow } from "enzyme";
 import App from "../components/App";
 import { Provider } from "mobx-react";
-import { ToolbarStore, RepositoryStore } from "../stores";
+import { ToolbarStore } from "../stores";
+import GitStore from "../stores/GitStore";
 
 describe("<App />", () => {
     it("renders without error", () => {
+        let gitStore: GitStore = new GitStore();
         const stores = {
             toolbarStore: new ToolbarStore(),
-            repoStore: new RepositoryStore()
+            repoStore: gitStore.repoStore
         };
 
         shallow(

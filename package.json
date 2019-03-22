@@ -17,7 +17,10 @@
         "build-electron": "( cd public/ && ../node_modules/.bin/tsc && cp ./preload.js ../build/ )",
         "electron-pack": "build --em.main=build/electron.js",
         "pack": "react-scripts build && yarn build-electron && electron-builder --dir",
-        "dist": "react-scripts build && yarn build-electron && electron-builder"
+        "dist": "react-scripts build && yarn build-electron && electron-builder -mwl",
+        "dist:osx": "react-scripts build && yarn build-electron && electron-builder -m",
+        "dist:lin": "react-scripts build && yarn build-electron && electron-builder -l",
+        "dist:win": "react-scripts build && yarn build-electron && electron-builder -w"
     },
     "browserslist": [
         ">0.2%",

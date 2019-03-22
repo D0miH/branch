@@ -10,7 +10,7 @@ class App extends Component {
     render() {
         return (
             <div className="app">
-                <Titlebar />
+                {window.navigator.platform === "MacIntel" ? <Titlebar /> : null}
                 <div className="app-content">
                     <Toolbar />
                     <div className="repository-view">

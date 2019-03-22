@@ -21,7 +21,7 @@ const stores = {
 
 ReactDOM.render(
     <Provider stores={stores}>
-        <div>
+        <div className="app-root">
             <App />
             <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={true} />
         </div>

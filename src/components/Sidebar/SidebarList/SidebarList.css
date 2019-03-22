@@ -39,7 +39,7 @@
 .list-content {
     padding-top: 5px;
     max-height: 140px;
-    overflow: scroll;
+    overflow: auto;
     transition: 0.25s;
 }
 

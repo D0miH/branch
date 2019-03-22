@@ -1,19 +1,20 @@
 import React from "react";
 import { Provider } from "mobx-react";
-import { RepositoryStore, ToolbarStore } from "../../stores";
 import { mount } from "enzyme";
 import Toolbar from "../../components/Toolbar/Toolbar";
+import { ToolbarStore } from "../../stores";
+import GitStore from "../../stores/GitStore";
 
 describe("<Toolbar />", () => {
-    let repoStore: RepositoryStore;
+    let gitStore: GitStore;
     let toolbarStore: ToolbarStore;
     let toolbar: React.ComponentElement<any, any>;
 
     beforeEach(() => {
-        repoStore = new RepositoryStore();
+        gitStore = new GitStore();
         toolbarStore = new ToolbarStore();
         toolbar = (
-            <Provider stores={{ repoStore: repoStore, toolbarStore: toolbarStore }}>
+            <Provider stores={{ repoStore: gitStore.repoStore, toolbarStore: toolbarStore }}>
                 <Toolbar />
             </Provider>
         );

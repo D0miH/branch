@@ -25,6 +25,22 @@ class Toolbar extends React.Component<ExternalProps> {
         return this.props as InjectedProps;
     }
 
+    pull = () => {
+        this.injected.repoStore.pullRepository();
+    };
+
+    push = () => {
+        console.log("Push was clicked");
+    };
+
+    branch = () => {
+        console.log("Branch was clicked");
+    };
+
+    stash = () => {
+        console.log("Stash was clicked");
+    };
+
     render() {
         const displayedReponame =
             this.injected.repoStore.currentRepoName === ""
@@ -36,10 +52,10 @@ class Toolbar extends React.Component<ExternalProps> {
                 <div className="toolbar-content">
                     <RepoListDropDown repoName={displayedReponame} />
                     <div className="tools">
-                        <ToolbarButton label="Push" icon={ArrowUpward} />
-                        <ToolbarButton label="Pull" icon={ArrowDownward} />
-                        <ToolbarButton label="Branch" icon={GitBranch} />
-                        <ToolbarButton label="Stash" icon={Inbox} />
+                        <ToolbarButton onClick={this.push} label="Push" icon={ArrowUpward} />
+                        <ToolbarButton onClick={this.pull} label="Pull" icon={ArrowDownward} />
+                        <ToolbarButton onClick={this.branch} label="Branch" icon={GitBranch} />
+                        <ToolbarButton onClick={this.stash} label="Stash" icon={Inbox} />
                     </div>
                 </div>
                 <RepoList />

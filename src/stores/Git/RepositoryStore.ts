@@ -41,7 +41,8 @@ export default class RepositoryStore {
 
         this.updateStashList();
 
-        this.updateCommitHistory("master");
+        this.gitStore.branchStore.getCheckedOutBranch();
+        this.updateCommitHistory(this.gitStore.branchStore.checkedOutBranch);
     }
 
     updateLocalBranchList() {
@@ -101,5 +102,34 @@ export default class RepositoryStore {
         }
 
         this.commitHistory = result.value as GitCommit[];
+    }
+
+    pullRepository() {
+        let result: GitReturnObject = window.ipcRenderer.sendSync("pull-all");
+
+        if (result.errorCode !== 0) {
+            if (
+                result.value.includes("error: Your local changes to the following files would be overwritten by merge:")
+            ) {
+                toast.error("Local changes prevent pull");
+            }
+            console.error(`Error occured while pulling (Error code: ${result.errorCode})`);
+            return [];
+        }
+
+        // parse the lines and remove the last empty line
+        let lines = result.value.split("\n") as string[];
+        lines.splice(-1, 1);
+
+        lines.forEach(line => {
+            if (line.includes("Already up to date")) {
+                toast.success("Already up to date");
+            } else if (/files changed|.+ insertions\(\+\)|.+ deletions\(\+\)/.test(line)) {
+                toast.success(`Successfully pulled`);
+            }
+        });
+
+        // update the commit list
+        this.updateCommitHistory(this.gitStore.branchStore.checkedOutBranch);
     }
 }

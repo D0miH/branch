@@ -8,6 +8,7 @@ type IconType = React.ComponentType<SvgIconProps> | Icon;
 type Props = {
     icon: IconType;
     label: string;
+    onClick: () => void;
 };
 
 class ToolbarButton extends React.Component<Props> {
@@ -15,13 +16,9 @@ class ToolbarButton extends React.Component<Props> {
         return (givenIcon as Icon).size !== undefined;
     }
 
-    onClick() {
-        console.log(this.props.label + " button was pressed");
-    }
-
     render() {
         return (
-            <div className="push-button" onClick={() => this.onClick()}>
+            <div className="push-button" onClick={this.props.onClick}>
                 <div className="button-component">
                     {this.isOcticon(this.props.icon) ? (
                         <Octicon icon={this.props.icon} size={24} />

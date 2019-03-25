@@ -2,7 +2,7 @@ import { GitProcess } from "dugite";
 import { IpcMessageEvent, ipcMain } from "electron";
 
 import Repository from "./Repository";
-import { ReturnObject, ErrorCode } from "./ReturnObject";
+import { ReturnObject, ErrorCode, ErrorMessages } from "./ReturnObject";
 
 export default class Branch {
     repo: Repository;
@@ -47,11 +47,7 @@ export default class Branch {
 
         GitProcess.exec(["checkout", branchName], this.repo.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
-                if (
-                    result.stderr.includes(
-                        "error: Your local changes to the following files would be overwritten by checkout:"
-                    )
-                ) {
+                if (result.stderr.includes(ErrorMessages.localChangesWouldBeOverwritten)) {
                     event.returnValue = new ReturnObject(false, ErrorCode.LocalChangesPreventCheckout);
                     return;
                 }

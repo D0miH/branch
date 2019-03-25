@@ -57,6 +57,7 @@ class Toolbar extends React.Component<ExternalProps> {
                         <ToolbarButton onClick={this.branch} label="Branch" icon={GitBranch} />
                         <ToolbarButton onClick={this.stash} label="Stash" icon={Inbox} />
                     </div>
+                    <div className="misc" />
                 </div>
                 <RepoList />
                 <Overlay />

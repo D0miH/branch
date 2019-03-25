@@ -15,5 +15,10 @@ export enum ErrorCode {
     UnknownError = 1,
     GitNotFound = 2,
     NoValidPathGiven = 3,
-    LocalChangesPreventCheckout = 4
+    LocalChangesPreventCheckout = 4,
+    LocalChangesPreventPull = 5
+}
+
+export enum ErrorMessages {
+    localChangesWouldBeOverwritten = "error: Your local changes to the following files would be overwritten by"
 }

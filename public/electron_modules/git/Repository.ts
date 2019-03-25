@@ -1,6 +1,6 @@
 import { GitProcess } from "dugite";
 import { ipcMain, IpcMessageEvent } from "electron";
-import { ReturnObject, ErrorCode } from "./ReturnObject";
+import { ReturnObject, ErrorCode, ErrorMessages } from "./ReturnObject";
 import Branch from "./Branch";
 import Commit from "./Commit";
 
@@ -212,6 +212,32 @@ export default class Repository {
             event.returnValue = new ReturnObject(commitObjects);
         });
     }
+
+    /**
+     * Pulls all branches of the repository. Returns the output of the git pull command.
+     * @param event The given event in which the return value is set.
+     */
+    async pullAll(event: IpcMessageEvent) {
+        if (this.pathToRepo === null) {
+            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
+            return;
+        }
+
+        GitProcess.exec(["pull", "--all"], this.pathToRepo).then(result => {
+            if (result.exitCode !== 0) {
+                if (result.stderr.includes(ErrorMessages.localChangesWouldBeOverwritten)) {
+                    event.returnValue = new ReturnObject(result.stderr, ErrorCode.LocalChangesPreventPull);
+                    return;
+                }
+
+                console.log(GitProcess.parseError(result.stderr));
+                event.returnValue = new ReturnObject(result.stderr, ErrorCode.UnknownError);
+                return;
+            }
+
+            event.returnValue = new ReturnObject(result.stdout);
+        });
+    }
 }
 
 function addIpcListener(repo: Repository) {
@@ -228,4 +254,6 @@ function addIpcListener(repo: Repository) {
     ipcMain.on("get-commit-history", (event: IpcMessageEvent, branchName: string) =>
         repo.getCommitHistory(branchName, event)
     );
+
+    ipcMain.on("pull-all", (event: IpcMessageEvent) => repo.pullAll(event));
 }

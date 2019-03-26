@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Titlebar from "./Titlebar";
-import Toolbar from "./Toolbar/Toolbar";
-import Sidebar from "./Sidebar/Sidebar";
-import MainView from "./MainView/MainView";
+import Toolbar from "./toolbar/Toolbar";
+import Sidebar from "./sidebar/Sidebar";
+import MainView from "./mainView/MainView";
 
 import "./App.css";
 

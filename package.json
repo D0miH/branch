@@ -58,6 +58,7 @@
         "cross-env": "^5.2.0",
         "electron": "^4.0.5",
         "electron-builder": "^20.38.5",
+        "electron-devtools-installer": "^2.2.4",
         "enzyme": "^3.9.0",
         "enzyme-adapter-react-16": "^1.11.2",
         "prettier": "1.16.4",

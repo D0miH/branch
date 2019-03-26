@@ -1,6 +1,7 @@
 import { app, BrowserWindow, shell } from "electron";
 import * as path from "path";
 import * as isDev from "electron-is-dev";
+import installExtension, { REACT_DEVELOPER_TOOLS, MOBX_DEVTOOLS } from "electron-devtools-installer";
 
 import initElectronHelpers from "./electron_modules/ElectronHelpers";
 import initGit from "./electron_modules/Git";
@@ -22,7 +23,13 @@ app.on("web-contents-created", (event, contents) => {
     });
 });
 
-function createWindow() {
+async function createWindow() {
+    // load the devtools when in dev mode
+    if (isDev) {
+        await installExtension(REACT_DEVELOPER_TOOLS);
+        await installExtension(MOBX_DEVTOOLS);
+    }
+
     // create the window
     mainWindow = new BrowserWindow({
         width: 900,

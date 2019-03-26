@@ -32,11 +32,9 @@ class AddRepoButton extends React.Component {
         if (repoPath !== null) {
             this.injected.repoStore.openRepo(repoPath);
 
-            // get the currently checked out branch
-            this.injected.branchStore.getCheckedOutBranch();
-
             // close the repo list after opening the repo
             this.injected.toolbarStore.repoListVisible = false;
+            this.injected.toolbarStore.addRepoToList(this.injected.repoStore.currentRepoName, repoPath);
         }
     };
 

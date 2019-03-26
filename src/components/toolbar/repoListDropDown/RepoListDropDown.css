@@ -1,0 +1,26 @@
+.repo-list-drop-down {
+    width: 200px;
+    height: 100%;
+    background-color: var(--ui-bg-color);
+}
+
+.repo-list-button {
+    position: relative;
+    width: 200px;
+    height: 100%;
+    border-right: 1px solid black;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background-color: var(--ui-bg-color);
+}
+
+.repo-list-drop-down :hover {
+    background-color: var(--ui-button-hover-color);
+}
+
+.repo-list-button span {
+    font-size: 13pt;
+    color: var(--ui-font-color);
+    width: 100%;
+}

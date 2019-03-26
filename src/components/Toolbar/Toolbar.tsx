@@ -2,10 +2,10 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { ArrowUpward, ArrowDownward } from "@material-ui/icons";
 import { GitBranch, Inbox } from "@githubprimer/octicons-react";
-import RepoListDropDown from "./RepoListDropDown/RepoListDropDown";
+import RepoListDropDown from "./repoListDropDown/RepoListDropDown";
 import ToolbarButton from "./ToolbarButton";
-import Overlay from "./RepoListDropDown/Overlay";
-import RepoList from "./RepoListDropDown/RepoList/RepoList";
+import Overlay from "./repoListDropDown/Overlay";
+import RepoList from "./repoListDropDown/repoList/RepoList";
 import { RepositoryStore } from "../../stores/Git";
 
 import "./Toolbar.css";

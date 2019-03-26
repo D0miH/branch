@@ -3,7 +3,7 @@ import { inject, observer } from "mobx-react";
 import { GitBranch, Tag, Inbox } from "@githubprimer/octicons-react";
 import { CloudOutlined } from "@material-ui/icons";
 import FilterBar from "./FilterBar";
-import SidebarList from "./SidebarList/SidebarList";
+import SidebarList from "./sidebarList/SidebarList";
 import "./Sidebar.css";
 import { RepositoryStore, BranchStore } from "../../stores/Git";
 

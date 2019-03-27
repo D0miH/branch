@@ -3,15 +3,19 @@ import Commit from "./Commit";
 import { inject, observer } from "mobx-react";
 
 import { RepositoryStore } from "../../../stores/Git";
+import { GitCommit } from "../../../typings/git-types";
+import { CommitSidebarStore } from "../../../stores";
 
 import "./CommitList.css";
 
 interface InjectedProps {
     repoStore: RepositoryStore;
+    commitSidebarStore: CommitSidebarStore;
 }
 
 @inject(({ stores }) => ({
-    repoStore: stores.repoStore
+    repoStore: stores.repoStore,
+    commitSidebarStore: stores.commitSidebarStore
 }))
 @observer
 class CommitList extends React.Component {
@@ -19,9 +23,13 @@ class CommitList extends React.Component {
         return this.props as InjectedProps;
     }
 
+    onCommitClick(commit: GitCommit) {
+        this.injected.commitSidebarStore.selectedCommit = commit;
+    }
+
     renderCommitList() {
         return this.injected.repoStore.commitHistory.map(commit => {
-            return <Commit title={commit.commitMessage} key={commit.hash} />;
+            return <Commit title={commit.commitMessage} key={commit.hash} onClick={() => this.onCommitClick(commit)} />;
         });
     }
 

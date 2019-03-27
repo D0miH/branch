@@ -1,8 +1,9 @@
 import React from "react";
 
-import "./CommitInfo.css";
 import AuthorInfo from "./AuthorInfo";
 import AdditionalInfo from "./AdditionalInfo";
+
+import "./CommitInfo.css";
 
 type Props = {
     commitMessage: string;

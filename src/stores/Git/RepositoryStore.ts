@@ -1,6 +1,7 @@
 import { observable, action } from "mobx";
 import { toast } from "react-toastify";
 import GitStore from "../GitStore";
+import { GitReturnObject, GitCommit } from "../../typings/git-types";
 
 export default class RepositoryStore {
     gitStore: GitStore;

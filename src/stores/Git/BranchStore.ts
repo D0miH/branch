@@ -1,7 +1,7 @@
 import { observable, action } from "mobx";
 import GitStore from "../GitStore";
 import { toast } from "react-toastify";
-import { GitErrorCode } from ".";
+import { GitReturnObject, GitErrorCode } from "../../typings/git-types";
 
 export default class Branch {
     gitStore: GitStore;

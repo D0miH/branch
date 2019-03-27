@@ -1,6 +1,6 @@
 import { observable, reaction, toJS, action } from "mobx";
 import getLocalStorageInstance, { LocalStorage } from "./LocalStorage";
-import { RepoListItem } from "../@types/GitTypes";
+import { GitRepoListItem } from "../typings/git-types";
 
 export default class ToolbarStore {
     localStorage: LocalStorage;
@@ -13,7 +13,7 @@ export default class ToolbarStore {
     }
 
     @observable repoListVisible: boolean = false;
-    @observable repoList: RepoListItem[] = [];
+    @observable repoList: GitRepoListItem[] = [];
 
     @action addRepoToList(repoName: string, repoPath: string) {
         // check if the repository is already in the list

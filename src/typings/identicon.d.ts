@@ -70,8 +70,7 @@ declare module "identicon.js" {
         format: "svg" | "png";
         margin: number;
 
-        constructor(hash: string, size: number);
-        constructor(hash: string);
+        constructor(hash: string, size?: number);
         constructor(hash: string, options: IdenticonOptions);
 
         /**

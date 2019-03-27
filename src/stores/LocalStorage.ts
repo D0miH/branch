@@ -1,5 +1,5 @@
 import { observable, autorun, toJS } from "mobx";
-import { RepoListItem } from "./Git/GitTypes";
+import { RepoListItem } from "../@types/GitTypes";
 
 export class LocalStorage {
     @observable repoList: { repoName: string; repoPath: string }[] = [];

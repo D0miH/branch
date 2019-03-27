@@ -20,7 +20,7 @@ class CommitList extends React.Component {
     }
 
     renderCommitList() {
-        return this.injected.repoStore.commitHistory.map((commit, index) => {
+        return this.injected.repoStore.commitHistory.map(commit => {
             return <Commit title={commit.commitTitle} key={commit.hash} />;
         });
     }

@@ -1,0 +1,16 @@
+.author-section {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+.author-section .commit-avatar {
+    border-radius: 5px;
+}
+.author-section .author-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+.author-section .author-info span {
+    height: auto;
+}

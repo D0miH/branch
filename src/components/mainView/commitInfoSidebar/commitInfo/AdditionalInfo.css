@@ -1,0 +1,11 @@
+.additional-info {
+    display: flex;
+    margin-top: 10px;
+}
+.additional-info .octicon {
+    margin-right: 5px;
+    color: var(--ui-font-color);
+}
+.additional-info .commit-hash-section {
+    margin-left: 20px;
+}

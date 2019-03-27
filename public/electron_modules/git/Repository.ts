@@ -1,6 +1,6 @@
 import { GitProcess } from "dugite";
 import { ipcMain, IpcMessageEvent } from "electron";
-import { ReturnObject, ErrorCode } from "./ReturnObject";
+import { ReturnObject, ErrorCode, ErrorMessages } from "./ReturnObject";
 import Branch from "./Branch";
 import Commit from "./Commit";
 
@@ -186,7 +186,10 @@ export default class Repository {
             return;
         }
 
-        GitProcess.exec(["log", branchName, "--pretty=format:%h-%an-%ar-%s"], this.pathToRepo).then(result => {
+        GitProcess.exec(
+            ["log", branchName, "--pretty=format:%h-%an-%cd-%s", "--date=format:%d/%m/%Y@%H:%M"],
+            this.pathToRepo
+        ).then(result => {
             if (result.exitCode !== 0) {
                 console.log(GitProcess.parseError(result.stderr));
                 event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
@@ -196,20 +199,56 @@ export default class Repository {
             let lines = result.stdout.split("\n");
 
             // iterate the lines and extract the information
-            let commitObjects: {
-                hash: string;
-                author: string;
-                relativeAuthorDate: string;
-                commitTitle: string;
-            }[] = [];
+            let commitObjects: Commit[] = [];
 
             lines.forEach(line => {
                 let content = line.split("-");
 
-                commitObjects.push(new Commit(content[0], content[1], content[2], content[3]));
+                let hash = content[0];
+                let author = content[1];
+
+                let commitDate = content[2].split("@")[0];
+                let commitTime = content[2].split("@")[1];
+
+                // all other array elements are the commit title.
+                // If there are more than one more element readd the hyphon which was split.
+                let commitMessage = content[3];
+                if (content.length > 4) {
+                    for (let i = 4; i < content.length; i++) {
+                        commitMessage += "-" + content[i];
+                    }
+                }
+
+                commitObjects.push(new Commit(hash, author, commitDate, commitTime, commitMessage));
             });
 
             event.returnValue = new ReturnObject(commitObjects);
+        });
+    }
+
+    /**
+     * Pulls all branches of the repository. Returns the output of the git pull command.
+     * @param event The given event in which the return value is set.
+     */
+    async pullAll(event: IpcMessageEvent) {
+        if (this.pathToRepo === null) {
+            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
+            return;
+        }
+
+        GitProcess.exec(["pull", "--all"], this.pathToRepo).then(result => {
+            if (result.exitCode !== 0) {
+                if (result.stderr.includes(ErrorMessages.localChangesWouldBeOverwritten)) {
+                    event.returnValue = new ReturnObject(result.stderr, ErrorCode.LocalChangesPreventPull);
+                    return;
+                }
+
+                console.log(GitProcess.parseError(result.stderr));
+                event.returnValue = new ReturnObject(result.stderr, ErrorCode.UnknownError);
+                return;
+            }
+
+            event.returnValue = new ReturnObject(result.stdout);
         });
     }
 }
@@ -228,4 +267,6 @@ function addIpcListener(repo: Repository) {
     ipcMain.on("get-commit-history", (event: IpcMessageEvent, branchName: string) =>
         repo.getCommitHistory(branchName, event)
     );
+
+    ipcMain.on("pull-all", (event: IpcMessageEvent) => repo.pullAll(event));
 }

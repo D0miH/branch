@@ -8,6 +8,7 @@
 
 .commit-message {
     height: 40px;
+    overflow: auto;
 }
 .commit-message span {
     font-size: 12pt;

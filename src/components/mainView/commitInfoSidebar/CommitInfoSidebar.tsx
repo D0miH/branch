@@ -1,19 +1,40 @@
 import React from "react";
+import { observer, inject } from "mobx-react";
 
-import "./CommitInfoSidebar.css";
 import CommitInfo from "./commitInfo/CommitInfo";
 import FileList from "./FileList";
+import { CommitSidebarStore } from "../../../stores";
 
-class CommitInfoSidebar extends React.Component {
+import "./CommitInfoSidebar.css";
+
+interface ExternalProps {}
+
+interface InjectedProps extends ExternalProps {
+    commitSidebarStore: CommitSidebarStore;
+}
+
+@inject(({ stores }) => ({
+    commitSidebarStore: stores.commitSidebarStore
+}))
+@observer
+class CommitInfoSidebar extends React.Component<ExternalProps> {
+    get injected() {
+        return this.props as InjectedProps;
+    }
+
     render() {
         return (
             <div className="commit-info-sidebar">
                 <CommitInfo
-                    commitAuthor="Dominik Hintersdorf"
-                    commitMessage="Place holder commit message"
-                    authorDate="12/12/19 @ 12:35"
-                    commitHash="9d86083"
-                    filesChanged="4"
+                    commitAuthor={this.injected.commitSidebarStore.selectedCommit.author}
+                    commitMessage={this.injected.commitSidebarStore.selectedCommit.commitMessage}
+                    authorDate={
+                        this.injected.commitSidebarStore.selectedCommit.commitDate +
+                        " @ " +
+                        this.injected.commitSidebarStore.selectedCommit.commitTime
+                    }
+                    commitHash={this.injected.commitSidebarStore.selectedCommit.hash}
+                    filesChanged={"TODO"}
                 />
                 <FileList />
             </div>

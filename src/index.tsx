@@ -6,7 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 
 import App from "./components/App";
 import GitStore from "./stores/GitStore";
-import { ToolbarStore } from "./stores";
+import { ToolbarStore, CommitSidebarStore } from "./stores";
 
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,7 +16,8 @@ const gitStore = new GitStore();
 const stores = {
     toolbarStore: new ToolbarStore(),
     repoStore: gitStore.repoStore,
-    branchStore: gitStore.branchStore
+    branchStore: gitStore.branchStore,
+    commitSidebarStore: new CommitSidebarStore()
 };
 
 ReactDOM.render(

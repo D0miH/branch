@@ -1,0 +1,14 @@
+.commit-info {
+    width: auto;
+    border-radius: 3px;
+    margin: 7px 7px 0px 7px;
+    padding: 7px;
+    background-color: var(--ui-background-accent-color);
+}
+
+.commit-message {
+    height: 40px;
+}
+.commit-message span {
+    font-size: 12pt;
+}

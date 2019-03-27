@@ -1,14 +1,13 @@
 .app {
     height: 100%;
     width: 100%;
-    position: fixed;
+    display: flex;
+    flex-direction: column;
 }
 
 .app-content {
-    margin-top: 20px;
     width: 100%;
     height: calc(100% - 20px);
-    position: fixed;
 }
 
 .repository-view {

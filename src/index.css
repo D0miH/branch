@@ -20,9 +20,10 @@ body {
 
     --titlebar-color: #2e2e2e;
     --ui-bg-color: #414141;
-    --ui-font-color: #cdcdcd;
-    --ui-accent-color: #8d8d8d;
     --ui-button-hover-color: #4e4e4e;
+    --ui-background-accent-color: #5d5d5d;
+    --ui-accent-color: #8d8d8d;
+    --ui-font-color: #cdcdcd;
 }
 
 #root {
@@ -30,5 +31,13 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
-    position: fixed;
+}
+
+.app-root {
+    height: 100%;
+    width: 100%;
+}
+
+.Toastify {
+    user-select: none;
 }

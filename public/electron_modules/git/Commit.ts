@@ -1,13 +1,15 @@
 export default class Commit {
     hash: string;
     author: string;
-    relativeAuthorDate: string;
-    commitTitle: string;
+    commitDate: string;
+    commitTime: string;
+    commitMessage: string;
 
-    constructor(hash: string, author: string, relativeAuthorDate: string, commitTitle: string) {
+    constructor(hash: string, author: string, commitDate: string, commitTime: string, commitMessage: string) {
         this.hash = hash;
         this.author = author;
-        this.relativeAuthorDate = relativeAuthorDate;
-        this.commitTitle = commitTitle;
+        this.commitDate = commitDate;
+        this.commitTime = commitTime;
+        this.commitMessage = commitMessage;
     }
 }

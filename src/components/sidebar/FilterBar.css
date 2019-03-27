@@ -1,0 +1,36 @@
+.filterbar {
+    position: relative;
+    width: auto;
+    height: 25px;
+    background-color: var(--ui-accent-color);
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    display: flex;
+    align-items: center;
+    padding-right: 5px;
+}
+
+input,
+input:focus {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100%;
+    background-color: rgba(1, 1, 1, 0);
+    border: none;
+    outline: none;
+    caret-color: white;
+    color: var(--ui-bg-color);
+    font-size: 10pt;
+}
+
+::placeholder {
+    color: var(--ui-font-color);
+    user-select: none;
+}
+
+.filter-icon {
+    color: var(--ui-font-color);
+}

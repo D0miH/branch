@@ -1,0 +1,22 @@
+.repo-list-element {
+    width: 100%;
+    height: 40px;
+    text-align: center;
+}
+.repo-list-element :hover {
+    background-color: var(--ui-button-hover-color);
+}
+
+.repo-list-element span {
+    font-size: 12pt;
+    color: var(--ui-font-color);
+    display: flex;
+    align-items: center;
+}
+
+.repo-list-element-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

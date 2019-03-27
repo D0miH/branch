@@ -6,7 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 
 import App from "./components/App";
 import GitStore from "./stores/GitStore";
-import { ToolbarStore } from "./stores";
+import { ToolbarStore, CommitSidebarStore } from "./stores";
 
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,14 +16,15 @@ const gitStore = new GitStore();
 const stores = {
     toolbarStore: new ToolbarStore(),
     repoStore: gitStore.repoStore,
-    branchStore: gitStore.branchStore
+    branchStore: gitStore.branchStore,
+    commitSidebarStore: new CommitSidebarStore()
 };
 
 ReactDOM.render(
     <Provider stores={stores}>
-        <div>
+        <div className="app-root">
             <App />
-            <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={true} />
+            <ToastContainer position="bottom-right" autoClose={5000} pauseOnFocusLoss={false} />
         </div>
     </Provider>,
     document.getElementById("root")

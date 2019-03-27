@@ -1,0 +1,10 @@
+.file-list {
+    width: auto;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top: 10px;
+    margin-bottom: 7px;
+    flex: 1 1 auto;
+    background-color: var(--ui-background-accent-color);
+    border-radius: 3px;
+}

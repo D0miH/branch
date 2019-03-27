@@ -1,6 +1,6 @@
 import { observable, reaction, toJS, action } from "mobx";
 import getLocalStorageInstance, { LocalStorage } from "./LocalStorage";
-import { RepoListItem } from "./Git/GitTypes";
+import { RepoListItem } from "../@types/GitTypes";
 
 export default class ToolbarStore {
     localStorage: LocalStorage;

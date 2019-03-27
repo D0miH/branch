@@ -1,7 +1,7 @@
 import { IpcRenderer } from "electron";
-import { ReturnObject, ErrorCode } from "../public/electron_modules/git/ReturnObject";
-import Commit from "../public/electron_modules/git/Commit";
-import { GitErrorCode } from ".";
+import { ReturnObject, ErrorCode } from "../../public/electron_modules/git/ReturnObject";
+import Commit from "../../public/electron_modules/git/Commit";
+import { GitErrorCode } from "..";
 
 declare global {
     interface Window {

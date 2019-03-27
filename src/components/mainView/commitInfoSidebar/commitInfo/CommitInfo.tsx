@@ -1,0 +1,29 @@
+import React from "react";
+
+import "./CommitInfo.css";
+import AuthorInfo from "./AuthorInfo";
+import AdditionalInfo from "./AdditionalInfo";
+
+type Props = {
+    commitMessage: string;
+    commitAuthor: string;
+    authorDate: string;
+    filesChanged: string;
+    commitHash: string;
+};
+
+class CommitInfo extends React.Component<Props> {
+    render() {
+        return (
+            <div className="commit-info">
+                <div className="commit-message">
+                    <span>{this.props.commitMessage}</span>
+                </div>
+                <AuthorInfo commitAuthor={this.props.commitAuthor} authorDate={this.props.authorDate} />
+                <AdditionalInfo filesChanged={this.props.filesChanged} commitHash={this.props.commitHash} />
+            </div>
+        );
+    }
+}
+
+export default CommitInfo;

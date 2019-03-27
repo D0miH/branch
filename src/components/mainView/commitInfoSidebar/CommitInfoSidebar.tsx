@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./CommitInfoSidebar.css";
-import CommitInfo from "./CommitInfo";
+import CommitInfo from "./commitInfo/CommitInfo";
 import FileList from "./FileList";
 
 class CommitInfoSidebar extends React.Component {
@@ -11,9 +11,9 @@ class CommitInfoSidebar extends React.Component {
                 <CommitInfo
                     commitAuthor="Dominik Hintersdorf"
                     commitMessage="Place holder commit message"
-                    relativeAuthorDate="12/12/19 @ 12:35"
+                    authorDate="12/12/19 @ 12:35"
                     commitHash="9d86083"
-                    filesChanged={4}
+                    filesChanged="4"
                 />
                 <FileList />
             </div>

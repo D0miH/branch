@@ -32,6 +32,8 @@
         "classnames": "^2.2.6",
         "dugite": "^1.86.0",
         "electron-is-dev": "^1.0.1",
+        "identicon.js": "^2.3.3",
+        "jssha": "^2.3.1",
         "mobx": "^5.9.0",
         "mobx-react": "^5.4.3",
         "react": "^16.8.3",

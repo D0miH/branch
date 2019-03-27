@@ -1,5 +1,5 @@
 import { observable, autorun, toJS } from "mobx";
-import { RepoListItem } from "../@types/GitTypes";
+import { GitRepoListItem } from "../typings/git-types";
 
 export class LocalStorage {
     @observable repoList: { repoName: string; repoPath: string }[] = [];
@@ -31,7 +31,7 @@ export class LocalStorage {
         }
     });
 
-    loadRepoList(): RepoListItem[] {
+    loadRepoList(): GitRepoListItem[] {
         let storedListString = window.localStorage.getItem("repo-list");
         if (storedListString === null) {
             return [];

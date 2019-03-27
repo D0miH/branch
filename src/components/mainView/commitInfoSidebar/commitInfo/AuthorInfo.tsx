@@ -12,7 +12,7 @@ type Props = {
 class AuthorInfo extends React.Component<Props> {
     generateAvatar(): string {
         let hashObject = new jsSHA("SHA-512", "TEXT", { numRounds: 1 });
-        hashObject.update(this.props.commitAuthor + 0, 1);
+        hashObject.update(this.props.commitAuthor + 0);
         let hash = hashObject.getHash("HEX");
         let imgData = new Identicon(hash, 30).toString();
         return "data:/image/png;base64," + imgData;

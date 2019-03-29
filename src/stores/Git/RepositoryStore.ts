@@ -2,6 +2,7 @@ import { observable, action } from "mobx";
 import { toast } from "react-toastify";
 import GitStore from "../GitStore";
 import { GitReturnObject, GitCommit } from "../../typings/git-types";
+import getLocalStorageInstance from "../LocalStorage";
 
 export default class RepositoryStore {
     gitStore: GitStore;
@@ -34,6 +35,9 @@ export default class RepositoryStore {
         }
 
         this.currentRepoName = result.value as string;
+
+        // set the current opened repo as the last opened repo
+        getLocalStorageInstance().lastOpenedRepo = { repoName: this.currentRepoName, repoPath: repoPath };
 
         this.updateLocalBranchList();
         this.updateRemoteBranchList();

@@ -1,8 +1,0 @@
-.commit-list {
-    height: 100%;
-    width: 100%;
-    padding-top: 10px;
-    color: var(--ui-font-color);
-    overflow: auto;
-    user-select: none;
-}

@@ -21,7 +21,7 @@ class AuthorInfo extends React.Component<Props> {
     render() {
         return (
             <div className="author-section">
-                <img className="commit-avatar" src={this.generateAvatar()} />
+                <img className="commit-avatar" src={this.generateAvatar()} draggable={false} />
                 <div className="author-info">
                     <span>{this.props.commitAuthor}</span>
                     <span>{"authored " + this.props.authorDate}</span>

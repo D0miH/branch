@@ -1,8 +1,0 @@
-.repository-list {
-    position: fixed;
-    width: 200px;
-    height: 100%;
-    z-index: 2;
-    background-color: var(--ui-bg-color);
-    border-right: 1px solid black;
-}

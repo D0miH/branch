@@ -31,13 +31,33 @@ export class LocalStorage {
         }
     });
 
+    @observable lastOpenedRepo: { repoName: string; repoPath: string } = this.loadLastOpenedRepo();
+    reactToLastOpenedRepoChange = autorun(() => {
+        // set the last opened repo in the local storage
+        window.localStorage.setItem("last-opened-repo", JSON.stringify(toJS(this.lastOpenedRepo)));
+    });
+
     loadRepoList(): GitRepoListItem[] {
         let storedListString = window.localStorage.getItem("repo-list");
+
         if (storedListString === null) {
             return [];
-        } else {
-            return JSON.parse(storedListString);
         }
+
+        return JSON.parse(storedListString);
+    }
+
+    /**
+     * Returns the last opened repo. If there is no repository which was opened the name and the path are an empty string.
+     */
+    loadLastOpenedRepo(): { repoName: string; repoPath: string } {
+        let lastOpenedRepoString = window.localStorage.getItem("last-opened-repo");
+
+        if (lastOpenedRepoString === null) {
+            return { repoName: "", repoPath: "" };
+        }
+
+        return JSON.parse(lastOpenedRepoString);
     }
 }
 

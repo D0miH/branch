@@ -23,6 +23,11 @@ class CommitInfoSidebar extends React.Component<ExternalProps> {
     }
 
     render() {
+        // if there is no info to display return null
+        if (this.injected.commitSidebarStore.selectedCommit.author === "") {
+            return null;
+        }
+
         return (
             <div className="commit-info-sidebar">
                 <CommitInfo

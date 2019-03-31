@@ -5,14 +5,23 @@
     margin-top: 20px;
 }
 
-.heading {
+.list .heading {
     display: flex;
     user-select: none;
-    margin-left: 10px;
-    margin-right: 10px;
+}
+.list .heading :hover {
+    background-color: var(--ui-button-hover-color);
 }
 
-.heading-title {
+.list .heading-button {
+    display: flex;
+    width: 100%;
+
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.list .heading .heading-title {
     display: flex;
     align-items: center;
     flex: 2 0 0;
@@ -21,7 +30,7 @@
     height: 20px;
 }
 
-.heading-title .octicon {
+.list .heading .heading-title .octicon {
     margin-right: 5px;
 }
 

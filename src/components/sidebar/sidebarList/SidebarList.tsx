@@ -50,24 +50,26 @@ class SidebarList extends React.Component<Props, State> {
     render() {
         return (
             <div className="list">
-                <div className="heading" onClick={() => this.chevronClicked()}>
-                    <div className="heading-title">
-                        {this.isOcticon(this.props.icon) ? (
-                            <Octicon icon={this.props.icon} />
-                        ) : (
-                            <this.props.icon
-                                style={{
-                                    height: 16,
-                                    width: 16,
-                                    marginRight: "5px"
-                                }}
-                            />
-                        )}
-                        {this.props.text}
-                    </div>
-                    <div className="right-heading">
-                        {this.props.listItems.length}/{this.props.listItems.length}
-                        <Octicon icon={this.state.listIsCollapsed ? ChevronLeft : ChevronDown} />
+                <div className="heading">
+                    <div className="heading-button" onClick={() => this.chevronClicked()}>
+                        <div className="heading-title">
+                            {this.isOcticon(this.props.icon) ? (
+                                <Octicon icon={this.props.icon} />
+                            ) : (
+                                <this.props.icon
+                                    style={{
+                                        height: 16,
+                                        width: 16,
+                                        marginRight: "5px"
+                                    }}
+                                />
+                            )}
+                            {this.props.text}
+                        </div>
+                        <div className="right-heading">
+                            {this.props.listItems.length}/{this.props.listItems.length}
+                            <Octicon icon={this.state.listIsCollapsed ? ChevronLeft : ChevronDown} />
+                        </div>
                     </div>
                 </div>
 

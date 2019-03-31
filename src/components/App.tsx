@@ -5,7 +5,7 @@ import Titlebar from "./Titlebar";
 import Toolbar from "./toolbar/Toolbar";
 import Sidebar from "./sidebar/Sidebar";
 import MainView from "./mainView/MainView";
-import { RepositoryStore } from "../stores/Git";
+import { RepositoryStore } from "../stores/git";
 import { CommitSidebarStore } from "../stores";
 
 import "./App.css";

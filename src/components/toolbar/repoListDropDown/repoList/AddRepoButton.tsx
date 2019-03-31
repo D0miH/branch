@@ -3,7 +3,7 @@ import { Add } from "@material-ui/icons";
 import "./AddRepoButton.css";
 import { inject, observer } from "mobx-react";
 import { ToolbarStore } from "../../../../stores";
-import { RepositoryStore, BranchStore } from "../../../../stores/Git";
+import { RepositoryStore, BranchStore } from "../../../../stores/git";
 
 interface ExternalProps {}
 

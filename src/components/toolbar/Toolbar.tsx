@@ -6,7 +6,7 @@ import RepoListDropDown from "./repoListDropDown/RepoListDropDown";
 import ToolbarButton from "./ToolbarButton";
 import Overlay from "./repoListDropDown/Overlay";
 import RepoList from "./repoListDropDown/repoList/RepoList";
-import { RepositoryStore } from "../../stores/Git";
+import { RepositoryStore } from "../../stores/git";
 
 import "./Toolbar.css";
 

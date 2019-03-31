@@ -6,7 +6,7 @@ import ToolbarStore from "../../../../stores/ToolbarStore";
 
 import "./RepoList.css";
 import RepoListElement from "./RepoListElement";
-import { RepositoryStore } from "../../../../stores/Git";
+import { RepositoryStore } from "../../../../stores/git";
 
 interface ExternalProps {}
 

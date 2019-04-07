@@ -3800,16 +3800,6 @@ electron-osx-sign@0.4.11:
     minimist "^1.2.0"
     plist "^3.0.1"
 
-electron-promise-ipc@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/electron-promise-ipc/-/electron-promise-ipc-1.1.0.tgz#34b188ca46be3dc591b9debff3580cee6cfdd83b"
-  integrity sha512-ajz4wc0RqMKvHczvxJc7RHy8Bieh9ToScksK4U7Y7X3YddPO9kgM0hjQa/+UnbTmJEqn/e2CTlnfRRvMEGdpDw==
-  dependencies:
-    bluebird "^3.5.3"
-    is-electron-renderer "^2.0.1"
-    serialize-error "^3.0.0"
-    uuid "^3.0.1"
-
 electron-publish@20.39.0:
   version "20.39.0"
   resolved "https://registry.yarnpkg.com/electron-publish/-/electron-publish-20.39.0.tgz#a945d871b469b4160933d4e027612710b653f006"
@@ -5740,11 +5730,6 @@ is-dotfile@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/is-dotfile/-/is-dotfile-1.0.3.tgz#a6a2f32ffd2dfb04f5ca25ecd0f6b83cf798a1e1"
   integrity sha1-pqLzL/0t+wT1yiXs0Pa4PPeYoeE=
-
-is-electron-renderer@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/is-electron-renderer/-/is-electron-renderer-2.0.1.tgz#a469d056f975697c58c98c6023eb0aa79af895a2"
-  integrity sha1-pGnQVvl1aXxYyYxgI+sKp5r4laI=
 
 is-equal-shallow@^0.1.3:
   version "0.1.3"
@@ -8928,6 +8913,14 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
+promisify-electron-ipc@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/promisify-electron-ipc/-/promisify-electron-ipc-1.0.9.tgz#02872b3e9aa038b709e55fec33560d75ae4eee76"
+  integrity sha512-lbM01x5TF1Jum4daqlGZHs1fPcauRI+kXqTe2OdmiomHu4ulbiaqdQRoxbfJxbMCZxQP+ITXH7CChtKEovrVDw==
+  dependencies:
+    serialize-error "^4.1.0"
+    uuid "^3.3.2"
+
 prompts@^0.1.9:
   version "0.1.14"
   resolved "https://registry.yarnpkg.com/prompts/-/prompts-0.1.14.tgz#a8e15c612c5c9ec8f8111847df3337c9cbd443b2"
@@ -9900,10 +9893,12 @@ send@0.16.2:
     range-parser "~1.2.0"
     statuses "~1.4.0"
 
-serialize-error@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/serialize-error/-/serialize-error-3.0.0.tgz#80100282b09be33c611536f50033481cb9cc87cf"
-  integrity sha512-+y3nkkG/go1Vdw+2f/+XUXM1DXX1XcxTl99FfiD/OEPUNw4uo0i6FKABfTAN5ZcgGtjTRZcEbxcE/jtXbEY19A==
+serialize-error@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/serialize-error/-/serialize-error-4.1.0.tgz#63e1e33ede20bcd89d9f0528ea4c15fbf0f2b78a"
+  integrity sha512-5j9GgyGsP9vV9Uj1S0lDCvlsd+gc2LEPVK7HHHte7IyPwOD4lVQFeaX143gx3U5AnoCi+wbcb3mvaxVysjpxEw==
+  dependencies:
+    type-fest "^0.3.0"
 
 serialize-javascript@^1.4.0:
   version "1.6.1"
@@ -10904,6 +10899,11 @@ type-check@~0.3.2:
   integrity sha1-WITKtRLPHTVeP7eE8wgEsrUg23I=
   dependencies:
     prelude-ls "~1.1.2"
+
+type-fest@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.3.0.tgz#1eb4a83c4ee233afd59d4db3faef44fecee0e9a2"
+  integrity sha512-fg3sfdDdJDtdHLUpeGsf/fLyG1aapk6zgFiYG5+MDUPybGrJemH4SLk5tP7hGRe8ntxjg0q5LYW53b6YpJIQ9Q==
 
 type-is@~1.6.16:
   version "1.6.16"

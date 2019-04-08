@@ -1,32 +1,33 @@
-import React from "react";
 import { Add } from "@material-ui/icons";
-import "./AddRepoButton.css";
 import { inject, observer } from "mobx-react";
+import React from "react";
 import { ToolbarStore } from "../../../../stores";
-import { RepositoryStore, BranchStore } from "../../../../stores/git";
+import { BranchStore, RepositoryStore } from "../../../../stores/git";
 
-interface ExternalProps {}
+import "./AddRepoButton.css";
 
-interface InjectedProps extends ExternalProps {
+interface IExternalProps {}
+
+interface IInjectedProps extends IExternalProps {
     repoStore: RepositoryStore;
     toolbarStore: ToolbarStore;
     branchStore: BranchStore;
 }
 
 @inject(({ stores }) => ({
+    branchStore: stores.branchStore,
     repoStore: stores.repoStore,
-    toolbarStore: stores.toolbarStore,
-    branchStore: stores.branchStore
+    toolbarStore: stores.toolbarStore
 }))
 @observer
 class AddRepoButton extends React.Component {
     get injected() {
-        return this.props as InjectedProps;
+        return this.props as IInjectedProps;
     }
 
     buttonClicked = () => {
         // open the repo and update the name
-        let repoPath = window.ipcRenderer.sendSync("open-file-dialog");
+        const repoPath = window.ipcRenderer.sendSync("open-file-dialog");
 
         // only open the repository if the repo path is not null (this is the case if the user cancelled the dialog).
         if (repoPath !== null) {

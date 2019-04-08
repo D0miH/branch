@@ -1,11 +1,11 @@
+import { inject, observer } from "mobx-react";
 import React from "react";
-import { observer, inject } from "mobx-react";
 
 import ToolbarStore from "../../../stores/ToolbarStore";
 
-interface ExternalProps {}
+interface IExternalProps {}
 
-interface InjectedProps extends ExternalProps {
+interface IInjectedProps extends IExternalProps {
     toolbarStore: ToolbarStore;
 }
 
@@ -13,9 +13,9 @@ interface InjectedProps extends ExternalProps {
     toolbarStore: stores.toolbarStore
 }))
 @observer
-class Overlay extends React.Component<ExternalProps> {
+class Overlay extends React.Component<IExternalProps> {
     get injected() {
-        return this.props as InjectedProps;
+        return this.props as IInjectedProps;
     }
 
     hideOverlay = () => {
@@ -27,14 +27,14 @@ class Overlay extends React.Component<ExternalProps> {
             <div
                 className="overlay"
                 style={{
-                    position: "fixed",
                     backgroundColor: "black",
-                    opacity: 0.5,
-                    width: "100%",
                     height: "100%",
-                    zIndex: 1,
+                    left: "0px",
+                    opacity: 0.5,
+                    position: "fixed",
                     top: "20px",
-                    left: "0px"
+                    width: "100%",
+                    zIndex: 1
                 }}
                 onClick={this.hideOverlay}
             />

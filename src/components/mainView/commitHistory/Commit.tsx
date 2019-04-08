@@ -2,12 +2,12 @@ import React from "react";
 
 import "./Commit.css";
 
-type Props = {
+interface IProps {
     title: string;
     onClick: () => void;
-};
+}
 
-class Commit extends React.Component<Props> {
+class Commit extends React.Component<IProps> {
     render() {
         return (
             <div className="commit" onClick={this.props.onClick}>

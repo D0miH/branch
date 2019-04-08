@@ -1,27 +1,28 @@
-import React from "react";
-import { inject, observer } from "mobx-react";
-import { GitBranch, Tag, Inbox } from "@githubprimer/octicons-react";
+import { GitBranch, Inbox, Tag } from "@githubprimer/octicons-react";
 import { CloudOutlined } from "@material-ui/icons";
+import { inject, observer } from "mobx-react";
+import React from "react";
+import { BranchStore, RepositoryStore } from "../../stores/git";
 import FilterBar from "./FilterBar";
 import SidebarList from "./sidebarList/SidebarList";
+
 import "./Sidebar.css";
-import { RepositoryStore, BranchStore } from "../../stores/git";
 
-interface ExternalProps {}
+interface IExternalProps {}
 
-interface InjectedProps extends ExternalProps {
+interface IInjectedProps extends IExternalProps {
     repoStore: RepositoryStore;
     branchStore: BranchStore;
 }
 
 @inject(({ stores }) => ({
-    repoStore: stores.repoStore,
-    branchStore: stores.branchStore
+    branchStore: stores.branchStore,
+    repoStore: stores.repoStore
 }))
 @observer
 class Sidebar extends React.Component {
     get injected() {
-        return this.props as InjectedProps;
+        return this.props as IInjectedProps;
     }
 
     onItemDoubleClick = (event: React.MouseEvent<HTMLDivElement>) => {

@@ -1,6 +1,12 @@
 import { observable } from "mobx";
-import { GitCommit } from "../typings/git-types";
+import { IGitCommit } from "../typings/git-types";
 
 export default class CommitSidebarStore {
-    @observable selectedCommit: GitCommit = { commitDate: "", commitMessage: "", commitTime: "", author: "", hash: "" };
+    @observable selectedCommit: IGitCommit = {
+        commitDate: "",
+        commitMessage: "",
+        commitTime: "",
+        author: "",
+        hash: ""
+    };
 }

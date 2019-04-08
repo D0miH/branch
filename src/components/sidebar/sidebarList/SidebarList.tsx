@@ -1,26 +1,27 @@
-import React from "react";
-import Octicon, { Icon, ChevronDown, ChevronLeft } from "@githubprimer/octicons-react";
-import classnames from "classnames";
+import Octicon, { ChevronDown, ChevronLeft, Icon } from "@githubprimer/octicons-react";
 import { SvgIconProps } from "@material-ui/core/SvgIcon";
-import "./SidebarList.css";
+import classnames from "classnames";
+import React from "react";
 import ListItem from "./SidebarListItem";
+
+import "./SidebarList.css";
 
 type IconType = Icon | React.ComponentType<SvgIconProps>;
 
-type Props = {
+interface IProps {
     icon: IconType;
-    text: String;
+    text: string;
     listItems: string[];
     highlightedItem?: string;
     onItemDoubleClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
-};
+}
 
-type State = {
+interface IState {
     listIsCollapsed: boolean;
-};
+}
 
-class SidebarList extends React.Component<Props, State> {
-    constructor(props: Props) {
+class SidebarList extends React.Component<IProps, IState> {
+    constructor(props: IProps) {
         super(props);
 
         this.state = { listIsCollapsed: true };
@@ -59,8 +60,8 @@ class SidebarList extends React.Component<Props, State> {
                                 <this.props.icon
                                     style={{
                                         height: 16,
-                                        width: 16,
-                                        marginRight: "5px"
+                                        marginRight: "5px",
+                                        width: 16
                                     }}
                                 />
                             )}
@@ -75,8 +76,8 @@ class SidebarList extends React.Component<Props, State> {
 
                 <div
                     className={classnames({
-                        "list-content-collapsed": this.state.listIsCollapsed,
-                        "list-content": !this.state.listIsCollapsed
+                        "list-content": !this.state.listIsCollapsed,
+                        "list-content-collapsed": this.state.listIsCollapsed
                     })}
                 >
                     {this.renderList()}

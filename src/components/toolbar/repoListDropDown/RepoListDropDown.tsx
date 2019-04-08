@@ -1,15 +1,15 @@
+import { inject, observer } from "mobx-react";
 import React from "react";
-import { observer, inject } from "mobx-react";
 
 import ToolbarStore from "../../../stores/ToolbarStore";
 
 import "./RepoListDropDown.css";
 
-interface ExternalProps {
-    repoName: String;
+interface IExternalProps {
+    repoName: string;
 }
 
-interface InjectedProps extends ExternalProps {
+interface IInjectedProps extends IExternalProps {
     toolbarStore: ToolbarStore;
 }
 
@@ -17,9 +17,9 @@ interface InjectedProps extends ExternalProps {
     toolbarStore: stores.toolbarStore
 }))
 @observer
-class RepoListDropDown extends React.Component<ExternalProps> {
+class RepoListDropDown extends React.Component<IExternalProps> {
     get injected() {
-        return this.props as InjectedProps;
+        return this.props as IInjectedProps;
     }
 
     openRepoList() {

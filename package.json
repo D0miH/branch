@@ -9,6 +9,7 @@
     "main": "build/electron.js",
     "homepage": "./",
     "scripts": {
+        "start": "react-scripts start",
         "lint": "tslint -p tsconfig.json",
         "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
         "build": "react-scripts build && rm ./build/electron.ts",

@@ -2,12 +2,12 @@ import React from "react";
 
 import "./RepoListElement.css";
 
-type Props = {
+interface IProps {
     label: string;
     onClick: () => void;
-};
+}
 
-class RepoListElement extends React.Component<Props> {
+class RepoListElement extends React.Component<IProps> {
     render() {
         return (
             <div className="repo-list-element">

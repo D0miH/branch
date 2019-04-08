@@ -1,16 +1,16 @@
-import React from "react";
 import { shallow } from "enzyme";
-import App from "../components/App";
 import { Provider } from "mobx-react";
+import React from "react";
+import App from "../components/App";
 import { ToolbarStore } from "../stores";
 import GitStore from "../stores/GitStore";
 
 describe("<App />", () => {
     it("renders without error", () => {
-        let gitStore: GitStore = new GitStore();
+        const gitStore: GitStore = new GitStore();
         const stores = {
-            toolbarStore: new ToolbarStore(),
-            repoStore: gitStore.repoStore
+            repoStore: gitStore.repoStore,
+            toolbarStore: new ToolbarStore()
         };
 
         shallow(

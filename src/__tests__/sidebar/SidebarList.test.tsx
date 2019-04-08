@@ -1,7 +1,7 @@
-import React from "react";
-import { mount } from "enzyme";
 import { GitBranch } from "@githubprimer/octicons-react";
-import SidebarList from "../../components/Sidebar/SidebarList/SidebarList";
+import { mount } from "enzyme";
+import React from "react";
+import SidebarList from "../../components/sidebar/sidebarList/SidebarList";
 
 describe("<SidebarList />", () => {
     let sidebarList: React.ComponentElement<{}, any>;
@@ -20,7 +20,7 @@ describe("<SidebarList />", () => {
     });
 
     it("is expanded when clicked on", () => {
-        let wrapper = mount(sidebarList);
+        const wrapper = mount(sidebarList);
         wrapper.find(".heading").simulate("click");
 
         expect(wrapper.find(".list-content")).toHaveLength(1);
@@ -28,10 +28,10 @@ describe("<SidebarList />", () => {
     });
 
     it("renders the list items", () => {
-        let listItems: string[] = ["firstItem", "secondItem", "thirdItem"];
-        let component = <SidebarList icon={GitBranch} text="Branches" listItems={listItems} />;
+        const listItems: string[] = ["firstItem", "secondItem", "thirdItem"];
+        const component = <SidebarList icon={GitBranch} text="Branches" listItems={listItems} />;
 
-        let wrapper = mount(component);
+        const wrapper = mount(component);
         wrapper.find(".heading").simulate("click");
 
         // check that the list has 3 items
@@ -40,8 +40,8 @@ describe("<SidebarList />", () => {
         wrapper
             .find(".list-content")
             .children()
-            .forEach((wrapper, index) => {
-                expect(wrapper.text()).toEqual(listItems[index]);
+            .forEach((wrapperObject, index) => {
+                expect(wrapperObject.text()).toEqual(listItems[index]);
             });
     });
 });

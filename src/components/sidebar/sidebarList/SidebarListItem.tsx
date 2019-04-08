@@ -1,15 +1,16 @@
+import Octicon, { Check } from "@githubprimer/octicons-react";
 import React from "react";
 import ReactTooltip from "react-tooltip";
-import Octicon, { Check } from "@githubprimer/octicons-react";
+
 import "./SidebarListItem.css";
 
-interface Props {
+interface IProps {
     label: string;
     itemHighlighted?: boolean;
     onItemDoubleClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-class SidebarListItem extends React.Component<Props> {
+class SidebarListItem extends React.Component<IProps> {
     render() {
         return (
             <div className="sidebar-list-item">

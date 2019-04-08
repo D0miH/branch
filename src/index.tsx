@@ -1,23 +1,23 @@
+import { Provider } from "mobx-react";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "mobx-react";
 import { ToastContainer } from "react-toastify";
 import * as serviceWorker from "./serviceWorker";
 
 import App from "./components/App";
+import { CommitSidebarStore, ToolbarStore } from "./stores";
 import GitStore from "./stores/GitStore";
-import { ToolbarStore, CommitSidebarStore } from "./stores";
 
-import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
 
 const gitStore = new GitStore();
 
 const stores = {
-    toolbarStore: new ToolbarStore(),
-    repoStore: gitStore.repoStore,
     branchStore: gitStore.branchStore,
-    commitSidebarStore: new CommitSidebarStore()
+    commitSidebarStore: new CommitSidebarStore(),
+    repoStore: gitStore.repoStore,
+    toolbarStore: new ToolbarStore()
 };
 
 ReactDOM.render(

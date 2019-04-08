@@ -1,21 +1,21 @@
-import { observable, autorun, toJS } from "mobx";
-import { GitRepoListItem } from "../typings/git-types";
+import { autorun, observable, toJS } from "mobx";
+import { IGitRepoListItem } from "../typings/git-types";
 
 export class LocalStorage {
-    @observable repoList: { repoName: string; repoPath: string }[] = [];
+    @observable repoList: Array<{ repoName: string; repoPath: string }> = [];
     reactToRepoListChange = autorun(() => {
-        let storedListString = window.localStorage.getItem("repo-list");
+        const storedListString = window.localStorage.getItem("repo-list");
 
         if (storedListString === null) {
             // if the item does not exist in the storage, add the item
             window.localStorage.setItem("repo-list", JSON.stringify(toJS(this.repoList)));
         } else {
             // if the item does exist, update the list
-            let storedList = JSON.parse(storedListString) as { repoName: string; repoPath: string }[];
+            const storedList = JSON.parse(storedListString) as Array<{ repoName: string; repoPath: string }>;
 
             // check if the list item is already saved
-            let itemsToBeSaved = this.repoList.filter(item => {
-                let filteredList = storedList.filter(storedItem => storedItem.repoPath === item.repoPath);
+            const itemsToBeSaved = this.repoList.filter(item => {
+                const filteredList = storedList.filter(storedItem => storedItem.repoPath === item.repoPath);
                 return filteredList.length === 0;
             });
 
@@ -25,7 +25,7 @@ export class LocalStorage {
             }
 
             // add the not included items to the stored list and save it in the local storage
-            let result = storedList.concat(toJS(itemsToBeSaved));
+            const result = storedList.concat(toJS(itemsToBeSaved));
 
             window.localStorage.setItem("repo-list", JSON.stringify(result));
         }
@@ -37,8 +37,8 @@ export class LocalStorage {
         window.localStorage.setItem("last-opened-repo", JSON.stringify(toJS(this.lastOpenedRepo)));
     });
 
-    loadRepoList(): GitRepoListItem[] {
-        let storedListString = window.localStorage.getItem("repo-list");
+    loadRepoList(): IGitRepoListItem[] {
+        const storedListString = window.localStorage.getItem("repo-list");
 
         if (storedListString === null) {
             return [];
@@ -51,7 +51,7 @@ export class LocalStorage {
      * Returns the last opened repo. If there is no repository which was opened the name and the path are an empty string.
      */
     loadLastOpenedRepo(): { repoName: string; repoPath: string } {
-        let lastOpenedRepoString = window.localStorage.getItem("last-opened-repo");
+        const lastOpenedRepoString = window.localStorage.getItem("last-opened-repo");
 
         if (lastOpenedRepoString === null) {
             return { repoName: "", repoPath: "" };

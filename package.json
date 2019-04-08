@@ -27,7 +27,7 @@
     "husky": {
         "hooks": {
             "pre-commit": "yarn format && yarn lint",
-            "pre-push": "yarn test"
+            "pre-push": "cross-env CI=true yarn test"
         }
     },
     "browserslist": [

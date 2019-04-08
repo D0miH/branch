@@ -21,7 +21,7 @@ describe("<SidebarList />", () => {
 
     it("is expanded when clicked on", () => {
         const wrapper = mount(sidebarList);
-        wrapper.find(".heading").simulate("click");
+        wrapper.find(".heading-button").simulate("click");
 
         expect(wrapper.find(".list-content")).toHaveLength(1);
         expect(wrapper.find(".list-content-collapsed")).toHaveLength(0);
@@ -32,7 +32,7 @@ describe("<SidebarList />", () => {
         const component = <SidebarList icon={GitBranch} text="Branches" listItems={listItems} />;
 
         const wrapper = mount(component);
-        wrapper.find(".heading").simulate("click");
+        wrapper.find(".heading-button").simulate("click");
 
         // check that the list has 3 items
         expect(wrapper.find(".list-content").children()).toHaveLength(3);

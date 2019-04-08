@@ -1,7 +1,7 @@
-import { observable, action } from "mobx";
-import GitStore from "../GitStore";
+import { action, observable } from "mobx";
 import { toast } from "react-toastify";
-import { GitReturnObject, GitErrorCode } from "../../typings/git-types";
+import { GitErrorCode, IGitReturnObject } from "../../typings/git-types";
+import GitStore from "../GitStore";
 
 export default class Branch {
     gitStore: GitStore;
@@ -13,7 +13,7 @@ export default class Branch {
     }
 
     @action getCheckedOutBranch() {
-        let result: GitReturnObject = window.ipcRenderer.sendSync("get-checked-out-branch");
+        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-checked-out-branch");
 
         if (result.errorCode !== 0) {
             console.error(
@@ -26,7 +26,7 @@ export default class Branch {
     }
 
     @action checkOutBranch(branchName: string) {
-        let result: GitReturnObject = window.ipcRenderer.sendSync("checkout-branch", branchName);
+        const result: IGitReturnObject = window.ipcRenderer.sendSync("checkout-branch", branchName);
 
         if (result.errorCode !== 0) {
             if (result.errorCode === GitErrorCode.LocalChangesPreventCheckout) {

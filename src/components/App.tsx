@@ -1,35 +1,35 @@
+import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
-import { observer, inject } from "mobx-react";
 
+import { CommitSidebarStore } from "../stores";
+import { RepositoryStore } from "../stores/git";
+import getLocalStorageInstance from "../stores/LocalStorage";
+import MainView from "./mainView/MainView";
+import Sidebar from "./sidebar/Sidebar";
 import Titlebar from "./Titlebar";
 import Toolbar from "./toolbar/Toolbar";
-import Sidebar from "./sidebar/Sidebar";
-import MainView from "./mainView/MainView";
-import { RepositoryStore } from "../stores/git";
-import { CommitSidebarStore } from "../stores";
 
 import "./App.css";
-import getLocalStorageInstance from "../stores/LocalStorage";
 
-interface ExternalProps {}
+interface IExternalProps {}
 
-interface InjectedProps extends ExternalProps {
+interface IInjectedProps extends IExternalProps {
     repoStore: RepositoryStore;
     commitSidebarStore: CommitSidebarStore;
 }
 
 @inject(({ stores }) => ({
-    repoStore: stores.repoStore,
-    commitSidebarStore: stores.commitSidebarStore
+    commitSidebarStore: stores.commitSidebarStore,
+    repoStore: stores.repoStore
 }))
 @observer
-class App extends Component<ExternalProps> {
+class App extends Component<IExternalProps> {
     get injected() {
-        return this.props as InjectedProps;
+        return this.props as IInjectedProps;
     }
 
     componentDidMount() {
-        let lastOpenedRepo = getLocalStorageInstance().lastOpenedRepo;
+        const lastOpenedRepo = getLocalStorageInstance().lastOpenedRepo;
         this.injected.repoStore.openRepo(lastOpenedRepo.repoPath);
     }
 

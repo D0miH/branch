@@ -1,29 +1,29 @@
-import React from "react";
-import Commit from "./Commit";
 import { inject, observer } from "mobx-react";
+import React from "react";
 
-import { RepositoryStore } from "../../../stores/git";
-import { GitCommit } from "../../../typings/git-types";
 import { CommitSidebarStore } from "../../../stores";
+import { RepositoryStore } from "../../../stores/git";
+import { IGitCommit } from "../../../typings/git-types";
+import Commit from "./Commit";
 
 import "./CommitList.css";
 
-interface InjectedProps {
+interface IInjectedProps {
     repoStore: RepositoryStore;
     commitSidebarStore: CommitSidebarStore;
 }
 
 @inject(({ stores }) => ({
-    repoStore: stores.repoStore,
-    commitSidebarStore: stores.commitSidebarStore
+    commitSidebarStore: stores.commitSidebarStore,
+    repoStore: stores.repoStore
 }))
 @observer
 class CommitList extends React.Component {
     get injected() {
-        return this.props as InjectedProps;
+        return this.props as IInjectedProps;
     }
 
-    onCommitClick(commit: GitCommit) {
+    onCommitClick(commit: IGitCommit) {
         this.injected.commitSidebarStore.selectedCommit = commit;
     }
 

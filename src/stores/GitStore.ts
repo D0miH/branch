@@ -1,4 +1,4 @@
-import { RepositoryStore, BranchStore } from "./git";
+import { BranchStore, RepositoryStore } from "./git";
 
 export default class GitStore {
     repoStore: RepositoryStore = new RepositoryStore(this);

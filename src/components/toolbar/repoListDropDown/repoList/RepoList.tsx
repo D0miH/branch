@@ -1,28 +1,28 @@
+import { inject, observer } from "mobx-react";
 import React from "react";
-import { observer, inject } from "mobx-react";
-import AddRepoButton from "./AddRepoButton";
 
+import { RepositoryStore } from "../../../../stores/git";
 import ToolbarStore from "../../../../stores/ToolbarStore";
+import AddRepoButton from "./AddRepoButton";
+import RepoListElement from "./RepoListElement";
 
 import "./RepoList.css";
-import RepoListElement from "./RepoListElement";
-import { RepositoryStore } from "../../../../stores/git";
 
-interface ExternalProps {}
+interface IExternalProps {}
 
-interface InjectedProps extends ExternalProps {
+interface IInjectedProps extends IExternalProps {
     toolbarStore: ToolbarStore;
     repoStore: RepositoryStore;
 }
 
 @inject(({ stores }) => ({
-    toolbarStore: stores.toolbarStore,
-    repoStore: stores.repoStore
+    repoStore: stores.repoStore,
+    toolbarStore: stores.toolbarStore
 }))
 @observer
-class RepoList extends React.Component<ExternalProps> {
+class RepoList extends React.Component<IExternalProps> {
     get injected() {
-        return this.props as InjectedProps;
+        return this.props as IInjectedProps;
     }
 
     onListElementClick(repoName: string, repoPath: string) {

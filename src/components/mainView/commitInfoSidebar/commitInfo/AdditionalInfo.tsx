@@ -1,14 +1,14 @@
-import React from "react";
 import Octicon, { Diff, GitCommit } from "@githubprimer/octicons-react";
+import React from "react";
 
 import "./AdditionalInfo.css";
 
-type Props = {
+interface IProps {
     filesChanged: string;
     commitHash: string;
-};
+}
 
-class AdditionalInfo extends React.Component<Props> {
+class AdditionalInfo extends React.Component<IProps> {
     render() {
         return (
             <div className="additional-info">

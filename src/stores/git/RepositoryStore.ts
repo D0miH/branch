@@ -1,7 +1,7 @@
-import { observable, action } from "mobx";
+import { action, observable } from "mobx";
 import { toast } from "react-toastify";
+import { IGitCommit, IGitReturnObject } from "../../typings/git-types";
 import GitStore from "../GitStore";
-import { GitReturnObject, GitCommit } from "../../typings/git-types";
 import getLocalStorageInstance from "../LocalStorage";
 
 export default class RepositoryStore {
@@ -13,7 +13,7 @@ export default class RepositoryStore {
     @observable remoteBranches: string[] = [];
     @observable tags: string[] = [];
     @observable stashes: string[] = [];
-    @observable commitHistory: GitCommit[] = [];
+    @observable commitHistory: IGitCommit[] = [];
 
     constructor(gitStore: GitStore) {
         this.gitStore = gitStore;
@@ -21,7 +21,7 @@ export default class RepositoryStore {
 
     @action openRepo(repoPath: string) {
         // open the repo
-        let result: GitReturnObject = window.ipcRenderer.sendSync("open-repo", repoPath);
+        const result: IGitReturnObject = window.ipcRenderer.sendSync("open-repo", repoPath);
 
         if (result.errorCode !== 0) {
             if (result.errorCode === 2) {
@@ -52,7 +52,7 @@ export default class RepositoryStore {
 
     updateLocalBranchList() {
         // get all the local branches
-        let result: GitReturnObject = window.ipcRenderer.sendSync("get-local-branches");
+        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-local-branches");
 
         if (result.errorCode !== 0) {
             console.error(`Error occurred while retrieving the local branches (Error code: ${result.errorCode}) `);
@@ -64,7 +64,7 @@ export default class RepositoryStore {
 
     updateRemoteBranchList() {
         // get all the remote branches
-        let result: GitReturnObject = window.ipcRenderer.sendSync("get-remote-branches");
+        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-remote-branches");
 
         if (result.errorCode !== 0) {
             console.error(`Error occurred while retrieving the remote branches (Error code: ${result.errorCode}) `);
@@ -75,7 +75,7 @@ export default class RepositoryStore {
     }
 
     updateTagList() {
-        let result: GitReturnObject = window.ipcRenderer.sendSync("get-tags");
+        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-tags");
 
         if (result.errorCode !== 0) {
             console.error(
@@ -88,7 +88,7 @@ export default class RepositoryStore {
     }
 
     updateStashList() {
-        let result: GitReturnObject = window.ipcRenderer.sendSync("get-stashes");
+        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-stashes");
 
         if (result.errorCode !== 0) {
             console.error(`Error occurred while retrieving the stashes (Error code: ${result.errorCode}) `);
@@ -99,18 +99,18 @@ export default class RepositoryStore {
     }
 
     updateCommitHistory(branchName: string) {
-        let result: GitReturnObject = window.ipcRenderer.sendSync("get-commit-history", branchName);
+        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-commit-history", branchName);
 
         if (result.errorCode !== 0) {
             console.error(`Error occurred while retrieving the commit history (Error code: ${result.errorCode}) `);
             return [];
         }
 
-        this.commitHistory = result.value as GitCommit[];
+        this.commitHistory = result.value as IGitCommit[];
     }
 
     async pullRepository() {
-        window.promiseIpcRenderer.send("pull-all").then((result: GitReturnObject) => {
+        window.promiseIpcRenderer.send("pull-all").then((result: IGitReturnObject) => {
             if (result.errorCode !== 0) {
                 if (
                     result.value.includes(
@@ -124,7 +124,7 @@ export default class RepositoryStore {
             }
 
             // parse the lines and remove the last empty line
-            let lines = result.value.split("\n") as string[];
+            const lines = result.value.split("\n") as string[];
             lines.splice(-1, 1);
 
             lines.forEach(line => {

@@ -1,5 +1,6 @@
-import React from "react";
 import FilterIcon from "@material-ui/icons/FilterList";
+import React from "react";
+
 import "./FilterBar.css";
 
 class FilterBar extends React.Component {

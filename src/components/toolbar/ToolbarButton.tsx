@@ -1,17 +1,18 @@
-import React from "react";
-import { SvgIconProps } from "@material-ui/core/SvgIcon";
-import "./ToolbarButton.css";
 import Octicon, { Icon } from "@githubprimer/octicons-react";
+import { SvgIconProps } from "@material-ui/core/SvgIcon";
+import React from "react";
+
+import "./ToolbarButton.css";
 
 type IconType = React.ComponentType<SvgIconProps> | Icon;
 
-type Props = {
+interface IProps {
     icon: IconType;
     label: string;
     onClick: () => void;
-};
+}
 
-class ToolbarButton extends React.Component<Props> {
+class ToolbarButton extends React.Component<IProps> {
     isOcticon(givenIcon: IconType): givenIcon is Icon {
         return (givenIcon as Icon).size !== undefined;
     }

@@ -1,9 +1,9 @@
-export interface GitRepoListItem {
+export interface IGitRepoListItem {
     repoName: string;
     repoPath: string;
 }
 
-export interface GitReturnObject {
+export interface IGitReturnObject {
     value: any;
     errorCode: GitErrorCode;
 }
@@ -16,7 +16,7 @@ export enum GitErrorCode {
     LocalChangesPreventPull = 5
 }
 
-export interface GitCommit {
+export interface IGitCommit {
     hash: string;
     author: string;
     commitDate: string;

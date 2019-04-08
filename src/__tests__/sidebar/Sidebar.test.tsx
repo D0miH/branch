@@ -1,9 +1,9 @@
-import React, { Component } from "react";
 import { mount } from "enzyme";
 import { Provider } from "mobx-react";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import React, { Component } from "react";
+import Sidebar from "../../components/sidebar/Sidebar";
+import { BranchStore, RepositoryStore } from "../../stores/git";
 import GitStore from "../../stores/GitStore";
-import { RepositoryStore, BranchStore } from "../../stores/Git";
 
 describe("<Sidebar />", () => {
     let gitStore: GitStore;

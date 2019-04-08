@@ -1,7 +1,8 @@
 import React from "react";
-import "./MainView.css";
 import CommitList from "./commitHistory/CommitList";
 import CommitInfoSidebar from "./commitInfoSidebar/CommitInfoSidebar";
+
+import "./MainView.css";
 
 class MainView extends React.Component {
     render() {

@@ -1,15 +1,15 @@
+import { inject, observer } from "mobx-react";
 import React from "react";
-import { observer, inject } from "mobx-react";
 
+import { CommitSidebarStore } from "../../../stores";
 import CommitInfo from "./commitInfo/CommitInfo";
 import FileList from "./FileList";
-import { CommitSidebarStore } from "../../../stores";
 
 import "./CommitInfoSidebar.css";
 
-interface ExternalProps {}
+interface IExternalProps {}
 
-interface InjectedProps extends ExternalProps {
+interface IInjectedProps extends IExternalProps {
     commitSidebarStore: CommitSidebarStore;
 }
 
@@ -17,9 +17,9 @@ interface InjectedProps extends ExternalProps {
     commitSidebarStore: stores.commitSidebarStore
 }))
 @observer
-class CommitInfoSidebar extends React.Component<ExternalProps> {
+class CommitInfoSidebar extends React.Component<IExternalProps> {
     get injected() {
-        return this.props as InjectedProps;
+        return this.props as IInjectedProps;
     }
 
     render() {

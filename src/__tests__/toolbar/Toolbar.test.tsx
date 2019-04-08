@@ -1,7 +1,7 @@
-import React from "react";
-import { Provider } from "mobx-react";
 import { mount } from "enzyme";
-import Toolbar from "../../components/Toolbar/Toolbar";
+import { Provider } from "mobx-react";
+import React from "react";
+import Toolbar from "../../components/toolbar/Toolbar";
 import { ToolbarStore } from "../../stores";
 import GitStore from "../../stores/GitStore";
 
@@ -29,7 +29,7 @@ describe("<Toolbar />", () => {
     });
 
     it("renders the repository drop down list", () => {
-        let wrapper = mount(toolbar);
+        const wrapper = mount(toolbar);
 
         // asser that the list is hidden
         expect(toolbarStore.repoListVisible).toBeFalsy();

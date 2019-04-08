@@ -1,18 +1,19 @@
-import React from "react";
-import { observer, inject } from "mobx-react";
-import { ArrowUpward, ArrowDownward } from "@material-ui/icons";
 import { GitBranch, Inbox } from "@githubprimer/octicons-react";
-import RepoListDropDown from "./repoListDropDown/RepoListDropDown";
-import ToolbarButton from "./ToolbarButton";
+import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
+import { inject, observer } from "mobx-react";
+import React from "react";
+
+import { RepositoryStore } from "../../stores/git";
 import Overlay from "./repoListDropDown/Overlay";
 import RepoList from "./repoListDropDown/repoList/RepoList";
-import { RepositoryStore } from "../../stores/git";
+import RepoListDropDown from "./repoListDropDown/RepoListDropDown";
+import ToolbarButton from "./ToolbarButton";
 
 import "./Toolbar.css";
 
-interface ExternalProps {}
+interface IExternalProps {}
 
-interface InjectedProps extends ExternalProps {
+interface IInjectedProps extends IExternalProps {
     repoStore: RepositoryStore;
 }
 
@@ -20,9 +21,9 @@ interface InjectedProps extends ExternalProps {
     repoStore: stores.repoStore
 }))
 @observer
-class Toolbar extends React.Component<ExternalProps> {
+class Toolbar extends React.Component<IExternalProps> {
     get injected() {
-        return this.props as InjectedProps;
+        return this.props as IInjectedProps;
     }
 
     pull = () => {
@@ -30,15 +31,15 @@ class Toolbar extends React.Component<ExternalProps> {
     };
 
     push = () => {
-        console.log("Push was clicked");
+        console.error("Button has no function yet");
     };
 
     branch = () => {
-        console.log("Branch was clicked");
+        console.error("Button has no function yet");
     };
 
     stash = () => {
-        console.log("Stash was clicked");
+        console.error("Button has no function yet");
     };
 
     render() {

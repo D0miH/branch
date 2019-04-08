@@ -1,19 +1,19 @@
 import React from "react";
 
-import AuthorInfo from "./AuthorInfo";
 import AdditionalInfo from "./AdditionalInfo";
+import AuthorInfo from "./AuthorInfo";
 
 import "./CommitInfo.css";
 
-type Props = {
+interface IProps {
     commitMessage: string;
     commitAuthor: string;
     authorDate: string;
     filesChanged: string;
     commitHash: string;
-};
+}
 
-class CommitInfo extends React.Component<Props> {
+class CommitInfo extends React.Component<IProps> {
     render() {
         return (
             <div className="commit-info">

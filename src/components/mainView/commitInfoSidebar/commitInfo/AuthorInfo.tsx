@@ -1,20 +1,20 @@
-import React from "react";
 import Identicon from "identicon.js";
 import jsSHA from "jssha";
+import React from "react";
 
 import "./AuthorInfo.css";
 
-type Props = {
+interface IProps {
     commitAuthor: string;
     authorDate: string;
-};
+}
 
-class AuthorInfo extends React.Component<Props> {
+class AuthorInfo extends React.Component<IProps> {
     generateAvatar(): string {
-        let hashObject = new jsSHA("SHA-512", "TEXT", { numRounds: 1 });
+        const hashObject = new jsSHA("SHA-512", "TEXT", { numRounds: 1 });
         hashObject.update(this.props.commitAuthor + 0);
-        let hash = hashObject.getHash("HEX");
-        let imgData = new Identicon(hash, 30).toString();
+        const hash = hashObject.getHash("HEX");
+        const imgData = new Identicon(hash, 30).toString();
         return "data:/image/png;base64," + imgData;
     }
 

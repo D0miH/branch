@@ -39,7 +39,7 @@ export default class RepositoryStore {
         // set the current opened repo as the last opened repo
         getLocalStorageInstance().lastOpenedRepo = { repoName: this.currentRepoName, repoPath: repoPath };
 
-        this.updateLocalBranchList();
+        await this.updateLocalBranchList();
         this.updateRemoteBranchList();
 
         this.updateTagList();
@@ -50,9 +50,9 @@ export default class RepositoryStore {
         this.updateCommitHistory(this.gitStore.branchStore.checkedOutBranch);
     }
 
-    updateLocalBranchList() {
+    async updateLocalBranchList() {
         // get all the local branches
-        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-local-branches");
+        const result: IGitReturnObject = await window.promiseIpcRenderer.send("get-local-branches");
 
         if (result.errorCode !== 0) {
             console.error(`Error occurred while retrieving the local branches (Error code: ${result.errorCode}) `);

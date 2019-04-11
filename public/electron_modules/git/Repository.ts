@@ -90,25 +90,23 @@ export default class Repository {
      * Returns all the remote branches of the repository. If an error occurred the function returns null.
      * @param event The given event in which return value is set.
      */
-    async getRemoteBranches(event: IpcMessageEvent) {
+    getRemoteBranches() {
         if (this.pathToRepo === null) {
-            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
-            return;
+            return Promise.resolve(new ReturnObject("", ErrorCode.NoValidPathGiven));
         }
 
-        GitProcess.exec(["branch", "-r"], this.pathToRepo).then(result => {
+        return GitProcess.exec(["branch", "-r"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
-                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
-                return;
+                return new ReturnObject("", ErrorCode.UnknownError);
             }
 
             // parse the result and remove the last since this will be an empty string
             const parsedResult = result.stdout.replace(/ /g, "").split("\n");
             parsedResult.splice(-1, 1);
             // remove the first element since this is the HEAD
-            event.returnValue = new ReturnObject(parsedResult.slice(1));
+            return new ReturnObject(parsedResult.slice(1));
         });
     }
 
@@ -258,7 +256,7 @@ function addIpcListener(repo: Repository) {
 
     promiseIpcMain.on("get-local-branches", () => repo.getLocalBranches());
 
-    ipcMain.on("get-remote-branches", (event: IpcMessageEvent) => repo.getRemoteBranches(event));
+    promiseIpcMain.on("get-remote-branches", () => repo.getRemoteBranches());
 
     ipcMain.on("get-tags", (event: IpcMessageEvent) => repo.getTags(event));
 

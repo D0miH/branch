@@ -114,28 +114,26 @@ export default class Repository {
      * Returns all tags of the repository. If an error occurred or there were no tags found, the function returns null.
      * @param event The given event in which the return value is set.
      */
-    async getTags(event: IpcMessageEvent) {
+    getTags() {
         if (this.pathToRepo === null) {
-            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
-            return;
+            return Promise.resolve(new ReturnObject("", ErrorCode.NoValidPathGiven));
         }
 
-        GitProcess.exec(["tag"], this.pathToRepo).then(result => {
+        return GitProcess.exec(["tag"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
-                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
-                return;
+                return new ReturnObject("", ErrorCode.UnknownError);
             } else if (result.stdout === "") {
                 // if no tags were found just return an empty string array
                 const returnValue: string[] = [];
-                event.returnValue = new ReturnObject(returnValue);
+                return new ReturnObject(returnValue);
             }
 
             // parse the result and return all but the last line (because it is empty)
             const lines = result.stdout.split("\n");
             lines.splice(-1, 1);
-            event.returnValue = new ReturnObject(lines);
+            return new ReturnObject(lines);
         });
     }
 
@@ -258,7 +256,7 @@ function addIpcListener(repo: Repository) {
 
     promiseIpcMain.on("get-remote-branches", () => repo.getRemoteBranches());
 
-    ipcMain.on("get-tags", (event: IpcMessageEvent) => repo.getTags(event));
+    promiseIpcMain.on("get-tags", () => repo.getTags());
 
     ipcMain.on("get-stashes", (event: IpcMessageEvent) => repo.getStashes(event));
 

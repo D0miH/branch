@@ -1,5 +1,4 @@
 import { GitProcess } from "dugite";
-import { ipcMain, IpcMessageEvent } from "electron";
 import { promiseIpcMain } from "promisify-electron-ipc";
 import Branch from "./Branch";
 import Commit from "./Commit";

@@ -1,4 +1,5 @@
-import { BrowserWindow, dialog, ipcMain, IpcMessageEvent } from "electron";
+import { BrowserWindow, dialog } from "electron";
+import { promiseIpcMain } from "promisify-electron-ipc";
 
 let browserWindow: BrowserWindow;
 
@@ -6,9 +7,9 @@ export default function initElectronHelpers(mainWindow: BrowserWindow) {
     browserWindow = mainWindow;
 }
 
-ipcMain.on("open-file-dialog", (event: IpcMessageEvent) => {
+promiseIpcMain.on("open-file-dialog", () => {
     const workingDir = dialog.showOpenDialog(browserWindow, {
         properties: ["openDirectory"]
     });
-    event.returnValue = workingDir !== undefined ? workingDir[0] : null;
+    return Promise.resolve(workingDir !== undefined ? workingDir[0] : null);
 });

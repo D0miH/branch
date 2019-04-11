@@ -21,7 +21,7 @@ export default class RepositoryStore {
 
     @action async openRepo(repoPath: string) {
         // open the repo
-        const result: IGitReturnObject = window.ipcRenderer.sendSync("open-repo", repoPath);
+        const result: IGitReturnObject = await window.promiseIpcRenderer.send("open-repo", repoPath);
 
         if (result.errorCode !== 0) {
             if (result.errorCode === 2) {

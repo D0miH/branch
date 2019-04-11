@@ -174,21 +174,19 @@ export default class Repository {
      * @param branchName The name of the branch from which to retrieve the commit history.
      * @param event The given event in which the return value is set.
      */
-    async getCommitHistory(branchName: string, event: IpcMessageEvent) {
+    getCommitHistory(branchName: string) {
         if (this.pathToRepo === null) {
-            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
-            return;
+            return Promise.resolve(new ReturnObject("", ErrorCode.NoValidPathGiven));
         }
 
-        GitProcess.exec(
+        return GitProcess.exec(
             ["log", branchName, "--pretty=format:%h-%an-%cd-%s", "--date=format:%d/%m/%Y@%H:%M"],
             this.pathToRepo
         ).then(result => {
             if (result.exitCode !== 0) {
                 // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
-                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
-                return;
+                return new ReturnObject("", ErrorCode.UnknownError);
             }
 
             const lines = result.stdout.split("\n");
@@ -217,7 +215,7 @@ export default class Repository {
                 commitObjects.push(new Commit(hash, author, commitDate, commitTime, commitMessage));
             });
 
-            event.returnValue = new ReturnObject(commitObjects);
+            return new ReturnObject(commitObjects);
         });
     }
 
@@ -257,9 +255,7 @@ function addIpcListener(repo: Repository) {
 
     promiseIpcMain.on("get-stashes", () => repo.getStashes());
 
-    ipcMain.on("get-commit-history", (event: IpcMessageEvent, branchName: string) =>
-        repo.getCommitHistory(branchName, event)
-    );
+    promiseIpcMain.on("get-commit-history", (branchName: string) => repo.getCommitHistory(branchName));
 
     promiseIpcMain.on("pull-all", () => repo.pullAll());
 }

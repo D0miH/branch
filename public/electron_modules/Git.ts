@@ -1,7 +1,7 @@
 import { BrowserWindow } from "electron";
 import Repository from "./git/Repository";
 
-var browserWindow: BrowserWindow;
+let browserWindow: BrowserWindow;
 
 let repo: Repository;
 

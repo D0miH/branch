@@ -1,9 +1,9 @@
 import { GitProcess } from "dugite";
 import { ipcMain, IpcMessageEvent } from "electron";
 import { promiseIpcMain } from "promisify-electron-ipc";
-import { ReturnObject, ErrorCode, ErrorMessages } from "./ReturnObject";
 import Branch from "./Branch";
 import Commit from "./Commit";
+import { ErrorCode, ErrorMessages, ReturnObject } from "./ReturnObject";
 
 export default class Repository {
     pathToRepo: string | null = null;
@@ -40,6 +40,7 @@ export default class Repository {
 
         GitProcess.exec(["config", "--local", "--get", "remote.origin.url"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
+                // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
 
                 // if there was no git repo found reset the path to null
@@ -53,10 +54,10 @@ export default class Repository {
                 return;
             }
 
-            let url: string[] = result.stdout.split("/");
+            const url: string[] = result.stdout.split("/");
 
             // get the last *.git element and remove the .git
-            let resultValue = url[url.length - 1].split(".")[0];
+            const resultValue = url[url.length - 1].split(".")[0];
             event.returnValue = new ReturnObject(resultValue);
         });
     }
@@ -73,13 +74,14 @@ export default class Repository {
 
         GitProcess.exec(["branch"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
+                // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
                 event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
                 return;
             }
 
             // parse the result by removeing the asterix and then the all spaces
-            let parsedResult = result.stdout
+            const parsedResult = result.stdout
                 .replace("*", "")
                 .replace(/ /g, "")
                 .split("\n");
@@ -101,13 +103,14 @@ export default class Repository {
 
         GitProcess.exec(["branch", "-r"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
+                // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
                 event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
                 return;
             }
 
             // parse the result and remove the last since this will be an empty string
-            let parsedResult = result.stdout.replace(/ /g, "").split("\n");
+            const parsedResult = result.stdout.replace(/ /g, "").split("\n");
             parsedResult.splice(-1, 1);
             // remove the first element since this is the HEAD
             event.returnValue = new ReturnObject(parsedResult.slice(1));
@@ -126,17 +129,18 @@ export default class Repository {
 
         GitProcess.exec(["tag"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
+                // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
                 event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
                 return;
             } else if (result.stdout === "") {
                 // if no tags were found just return an empty string array
-                let returnValue: string[] = [];
+                const returnValue: string[] = [];
                 event.returnValue = new ReturnObject(returnValue);
             }
 
             // parse the result and return all but the last line (because it is empty)
-            let lines = result.stdout.split("\n");
+            const lines = result.stdout.split("\n");
             lines.splice(-1, 1);
             event.returnValue = new ReturnObject(lines);
         });
@@ -154,18 +158,19 @@ export default class Repository {
 
         GitProcess.exec(["stash", "list"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
+                // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
                 event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
                 return;
             } else if (result.stdout === "") {
                 // if no stashes were found just return an empty array
-                let returnValue: string[] = [];
+                const returnValue: string[] = [];
                 event.returnValue = new ReturnObject(returnValue);
                 return;
             }
 
             // parse the result
-            let lines = result.stdout.split("\n");
+            const lines = result.stdout.split("\n");
             lines.forEach((line: string, index: number) => {
                 // only keep the part after the colon
                 lines[index] = line.split("}: ")[1];
@@ -192,24 +197,25 @@ export default class Repository {
             this.pathToRepo
         ).then(result => {
             if (result.exitCode !== 0) {
+                // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
                 event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
                 return;
             }
 
-            let lines = result.stdout.split("\n");
+            const lines = result.stdout.split("\n");
 
             // iterate the lines and extract the information
-            let commitObjects: Commit[] = [];
+            const commitObjects: Commit[] = [];
 
             lines.forEach(line => {
-                let content = line.split("-");
+                const content = line.split("-");
 
-                let hash = content[0];
-                let author = content[1];
+                const hash = content[0];
+                const author = content[1];
 
-                let commitDate = content[2].split("@")[0];
-                let commitTime = content[2].split("@")[1];
+                const commitDate = content[2].split("@")[0];
+                const commitTime = content[2].split("@")[1];
 
                 // all other array elements are the commit title.
                 // If there are more than one more element readd the hyphon which was split.
@@ -242,6 +248,7 @@ export default class Repository {
                     return Promise.resolve(new ReturnObject(result.stderr, ErrorCode.LocalChangesPreventPull));
                 }
 
+                // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
                 return Promise.resolve(new ReturnObject(result.stderr, ErrorCode.UnknownError));
             }

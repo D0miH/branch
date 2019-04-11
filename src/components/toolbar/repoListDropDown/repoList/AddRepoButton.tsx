@@ -25,9 +25,9 @@ class AddRepoButton extends React.Component {
         return this.props as IInjectedProps;
     }
 
-    buttonClicked = () => {
+    buttonClicked = async () => {
         // open the repo and update the name
-        const repoPath = window.ipcRenderer.sendSync("open-file-dialog");
+        const repoPath = await window.promiseIpcRenderer.send("open-file-dialog");
 
         // only open the repository if the repo path is not null (this is the case if the user cancelled the dialog).
         if (repoPath !== null) {

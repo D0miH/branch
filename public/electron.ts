@@ -1,7 +1,7 @@
 import { app, BrowserWindow, shell } from "electron";
-import * as path from "path";
+import installExtension, { MOBX_DEVTOOLS, REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
 import * as isDev from "electron-is-dev";
-import installExtension, { REACT_DEVELOPER_TOOLS, MOBX_DEVTOOLS } from "electron-devtools-installer";
+import * as path from "path";
 
 import initElectronHelpers from "./electron_modules/ElectronHelpers";
 import initGit from "./electron_modules/Git";
@@ -12,8 +12,8 @@ let menu: Menu;
 
 // prevent opening new windows
 app.on("web-contents-created", (event, contents) => {
-    contents.on("new-window", (event, navigationUrl) => {
-        event.preventDefault();
+    contents.on("new-window", (contentEvent, navigationUrl) => {
+        contentEvent.preventDefault();
 
         // check if the user wants to open the dev-tools
         if (navigationUrl.split(":")[0] !== "chrome-devtools") {

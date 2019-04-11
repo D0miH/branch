@@ -1,8 +1,8 @@
 import { GitProcess } from "dugite";
-import { IpcMessageEvent, ipcMain } from "electron";
+import { ipcMain, IpcMessageEvent } from "electron";
 
 import Repository from "./Repository";
-import { ReturnObject, ErrorCode, ErrorMessages } from "./ReturnObject";
+import { ErrorCode, ErrorMessages, ReturnObject } from "./ReturnObject";
 
 export default class Branch {
     repo: Repository;
@@ -24,6 +24,7 @@ export default class Branch {
 
         GitProcess.exec(["rev-parse", "--abbrev-ref", "HEAD"], this.repo.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
+                // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
                 event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
                 return;
@@ -52,6 +53,7 @@ export default class Branch {
                     return;
                 }
 
+                // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
                 event.returnValue = new ReturnObject(false, ErrorCode.UnknownError);
                 return;

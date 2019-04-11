@@ -1,4 +1,4 @@
-import { Menu as ElectronMenu, MenuItemConstructorOptions, app } from "electron";
+import { app, Menu as ElectronMenu, MenuItemConstructorOptions } from "electron";
 
 const template: MenuItemConstructorOptions[] = [
     {

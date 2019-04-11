@@ -40,7 +40,7 @@ export default class RepositoryStore {
         getLocalStorageInstance().lastOpenedRepo = { repoName: this.currentRepoName, repoPath: repoPath };
 
         await this.updateLocalBranchList();
-        this.updateRemoteBranchList();
+        await this.updateRemoteBranchList();
 
         this.updateTagList();
 
@@ -62,9 +62,9 @@ export default class RepositoryStore {
         this.localBranches = result.value as string[];
     }
 
-    updateRemoteBranchList() {
+    async updateRemoteBranchList() {
         // get all the remote branches
-        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-remote-branches");
+        const result: IGitReturnObject = await window.promiseIpcRenderer.send("get-remote-branches");
 
         if (result.errorCode !== 0) {
             console.error(`Error occurred while retrieving the remote branches (Error code: ${result.errorCode}) `);

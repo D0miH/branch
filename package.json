@@ -47,7 +47,7 @@
         "promisify-electron-ipc": "^1.0.9",
         "react": "^16.8.3",
         "react-dom": "^16.8.3",
-        "react-scripts": "2.1.5",
+        "react-scripts": "^2.1.8",
         "react-toastify": "^4.5.2",
         "react-tooltip": "^3.10.0"
     },

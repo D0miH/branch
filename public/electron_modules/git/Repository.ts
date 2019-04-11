@@ -141,23 +141,20 @@ export default class Repository {
      * Returns all stashes of the repository.
      * @param event The given event in which the return value is set.
      */
-    async getStashes(event: IpcMessageEvent) {
+    getStashes() {
         if (this.pathToRepo === null) {
-            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
-            return;
+            return Promise.resolve(new ReturnObject("", ErrorCode.NoValidPathGiven));
         }
 
-        GitProcess.exec(["stash", "list"], this.pathToRepo).then(result => {
+        return GitProcess.exec(["stash", "list"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
-                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
-                return;
+                return new ReturnObject("", ErrorCode.UnknownError);
             } else if (result.stdout === "") {
                 // if no stashes were found just return an empty array
                 const returnValue: string[] = [];
-                event.returnValue = new ReturnObject(returnValue);
-                return;
+                return new ReturnObject(returnValue);
             }
 
             // parse the result
@@ -168,7 +165,7 @@ export default class Repository {
             });
             lines.splice(-1, 1);
 
-            event.returnValue = new ReturnObject(lines);
+            return new ReturnObject(lines);
         });
     }
 
@@ -258,7 +255,7 @@ function addIpcListener(repo: Repository) {
 
     promiseIpcMain.on("get-tags", () => repo.getTags());
 
-    ipcMain.on("get-stashes", (event: IpcMessageEvent) => repo.getStashes(event));
+    promiseIpcMain.on("get-stashes", () => repo.getStashes());
 
     ipcMain.on("get-commit-history", (event: IpcMessageEvent, branchName: string) =>
         repo.getCommitHistory(branchName, event)

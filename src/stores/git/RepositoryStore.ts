@@ -44,7 +44,7 @@ export default class RepositoryStore {
 
         await this.updateTagList();
 
-        this.updateStashList();
+        await this.updateStashList();
 
         await this.gitStore.branchStore.getCheckedOutBranch();
         this.updateCommitHistory(this.gitStore.branchStore.checkedOutBranch);
@@ -87,8 +87,8 @@ export default class RepositoryStore {
         this.tags = result.value as string[];
     }
 
-    updateStashList() {
-        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-stashes");
+    async updateStashList() {
+        const result: IGitReturnObject = await window.promiseIpcRenderer.send("get-stashes");
 
         if (result.errorCode !== 0) {
             console.error(`Error occurred while retrieving the stashes (Error code: ${result.errorCode}) `);

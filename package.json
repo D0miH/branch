@@ -48,7 +48,7 @@
         "react": "^16.8.3",
         "react-dom": "^16.8.3",
         "react-scripts": "^2.1.8",
-        "react-toastify": "^4.5.2",
+        "react-toastify": "^5.0.1",
         "react-tooltip": "^3.10.0"
     },
     "devDependencies": {

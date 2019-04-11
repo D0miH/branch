@@ -42,7 +42,7 @@ export default class RepositoryStore {
         await this.updateLocalBranchList();
         await this.updateRemoteBranchList();
 
-        this.updateTagList();
+        await this.updateTagList();
 
         this.updateStashList();
 
@@ -74,8 +74,8 @@ export default class RepositoryStore {
         this.remoteBranches = result.value as string[];
     }
 
-    updateTagList() {
-        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-tags");
+    async updateTagList() {
+        const result: IGitReturnObject = await window.promiseIpcRenderer.send("get-tags");
 
         if (result.errorCode !== 0) {
             console.error(

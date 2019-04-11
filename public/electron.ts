@@ -1,5 +1,4 @@
 import { app, BrowserWindow, shell } from "electron";
-import installExtension, { MOBX_DEVTOOLS, REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
 import * as isDev from "electron-is-dev";
 import * as path from "path";
 
@@ -26,6 +25,11 @@ app.on("web-contents-created", (event, contents) => {
 async function createWindow() {
     // load the devtools when in dev mode
     if (isDev) {
+        const {
+            default: installExtension,
+            MOBX_DEVTOOLS,
+            REACT_DEVELOPER_TOOLS
+        } = require("electron-devtools-installer");
         await installExtension(REACT_DEVELOPER_TOOLS);
         await installExtension(MOBX_DEVTOOLS);
     }

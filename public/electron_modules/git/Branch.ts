@@ -1,5 +1,5 @@
 import { GitProcess } from "dugite";
-import { ipcMain, IpcMessageEvent } from "electron";
+import { promiseIpcMain } from "promisify-electron-ipc";
 
 import Repository from "./Repository";
 import { ErrorCode, ErrorMessages, ReturnObject } from "./ReturnObject";
@@ -16,22 +16,20 @@ export default class Branch {
      * Returns the name of the currently checked out branch.
      * @param event The given IpcMessageEvent to return the result.
      */
-    getCheckedOutBranch(event: IpcMessageEvent) {
+    getCheckedOutBranch() {
         if (this.repo.pathToRepo === null) {
-            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
-            return;
+            return Promise.resolve(new ReturnObject("", ErrorCode.NoValidPathGiven));
         }
 
-        GitProcess.exec(["rev-parse", "--abbrev-ref", "HEAD"], this.repo.pathToRepo).then(result => {
+        return GitProcess.exec(["rev-parse", "--abbrev-ref", "HEAD"], this.repo.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
-                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
-                return;
+                return new ReturnObject("", ErrorCode.UnknownError);
             }
 
             // remove the empty line break
-            event.returnValue = new ReturnObject(result.stdout.split("\n")[0]);
+            return new ReturnObject(result.stdout.split("\n")[0]);
         });
     }
 
@@ -40,34 +38,29 @@ export default class Branch {
      * @param event The given IpcMessageEvent to return the result.
      * @param branchName The name of the branch which is going to be checked out.
      */
-    checkoutBranch(event: IpcMessageEvent, branchName: string) {
+    checkoutBranch(branchName: string) {
         if (this.repo.pathToRepo === null) {
-            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
-            return;
+            return Promise.resolve(new ReturnObject("", ErrorCode.NoValidPathGiven));
         }
 
-        GitProcess.exec(["checkout", branchName], this.repo.pathToRepo).then(result => {
+        return GitProcess.exec(["checkout", branchName], this.repo.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 if (result.stderr.includes(ErrorMessages.localChangesWouldBeOverwritten)) {
-                    event.returnValue = new ReturnObject(false, ErrorCode.LocalChangesPreventCheckout);
-                    return;
+                    return new ReturnObject(false, ErrorCode.LocalChangesPreventCheckout);
                 }
 
                 // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
-                event.returnValue = new ReturnObject(false, ErrorCode.UnknownError);
-                return;
+                return new ReturnObject(false, ErrorCode.UnknownError);
             }
 
-            event.returnValue = new ReturnObject(true);
+            return new ReturnObject(true);
         });
     }
 }
 
 function addIpcListener(branch: Branch) {
-    ipcMain.on("get-checked-out-branch", (event: IpcMessageEvent) => branch.getCheckedOutBranch(event));
+    promiseIpcMain.on("get-checked-out-branch", () => branch.getCheckedOutBranch());
 
-    ipcMain.on("checkout-branch", (event: IpcMessageEvent, branchName: string) =>
-        branch.checkoutBranch(event, branchName)
-    );
+    promiseIpcMain.on("checkout-branch", (branchName: string) => branch.checkoutBranch(branchName));
 }

@@ -12,8 +12,8 @@ export default class Branch {
         this.gitStore = gitStore;
     }
 
-    @action getCheckedOutBranch() {
-        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-checked-out-branch");
+    @action async getCheckedOutBranch() {
+        const result: IGitReturnObject = await window.promiseIpcRenderer.send("get-checked-out-branch");
 
         if (result.errorCode !== 0) {
             console.error(
@@ -25,8 +25,8 @@ export default class Branch {
         this.checkedOutBranch = result.value as string;
     }
 
-    @action checkOutBranch(branchName: string) {
-        const result: IGitReturnObject = window.ipcRenderer.sendSync("checkout-branch", branchName);
+    @action async checkOutBranch(branchName: string) {
+        const result: IGitReturnObject = await window.promiseIpcRenderer.send("checkout-branch", branchName);
 
         if (result.errorCode !== 0) {
             if (result.errorCode === GitErrorCode.LocalChangesPreventCheckout) {

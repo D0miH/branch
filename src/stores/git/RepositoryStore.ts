@@ -47,7 +47,7 @@ export default class RepositoryStore {
         await this.updateStashList();
 
         await this.gitStore.branchStore.getCheckedOutBranch();
-        this.updateCommitHistory(this.gitStore.branchStore.checkedOutBranch);
+        await this.updateCommitHistory(this.gitStore.branchStore.checkedOutBranch);
     }
 
     async updateLocalBranchList() {
@@ -56,7 +56,7 @@ export default class RepositoryStore {
 
         if (result.errorCode !== 0) {
             console.error(`Error occurred while retrieving the local branches (Error code: ${result.errorCode}) `);
-            return [];
+            this.localBranches = [];
         }
 
         this.localBranches = result.value as string[];
@@ -68,7 +68,7 @@ export default class RepositoryStore {
 
         if (result.errorCode !== 0) {
             console.error(`Error occurred while retrieving the remote branches (Error code: ${result.errorCode}) `);
-            return [];
+            this.remoteBranches = [];
         }
 
         this.remoteBranches = result.value as string[];
@@ -81,7 +81,7 @@ export default class RepositoryStore {
             console.error(
                 `Error occurred while retrieving the tags of the repository (Error code: ${result.errorCode}) `
             );
-            return [];
+            this.tags = [];
         }
 
         this.tags = result.value as string[];
@@ -92,18 +92,18 @@ export default class RepositoryStore {
 
         if (result.errorCode !== 0) {
             console.error(`Error occurred while retrieving the stashes (Error code: ${result.errorCode}) `);
-            return [];
+            this.stashes = [];
         }
 
         this.stashes = result.value as string[];
     }
 
-    updateCommitHistory(branchName: string) {
-        const result: IGitReturnObject = window.ipcRenderer.sendSync("get-commit-history", branchName);
+    async updateCommitHistory(branchName: string) {
+        const result: IGitReturnObject = await window.promiseIpcRenderer.send("get-commit-history", branchName);
 
         if (result.errorCode !== 0) {
             console.error(`Error occurred while retrieving the commit history (Error code: ${result.errorCode}) `);
-            return [];
+            this.commitHistory = [];
         }
 
         this.commitHistory = result.value as IGitCommit[];

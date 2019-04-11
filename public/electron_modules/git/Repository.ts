@@ -23,22 +23,21 @@ export default class Repository {
      * @param repoPath The path to the repository.
      * @returns The name of the repository.
      */
-    async openRepo(event: IpcMessageEvent, repoPath: string): Promise<void> {
+    async openRepo(repoPath: string) {
         this.pathToRepo = repoPath;
 
-        this.getRepoName(event);
+        return this.getRepoName();
     }
 
     /**
      * Gets the name of the repository. If there was no repository found the function returns null.
      */
-    async getRepoName(event: IpcMessageEvent) {
+    async getRepoName() {
         if (this.pathToRepo === null) {
-            event.returnValue = new ReturnObject("", ErrorCode.NoValidPathGiven);
-            return;
+            return new ReturnObject("", ErrorCode.NoValidPathGiven);
         }
 
-        GitProcess.exec(["config", "--local", "--get", "remote.origin.url"], this.pathToRepo).then(result => {
+        return GitProcess.exec(["config", "--local", "--get", "remote.origin.url"], this.pathToRepo).then(result => {
             if (result.exitCode !== 0) {
                 // tslint:disable-next-line: no-console
                 console.log(GitProcess.parseError(result.stderr));
@@ -46,19 +45,17 @@ export default class Repository {
                 // if there was no git repo found reset the path to null
                 if (result.stderr === "fatal: --local can only be used inside a git repository\n") {
                     this.pathToRepo = null;
-                    event.returnValue = new ReturnObject("", ErrorCode.GitNotFound);
-                    return;
+                    return new ReturnObject("", ErrorCode.GitNotFound);
                 }
 
-                event.returnValue = new ReturnObject("", ErrorCode.UnknownError);
-                return;
+                return new ReturnObject("", ErrorCode.UnknownError);
             }
 
             const url: string[] = result.stdout.split("/");
 
             // get the last *.git element and remove the .git
             const resultValue = url[url.length - 1].split(".")[0];
-            event.returnValue = new ReturnObject(resultValue);
+            return new ReturnObject(resultValue);
         });
     }
 
@@ -259,7 +256,7 @@ export default class Repository {
 }
 
 function addIpcListener(repo: Repository) {
-    ipcMain.on("open-repo", (event: IpcMessageEvent, repoPath: string) => repo.openRepo(event, repoPath));
+    promiseIpcMain.on("open-repo", (repoPath: string) => repo.openRepo(repoPath));
 
     ipcMain.on("get-local-branches", (event: IpcMessageEvent) => repo.getLocalBranches(event));
 

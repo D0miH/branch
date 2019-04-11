@@ -19,7 +19,7 @@ export default class RepositoryStore {
         this.gitStore = gitStore;
     }
 
-    @action openRepo(repoPath: string) {
+    @action async openRepo(repoPath: string) {
         // open the repo
         const result: IGitReturnObject = window.ipcRenderer.sendSync("open-repo", repoPath);
 
@@ -46,7 +46,7 @@ export default class RepositoryStore {
 
         this.updateStashList();
 
-        this.gitStore.branchStore.getCheckedOutBranch();
+        await this.gitStore.branchStore.getCheckedOutBranch();
         this.updateCommitHistory(this.gitStore.branchStore.checkedOutBranch);
     }
 
